@@ -13,7 +13,6 @@ from core.serializers import (
     ModelSerializer,
     Serializer
 )
-from core.shortcuts import get_object_or_404
 from core.wrapper import async_func
 from utils.constants import Const
 from utils.debug import Debug  # noqa
