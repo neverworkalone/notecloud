@@ -1,4 +1,7 @@
 # notecloud
+# workcloud
+[![Build Status](https://api.travis-ci.com/genonfire/notecloud.svg?branch=main)](https://travis-ci.com/genonfire/notecloud) [![codecov](https://codecov.io/gh/genonfire/notecloud/branch/main/graph/badge.svg?token=PM0UMVTOTQ)](https://codecov.io/gh/genonfire/notecloud)
+
 Notecloud by gencode
 
 
