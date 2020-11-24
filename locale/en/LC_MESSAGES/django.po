@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-24 12:47+0900\n"
+"POT-Creation-Date: 2020-11-24 13:11+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: frontend/templates/password_reset.html:19
-#, python-format
-msgid "Dear %(call_name)s"
+msgid "Dear"
 msgstr ""
 
 #: frontend/templates/password_reset.html:25

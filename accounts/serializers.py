@@ -148,10 +148,6 @@ class PasswordResetSerializer(Serializer):
         if settings.DO_NOT_SEND_EMAIL:
             return
 
-        user = get_object_or_404(
-            models.User,
-            username=self.validated_data.get('email')
-        )
         opts = {
             'domain_override': settings.FRONTEND_URL,
             'subject_template_name': 'password_reset_subject.txt',
@@ -162,7 +158,6 @@ class PasswordResetSerializer(Serializer):
             'html_email_template_name': 'password_reset.html',
             'extra_email_context': {
                 'site_name': settings.SITE_NAME,
-                'call_name': user.call_name,
             },
         }
         self.password_reset_form.save(**opts)
