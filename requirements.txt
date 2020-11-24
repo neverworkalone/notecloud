@@ -1,0 +1,16 @@
+codecov
+Django>=3.0
+djangorestframework>=3.10
+django-cors-headers
+django-storages
+drf-yasg
+flake8
+importlib-metadata<3,>=0.12; python_version<'3.8'
+packaging
+pillow>=8.0
+psycopg2
+setuptools
+tblib
+six>=1.14.0
+tox
+user-agents

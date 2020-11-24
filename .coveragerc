@@ -1,0 +1,14 @@
+[run]
+source = .
+
+[report]
+show_missing = True
+omit =
+    **/*apps.py*
+    *manage.py*
+    *setup.py*
+    core/*testcase.py*
+    utils/*email.py*
+    notecloud/*asgi.py*
+    notecloud/*settings.py*
+    notecloud/*wsgi.py*
