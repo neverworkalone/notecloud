@@ -28,6 +28,7 @@
               :rules="[rules.required]"
               :type="show1 ? 'text' : 'password'"
               name="old_password"
+              autocomplete="on"
               :label="$t('accounts.OLD_PASSWORD')"
               @click:append="show1 = !show1"
             ></v-text-field>
@@ -41,6 +42,7 @@
               :rules="[rules.required, rules.min, rules.passwordDifferent]"
               :type="show2 ? 'text' : 'password'"
               name="new_password"
+              autocomplete="on"
               :label="$t('accounts.NEW_PASSWORD')"
               :hint="$t('common.REQUIRED_MIN', { min: $const('PASSWORD_MIN') })"
               counter
