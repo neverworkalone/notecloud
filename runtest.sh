@@ -3,12 +3,16 @@ SECONDS=0
 unittest=false
 flake8=false
 testcase=false
+clean=false
 
 if [ $# -eq 0 ]; then
     unittest=true
 else
     for argval in "$@"
     do
+        if [ "$argval" == "clean" ]; then
+            clean=true
+        fi
         if [ "$argval" == "flake8" ]; then
             flake8=true
         fi
@@ -34,16 +38,20 @@ if [ "$flake8" = true ]; then
         echo "\nOK"
     fi
 fi
+if [ "$clean" = true ]; then
+    echo "# running unittests with clean db..."
+    python manage.py test --noinput --settings=tests.test_settings
+fi
 if [ "$unittest" = true ]; then
     echo "# running unittests..."
-    python manage.py test --parallel --keepdb --settings=tests.test_settings
+    python manage.py test --keepdb --settings=tests.test_settings
 fi
 if [ "$testcase" = true ]; then
     echo "# running specific case $label..."
     python manage.py test --keepdb --settings=tests.test_settings $label --debug-mode
 fi
 
-if [ "$flake8" = false ] && [ "$unittest" = false ] && [ "$testcase" = false ]; then
+if [ "$clean" = false ] && [ "$flake8" = false ] && [ "$unittest" = false ] && [ "$testcase" = false ]; then
     echo "Usage: ./runtest.sh [options] ..."
     echo "* run unit test if no options provided"
     echo "\nOptions:"
@@ -52,6 +60,7 @@ if [ "$flake8" = false ] && [ "$unittest" = false ] && [ "$testcase" = false ]; 
     echo "case [case name]\t run a specific unit test in debug-mode"
     echo " - example of case name\t [tests.accounts.test_login.LoginTest]"
     echo "all\t\t\t run both flake8 and unit test"
+    echo "clean\t\t\t run unit test without --keepdb option"
 else
     duration=$SECONDS
     echo "# test finished in $duration seconds."

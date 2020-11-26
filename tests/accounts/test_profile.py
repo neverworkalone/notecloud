@@ -25,7 +25,8 @@ class ProfileTest(TestCase):
         assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('username') == self.user.username and
-            self.data.get('is_approved') == self.user.is_approved
+            self.data.get('is_approved') == self.user.is_approved and
+            self.data.get('is_prime') == self.user.is_prime
         )
 
     def test_update_profile(self):
@@ -34,11 +35,13 @@ class ProfileTest(TestCase):
             {
                 'username': 'b-boy@b.com',
                 'is_approved': not self.user.is_approved,
+                'is_prime': not self.user.is_prime,
             },
             auth=True
         )
         assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('username') == self.user.username and
-            self.data.get('is_approved') == self.user.is_approved
+            self.data.get('is_approved') == self.user.is_approved and
+            self.data.get('is_prime') == self.user.is_prime
         )

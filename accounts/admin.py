@@ -10,6 +10,8 @@ class UserAdmin(admin.ModelAdmin):
         'username',
         'date_joined',
         'last_login',
+        'is_prime',
+        'is_approved',
         'is_active',
         'is_staff',
     )

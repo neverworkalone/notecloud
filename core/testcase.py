@@ -92,7 +92,8 @@ class TestCase(_TestCase):
             username=self.username,
             email=self.username,
             password=self.password,
-            is_approved=True
+            is_approved=True,
+            is_prime=False,
         )
 
         self.key = self.user.key()

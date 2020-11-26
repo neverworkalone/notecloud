@@ -20,6 +20,7 @@ class User(AbstractUser):
     )
     # For later use such as Email confirmation
     is_approved = models.BooleanField(default=False)
+    is_prime = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -46,7 +47,7 @@ class LoginDeviceManager(models.Manager):
 class LoginDevice(models.Model):
     user = models.ForeignKey(
         'User',
-        related_name="device_user",
+        related_name='device_user',
         on_delete=models.CASCADE,
         null=True,
     )

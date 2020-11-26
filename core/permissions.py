@@ -18,5 +18,15 @@ class IsApproved(IsAuthenticated):
         )
 
 
+class IsPrime(IsAuthenticated):
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            request.user.is_approved and
+            request.user.is_prime
+        )
+
+
 class IsAdminUser(rest_permission.IsAdminUser):
     pass
