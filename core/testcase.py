@@ -1,5 +1,4 @@
 from django.test import TestCase as _TestCase
-from django.utils import timezone
 
 from rest_framework.test import APIClient
 
