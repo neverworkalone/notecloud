@@ -1,9 +1,12 @@
 from django.test import TestCase as _TestCase
+from django.utils import timezone
 
 from rest_framework.test import APIClient
 
 from accounts.models import User
 from accounts.tools import Test
+
+from notes.models import Task
 
 
 class TestCase(_TestCase):
@@ -90,7 +93,6 @@ class TestCase(_TestCase):
         self.password = Test.PASSWORD
         self.user = User.objects.create_user(
             username=self.username,
-            email=self.username,
             password=self.password,
             is_approved=True,
             is_prime=False,
@@ -98,3 +100,14 @@ class TestCase(_TestCase):
 
         self.key = self.user.key()
         self.auth_header = 'Token ' + self.key
+
+    def create_task(self):
+        self.date = '2020-12-24'
+        self.content = 'Meet Santa'
+        self.color = 'red'
+        self.task = Task.objects.create(
+            owner=self.user,
+            content=self.content,
+            color=self.color,
+            date=self.date,
+        )
