@@ -6,6 +6,7 @@ testcase=false
 clean=false
 
 if [ $# -eq 0 ]; then
+    flake8=true
     unittest=true
 else
     for argval in "$@"
@@ -35,7 +36,7 @@ fi
 if [ "$flake8" = true ]; then
     echo "# checking flake8..."
     if flake8 --jobs=auto; then
-        echo "\nOK"
+        echo "OK\n"
     fi
 fi
 if [ "$clean" = true ]; then
@@ -53,7 +54,7 @@ fi
 
 if [ "$clean" = false ] && [ "$flake8" = false ] && [ "$unittest" = false ] && [ "$testcase" = false ]; then
     echo "Usage: ./runtest.sh [options] ..."
-    echo "* run unit test if no options provided"
+    echo "* run all tests if no options provided"
     echo "\nOptions:"
     echo "flake8\t\t\t run flake8 only"
     echo "unit, unittest\t\t run unit test only"

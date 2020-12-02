@@ -7,6 +7,7 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include('accounts.urls', namespace='accounts')),
+    path('api/notes/', include('notes.urls', namespace='notes')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.LOCAL_SERVER:

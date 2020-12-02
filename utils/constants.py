@@ -31,5 +31,8 @@ class _ConstProject(_Const):
     Just for this project
     """
 
+    COLOR_MAX_LENGTH = 32
+    TASK_COLOR_DEFAULT = 'white'
+
 
 Const = _ConstProject()
