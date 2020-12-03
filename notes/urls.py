@@ -22,7 +22,7 @@ urlpatterns = [
         }), name='complete_task'
     ),
     path(
-        'tasks/', views.TaskViewSet.as_view({
+        'tasks/', views.TaskListViewSet.as_view({
             'get': 'list'
         }), name='tasks'
     ),

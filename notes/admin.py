@@ -21,8 +21,8 @@ class TaskAdmin(admin.ModelAdmin):
         'content',
     )
     ordering = (
-        'id',
-        'date',
+        '-date',
+        '-id',
         'created_at',
     )
     list_display_links = (
@@ -49,7 +49,7 @@ class MemoAdmin(admin.ModelAdmin):
         'content',
     )
     ordering = (
-        'id',
+        '-id',
         'updated_at',
     )
     list_display_links = (

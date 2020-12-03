@@ -1,12 +1,19 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 
 from utils.constants import Const
+from utils.debug import Debug  # noqa
 
 
 class TaskManager(models.Manager):
     def my(self, user):
         return self.filter(owner=user).filter(is_deleted=False)
+
+    def weekly_tasks(self, user, first_weekday):
+        last_weekday = first_weekday + timezone.timedelta(6)
+        date_range = Q(date__gte=first_weekday) & Q(date__lt=last_weekday)
+        return self.my(user).filter(date_range)
 
 
 class Task(models.Model):
@@ -34,7 +41,7 @@ class Task(models.Model):
     objects = TaskManager()
 
     class Meta:
-        ordering = ('-id',)
+        ordering = ('date', 'id')
 
 
 class MemoManager(models.Manager):

@@ -82,6 +82,7 @@ REST_PAGINATION_SIZE_DEFAULT = 20
 DATE_TIME_FORMAT_DEFAULT = '%Y-%m-%dT%H:%M:%S%z'
 DATE_FORMAT_DEFAULT = '%Y-%m-%d'
 DO_NOT_SEND_EMAIL = False
+FIRST_WEEKDAY_SUNDAY = True  # Monday if False
 
 # Load project configuration from CONFIG_PATH if exist. (config.json)
 try:
