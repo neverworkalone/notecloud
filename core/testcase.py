@@ -100,13 +100,19 @@ class TestCase(_TestCase):
         self.key = self.user.key()
         self.auth_header = 'Token ' + self.key
 
-    def create_task(self):
-        self.date = '2020-12-24'
-        self.content = 'Meet Santa'
-        self.color = 'red'
+    def create_task(self, owner=None, date=None, content=None, color=None):
+        if not owner:
+            owner = self.user
+        if not date:
+            date = '2020-12-24'
+        if not content:
+            content = 'Meet Santa'
+        if not color:
+            color = 'red'
+
         self.task = Task.objects.create(
-            owner=self.user,
-            content=self.content,
-            color=self.color,
-            date=self.date,
+            owner=owner,
+            content=content,
+            color=color,
+            date=date,
         )

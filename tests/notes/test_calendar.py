@@ -1,8 +1,12 @@
+from django.conf import settings
+from django.utils import timezone
+
 from core.response import Response
 from core.testcase import TestCase
 
 from accounts.models import User
 from notes.models import Task
+from notes import tools
 
 
 class TaskCalendar(TestCase):
@@ -29,4 +33,85 @@ class TaskCalendar(TestCase):
         assert (
             response.status_code == Response.HTTP_200 and
             not self.data.get('tasks')
+        )
+
+    def test_calendar_first_weekday(self):
+        today = timezone.now().date()
+        first_weekday = tools.get_first_weekday(today)
+
+        if settings.FIRST_WEEKDAY_SUNDAY:
+            assert first_weekday.weekday() == 6
+        else:
+            assert first_weekday.weekday() == 0
+
+    def test_calendar_date_and_weekday(self):
+        today = timezone.now().date()
+        first_weekday = tools.get_first_weekday(today)
+        week_ago = first_weekday - timezone.timedelta(1)
+        week_later = first_weekday + timezone.timedelta(7)
+
+        self.create_task()
+
+        response = self.get(
+            '/api/notes/tasks/',
+            auth=True
+        )
+
+        pagination = response.data.get('pagination')
+        calendar = self.data.get('calendar')
+
+        if settings.FIRST_WEEKDAY_SUNDAY:
+            weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        else:
+            weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+        for index, day in enumerate(calendar):
+            assert (
+                day.get('weekday') == weekdays[index] and
+                day.get('date') == first_weekday + timezone.timedelta(index)
+            )
+
+        assert (
+            pagination.get('date_before') == week_ago and
+            pagination.get('date_after') == week_later and
+            pagination.get('date_current') == first_weekday and
+            pagination.get('today') == today
+        )
+
+    def test_calendar_tasks_by_date(self):
+        today = timezone.now().date()
+        first_weekday = tools.get_first_weekday(today)
+        week_ago = first_weekday - timezone.timedelta(1)
+
+        self.create_task(date=week_ago)
+
+        response = self.get(
+            '/api/notes/tasks/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not self.data.get('tasks')
+        )
+
+        response = self.get(
+            '/api/notes/tasks/?date=%s' % week_ago,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('tasks') and
+            self.data.get('tasks')[0].get('id') == self.task.id
+        )
+
+        self.create_task(date=today)
+
+        response = self.get(
+            '/api/notes/tasks/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('tasks') and
+            self.data.get('tasks')[0].get('id') == self.task.id
         )

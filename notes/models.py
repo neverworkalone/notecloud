@@ -12,7 +12,7 @@ class TaskManager(models.Manager):
 
     def weekly_tasks(self, user, first_weekday):
         last_weekday = first_weekday + timezone.timedelta(6)
-        date_range = Q(date__gte=first_weekday) & Q(date__lt=last_weekday)
+        date_range = Q(date__gte=first_weekday) & Q(date__lte=last_weekday)
         return self.my(user).filter(date_range)
 
 

@@ -29,22 +29,8 @@ def get_date_pagination(first_weekday):
 
 
 def get_weekday_text(weekday):
-    if weekday == 0:
-        text = 'Mon'
-    elif weekday == 1:
-        text = 'Tue'
-    elif weekday == 2:
-        text = 'Wed'
-    elif weekday == 3:
-        text = 'Thu'
-    elif weekday == 4:
-        text = 'Fri'
-    elif weekday == 5:
-        text = 'Sat'
-    elif weekday == 6:
-        text = 'Sun'
-
-    return text
+    weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    return weekdays[weekday]
 
 
 def get_weekly_calendar(first_weekday):
