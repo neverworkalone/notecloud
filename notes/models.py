@@ -12,7 +12,9 @@ class TaskManager(models.Manager):
 
     def weekly_tasks(self, user, first_weekday):
         last_weekday = first_weekday + timezone.timedelta(6)
-        date_range = Q(date__gte=first_weekday) & Q(date__lte=last_weekday)
+        date_range = (
+            Q(date_from__gte=first_weekday) & Q(date_from__lte=last_weekday)
+        )
         return self.my(user).filter(date_range)
 
 
@@ -33,7 +35,8 @@ class Task(models.Model):
         blank=True,
         null=True,
     )
-    date = models.DateField(blank=True, null=True)
+    date_from = models.DateField(blank=True, null=True)
+    date_until = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     is_completed = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
@@ -41,7 +44,7 @@ class Task(models.Model):
     objects = TaskManager()
 
     class Meta:
-        ordering = ('date', 'id')
+        ordering = ('date_from', 'id')
 
 
 class MemoManager(models.Manager):

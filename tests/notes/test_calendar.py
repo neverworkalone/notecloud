@@ -22,7 +22,7 @@ class TaskCalendar(TestCase):
         Task.objects.create(
             owner=owner,
             content='Do not spy me',
-            date='2020-12-24',
+            date_from='2020-12-24',
         )
 
         response = self.get(
@@ -83,7 +83,7 @@ class TaskCalendar(TestCase):
         first_weekday = tools.get_first_weekday(today)
         week_ago = first_weekday - timezone.timedelta(1)
 
-        self.create_task(date=week_ago)
+        self.create_task(date_from=week_ago)
 
         response = self.get(
             '/api/notes/tasks/',
@@ -104,7 +104,7 @@ class TaskCalendar(TestCase):
             self.data.get('tasks')[0].get('id') == self.task.id
         )
 
-        self.create_task(date=today)
+        self.create_task(date_from=today)
 
         response = self.get(
             '/api/notes/tasks/',

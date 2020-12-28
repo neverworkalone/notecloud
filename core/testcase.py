@@ -100,11 +100,13 @@ class TestCase(_TestCase):
         self.key = self.user.key()
         self.auth_header = 'Token ' + self.key
 
-    def create_task(self, owner=None, date=None, content=None, color=None):
+    def create_task(
+        self, owner=None, date_from=None, content=None, color=None
+    ):
         if not owner:
             owner = self.user
-        if not date:
-            date = '2020-12-24'
+        if not date_from:
+            date_from = '2020-12-24'
         if not content:
             content = 'Meet Santa'
         if not color:
@@ -114,5 +116,5 @@ class TestCase(_TestCase):
             owner=owner,
             content=content,
             color=color,
-            date=date,
+            date_from=date_from,
         )

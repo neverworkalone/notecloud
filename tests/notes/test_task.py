@@ -15,7 +15,7 @@ class TaskCreateTest(TestCase):
         response = self.post(
             '/api/notes/tasks/new/',
             {
-                'date': '2020-12-25',
+                'date_from': '2020-12-25',
                 'content': 'Test',
                 'color': 'black',
                 'is_completed': True,
@@ -25,7 +25,7 @@ class TaskCreateTest(TestCase):
         )
         assert (
             response.status_code == Response.HTTP_201 and
-            self.data.get('date') == '2020-12-25' and
+            self.data.get('date_from') == '2020-12-25' and
             self.data.get('content') == 'Test' and
             self.data.get('color') == 'black' and
             not self.data.get('is_completed') and
@@ -36,7 +36,7 @@ class TaskCreateTest(TestCase):
         response = self.post(
             '/api/notes/tasks/new/',
             {
-                'date': '2020-12-01',
+                'date_from': '2020-12-01',
                 'content': 'Test',
             },
             auth=True
@@ -61,7 +61,7 @@ class TaskUpdateTest(TestCase):
         task = Task.objects.create(
             owner=owner,
             content='Do not spy me',
-            date='2020-12-24',
+            date_from='2020-12-24',
         )
 
         response = self.patch(
@@ -107,7 +107,7 @@ class TaskUpdateTest(TestCase):
         response = self.patch(
             '/api/notes/tasks/%d/' % self.task.id,
             {
-                'date': '2020-12-25',
+                'date_from': '2020-12-25',
                 'content': 'Boxing',
                 'color': 'black',
                 'is_completed': not self.task.is_completed,
@@ -117,7 +117,7 @@ class TaskUpdateTest(TestCase):
         )
         assert (
             response.status_code == Response.HTTP_200 and
-            self.data.get('date') == '2020-12-25' and
+            self.data.get('date_from') == '2020-12-25' and
             self.data.get('content') == 'Boxing' and
             self.data.get('color') == 'black' and
             self.data.get('is_completed') == self.task.is_completed and

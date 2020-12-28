@@ -10,7 +10,8 @@ class TaskAdmin(admin.ModelAdmin):
         'owner',
         'color',
         'content',
-        'date',
+        'date_from',
+        'date_until',
         'is_completed',
         'is_deleted',
         'created_at',
@@ -21,7 +22,7 @@ class TaskAdmin(admin.ModelAdmin):
         'content',
     )
     ordering = (
-        '-date',
+        '-date_from',
         '-id',
         'created_at',
     )

@@ -13,7 +13,7 @@ class TaskSerializer(ModelSerializer):
         model = models.Task
         fields = [
             'id',
-            'date',
+            'date_from',
             'color',
             'content',
             'is_completed',
@@ -28,7 +28,7 @@ class TaskSerializer(ModelSerializer):
         ]
         extra_kwargs = {
             'content': {'required': True},
-            'date': {'required': True},
+            'date_from': {'required': True},
         }
 
     def create(self, validated_data):
@@ -36,7 +36,7 @@ class TaskSerializer(ModelSerializer):
             owner=self.context.get('request').user,
             content=validated_data.get('content'),
             color=validated_data.get('color', Const.TASK_COLOR_DEFAULT),
-            date=validated_data.get('date'),
+            date_from=validated_data.get('date_from'),
         )
         return task
 
