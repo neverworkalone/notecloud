@@ -16,6 +16,7 @@ class TaskCreateTest(TestCase):
             '/api/notes/tasks/new/',
             {
                 'date_from': '2020-12-25',
+                'date_until': '2020-12-31',
                 'content': 'Test',
                 'color': 'black',
                 'is_completed': True,
@@ -28,6 +29,7 @@ class TaskCreateTest(TestCase):
             self.data.get('date_from') == '2020-12-25' and
             self.data.get('content') == 'Test' and
             self.data.get('color') == 'black' and
+            not self.data.get('date_until') and
             not self.data.get('is_completed') and
             not self.data.get('is_deleted')
         )
