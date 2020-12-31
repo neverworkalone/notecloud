@@ -1,6 +1,7 @@
 import datetime
 
 from django.conf import settings
+from django.db.models import Q
 from django.utils import timezone
 
 from core.permissions import (
@@ -46,10 +47,39 @@ class TaskViewSet(ModelViewSet):
 
 class TaskListViewSet(TaskViewSet):
     def get_queryset(self, first_weekday):
-        return self.model.objects.weekly_tasks(
+        return self.model.objects.active_tasks(
             self.request.user,
             first_weekday
         )
+
+    def get_weekly_tasks(self, first_weekday):
+        calendar = []
+        queryset = self.get_queryset(first_weekday)
+
+        for index in range(0, 7):
+            date = first_weekday + timezone.timedelta(index)
+
+            today_tasks = (
+                Q(date_from__lte=date.date()) &
+                (
+                    Q(is_completed=False) |
+                    (
+                        Q(is_completed=True) &
+                        Q(date_until__gte=date.date())
+                    )
+                )
+            )
+            tasks = queryset.filter(today_tasks)
+            serializer = self.get_serializer(tasks, many=True)
+
+            data = {
+                'date': date.date(),
+                'weekday': tools.get_weekday_text(date.weekday()),
+                'tasks': serializer.data,
+            }
+            calendar.append(data)
+
+        return calendar
 
     def list(self, request, *args, **kwargs):
         today = request.query_params.get('date')
@@ -62,21 +92,15 @@ class TaskListViewSet(TaskViewSet):
             today = timezone.localtime(timezone.now())
 
         first_weekday = tools.get_first_weekday(today)
-        calendar = tools.get_weekly_calendar(first_weekday)
         date_before, date_after = tools.get_date_pagination(first_weekday)
 
-        queryset = self.get_queryset(first_weekday)
-        serializer = self.get_serializer(queryset, many=True)
+        data = self.get_weekly_tasks(first_weekday)
 
         pagination = {
             'date_before': date_before,
             'date_after': date_after,
             'date_current': first_weekday.date(),
             'today': timezone.localtime(timezone.now()).date(),
-        }
-        data = {
-            'calendar': calendar,
-            'tasks': serializer.data,
         }
         return PaginatedResponse(
             data=data,

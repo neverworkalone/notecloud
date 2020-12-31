@@ -10,12 +10,26 @@ class TaskManager(models.Manager):
     def my(self, user):
         return self.filter(owner=user).filter(is_deleted=False)
 
-    def weekly_tasks(self, user, first_weekday):
+    def my_trash(self, user):
+        return self.filter(owner=user).filter(is_deleted=True)
+
+    def my_completed(self, user):
+        return self.my(user).filter(is_completed=True)
+
+    def my_ongoing(self, user):
+        return self.my(user).filter(is_completed=False)
+
+    def active_tasks(self, user, first_weekday):
         last_weekday = first_weekday + timezone.timedelta(6)
-        date_range = (
-            Q(date_from__gte=first_weekday) & Q(date_from__lte=last_weekday)
+        tasks = (
+            Q(is_completed=False) |
+            (
+                Q(is_completed=True) &
+                Q(date_until__gte=first_weekday) &
+                Q(date_until__lte=last_weekday)
+            )
         )
-        return self.my(user).filter(date_range)
+        return self.my(user).filter(tasks)
 
 
 class Task(models.Model):

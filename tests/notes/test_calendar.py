@@ -32,7 +32,7 @@ class TaskCalendar(TestCase):
 
         assert (
             response.status_code == Response.HTTP_200 and
-            not self.data.get('tasks')
+            not self.data[0].get('tasks')
         )
 
     def test_calendar_first_weekday(self):
@@ -58,7 +58,7 @@ class TaskCalendar(TestCase):
         )
 
         pagination = response.data.get('pagination')
-        calendar = self.data.get('calendar')
+        calendar = self.data
 
         if settings.FIRST_WEEKDAY_SUNDAY:
             weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -91,27 +91,17 @@ class TaskCalendar(TestCase):
         )
         assert (
             response.status_code == Response.HTTP_200 and
-            not self.data.get('tasks')
+            self.data[0].get('tasks') and
+            self.data[0].get('tasks')[0].get('id') == self.task.id
         )
 
+        long_ago = week_ago - timezone.timedelta(10)
+
         response = self.get(
-            '/api/notes/tasks/?date=%s' % week_ago,
+            '/api/notes/tasks/?date=%s' % long_ago,
             auth=True
         )
         assert (
             response.status_code == Response.HTTP_200 and
-            self.data.get('tasks') and
-            self.data.get('tasks')[0].get('id') == self.task.id
-        )
-
-        self.create_task(date_from=today)
-
-        response = self.get(
-            '/api/notes/tasks/',
-            auth=True
-        )
-        assert (
-            response.status_code == Response.HTTP_200 and
-            self.data.get('tasks') and
-            self.data.get('tasks')[0].get('id') == self.task.id
+            not self.data[6].get('tasks')
         )

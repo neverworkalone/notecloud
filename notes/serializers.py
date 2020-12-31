@@ -14,7 +14,7 @@ class TaskSerializer(ModelSerializer):
         fields = [
             'id',
             'date_from',
-            'date_until'
+            'date_until',
             'color',
             'content',
             'is_completed',

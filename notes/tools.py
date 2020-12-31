@@ -45,3 +45,18 @@ def get_weekly_calendar(first_weekday):
         calendar.append(data)
 
     return calendar
+
+
+def get_weekly_tasks(first_weekday, tasks):
+    calendar = []
+
+    for index in range(0, 7):
+        date = first_weekday + timezone.timedelta(index)
+        data = {
+            'date': date.date(),
+            'weekday': get_weekday_text(date.weekday()),
+            'tasks': tasks,
+        }
+        calendar.append(data)
+
+    return calendar
