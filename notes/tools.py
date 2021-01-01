@@ -6,7 +6,12 @@ from utils.debug import Debug  # noqa
 
 def toggle_complete(task):
     task.is_completed = not task.is_completed
-    task.save(update_fields=['is_completed'])
+    if task.is_completed:
+        task.date_until = timezone.localtime(timezone.now()).date()
+    else:
+        task.date_until = None
+
+    task.save(update_fields=['is_completed', 'date_until'])
 
 
 def get_first_weekday(date):

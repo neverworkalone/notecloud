@@ -133,6 +133,7 @@ class TaskUpdateTest(TestCase):
         )
         assert (
             response.status_code == Response.HTTP_200 and
+            self.data.get('date_until') and
             self.data.get('is_completed') != self.task.is_completed
         )
         response = self.post(
@@ -141,6 +142,7 @@ class TaskUpdateTest(TestCase):
         )
         assert (
             response.status_code == Response.HTTP_200 and
+            not self.data.get('date_until') and
             self.data.get('is_completed') == self.task.is_completed
         )
 

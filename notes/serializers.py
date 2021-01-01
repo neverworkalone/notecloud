@@ -40,12 +40,3 @@ class TaskSerializer(ModelSerializer):
             date_from=validated_data.get('date_from'),
         )
         return task
-
-
-class TaskCompleteSerializer(ModelSerializer):
-    class Meta:
-        model = models.Task
-        fields = [
-            'id',
-            'is_completed'
-        ]

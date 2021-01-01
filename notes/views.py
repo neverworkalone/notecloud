@@ -38,10 +38,7 @@ class TaskViewSet(ModelViewSet):
     def complete(self, request, *args, **kwargs):
         instance = self.get_object()
         tools.toggle_complete(instance)
-        serializer = self.set_serializer(
-            serializers.TaskCompleteSerializer,
-            instance
-        )
+        serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
 

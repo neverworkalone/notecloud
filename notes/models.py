@@ -10,9 +10,6 @@ class TaskManager(models.Manager):
     def my(self, user):
         return self.filter(owner=user).filter(is_deleted=False)
 
-    def my_trash(self, user):
-        return self.filter(owner=user).filter(is_deleted=True)
-
     def my_completed(self, user):
         return self.my(user).filter(is_completed=True)
 
