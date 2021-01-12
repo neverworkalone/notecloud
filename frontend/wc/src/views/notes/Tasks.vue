@@ -2,7 +2,9 @@
   <div
     v-if="initialized"
   >
-    <div class="content pt-0 pl-0 pr-0">
+    <div
+      :class="isMobile ? 'content pt-0 pl-0 pr-0' : 'content pt-0'"
+    >
       <div
         class="headline float-left"
         v-text="getYearMonth"
@@ -94,7 +96,6 @@
                   </v-hover>
                   {{ getTaskDate(task) }}
                 </v-card-subtitle>
-                <v-spacer></v-spacer>
               </v-card-actions>
               <v-card-title
                 v-text="task.content"
@@ -105,6 +106,42 @@
                 v-text="task.content"
                 class="text-decoration-line-through"
               ></v-card-title>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  icon
+                  @click="setShowMore(task.index)"
+                >
+                  <v-icon>{{ showMore[task.index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                </v-btn>
+              </v-card-actions>
+
+              <v-expand-transition>
+                <div v-show="showMore[task.index]">
+                  <v-divider></v-divider>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                          v-for="color in colors"
+                          :key="color.color"
+                          :cols="isMobile ? '' : 'auto'"
+                          class="mr-auto"
+                        >
+                          <v-btn
+                            x-small
+                            :color="color.color"
+                            @click="updateColor(task.id, color.color)"
+                          >
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                </div>
+              </v-expand-transition>
             </v-card>
           </v-col>
         </v-row>
@@ -130,6 +167,8 @@ export default {
       data: '',
       selectedTasks: '',
       isMobile: false,
+      showMore: [],
+      colors: this.$const('TASK_COLORS'),
       firstInit: false
     }
   },
@@ -192,8 +231,23 @@ export default {
       return parseInt(date.split('-')[2])
     },
     setDateCurrent: function (item) {
+      this.showMore = []
+
+      for (var i=0; i<item.tasks.length; i++) {
+        this.showMore.push(false)
+        item.tasks[i].index = i
+      }
+
       this.dateCurrent = item.date
       this.selectedTasks = item.tasks
+    },
+    setShowMore: function (index) {
+      var newShowMore = []
+      for (var i=0; i<this.showMore.length; i++) {
+        newShowMore.push(this.showMore[i])
+      }
+      newShowMore[index] = !this.showMore[index]
+      this.showMore = newShowMore
     },
     getCheckColor: function (hover, task) {
       if (task.is_completed) {
@@ -221,6 +275,34 @@ export default {
 
       return dateStr
     },
+    applyUpdatedTask: function (task) {
+      for (var i=0; i<this.data.length; i++) {
+        for (var j=0; j<this.data[i].tasks.length; j++) {
+          if (this.data[i].tasks[j].id == task.id) {
+            this.data[i].tasks[j].is_completed = task.is_completed
+            this.data[i].tasks[j].date_until = task.date_until
+            this.data[i].tasks[j].content = task.content
+            this.data[i].tasks[j].color = task.color
+          }
+        }
+      }
+    },
+    updateColor: function (id, color) {
+      var vm = this
+
+      axios({
+        method: 'patch',
+        url: '/notes/tasks/' + id + '/',
+        data: {
+          color: color,
+        },
+      })
+      .then(function (response) {
+        vm.applyUpdatedTask(response.data['data'])
+      })
+      .catch(function () {
+      })
+    },
     toggleComplete: function (task) {
       var vm = this
 
@@ -229,16 +311,7 @@ export default {
         url: '/notes/tasks/' + task.id + '/complete/'
       })
       .then(function (response) {
-        var completedData = response.data['data']
-
-        for (var i=0; i<vm.data.length; i++) {
-          for (var j=0; j<vm.data[i].tasks.length; j++) {
-            if (vm.data[i].tasks[j].id == completedData.id) {
-              vm.data[i].tasks[j].is_completed = completedData.is_completed
-              vm.data[i].tasks[j].date_until = completedData.date_until
-            }
-          }
-        }
+        vm.applyUpdatedTask(response.data['data'])
       })
       .catch(function () {
       })
@@ -264,7 +337,7 @@ export default {
 
         for (var i=0; i<vm.data.length; i++) {
           if (vm.data[i].date == vm.dateCurrent) {
-            vm.selectedTasks = vm.data[i].tasks
+            vm.setDateCurrent(vm.data[i])
             break
           }
         }
