@@ -46,7 +46,9 @@
           <v-row
             justify="center"
           >
-            <v-card-actions>
+            <v-card-actions
+              class="mb-5"
+            >
               <v-btn
                 color="primary"
                 text

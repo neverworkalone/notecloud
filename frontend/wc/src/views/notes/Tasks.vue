@@ -78,36 +78,48 @@
             class="mr-auto"
           >
             <v-card
+              elevation=8
               :color="task.color"
-              :min-width="$const('TASK_CARD_MIN_WIDTH')"
+              :min-width="isMobile? $const('TASK_CARD_MIN_WIDTH') : $const('TASK_CARD_MAX_WIDTH')"
               :max-width="$const('TASK_CARD_MAX_WIDTH')"
-              elevation="8"
             >
               <v-card-actions>
                 <v-card-subtitle>
                   <v-hover v-slot="{ hover }">
                     <v-icon
                       class="mr-2"
-                      :color="getCheckColor(hover, task)"
+                      :color="hover ? 'teal' : ''"
                       @click="toggleComplete(task)"
+                      v-if="!task.is_completed"
                     >
                       mdi-check-circle-outline
+                    </v-icon>
+                    <v-icon
+                      class="mr-2"
+                      :color="hover ? '' : 'teal'"
+                      @click="toggleComplete(task)"
+                      v-else
+                    >
+                      mdi-check-circle
                     </v-icon>
                   </v-hover>
                   {{ getTaskDate(task) }}
                 </v-card-subtitle>
               </v-card-actions>
               <v-card-title
-                v-text="task.content"
+                class="pt-0 pb-0"
+                v-html="task.content"
                 v-if="!task.is_completed"
               ></v-card-title>
               <v-card-title
-                v-if="task.is_completed"
-                v-text="task.content"
-                class="text-decoration-line-through"
+                class="pt-0 pb-0 text-decoration-line-through"
+                v-html="task.content"
+                v-else
               ></v-card-title>
 
-              <v-card-actions>
+              <v-card-actions
+                class="pt-0"
+              >
                 <v-spacer></v-spacer>
                 <v-btn
                   icon
@@ -248,24 +260,6 @@ export default {
       }
       newShowMore[index] = !this.showMore[index]
       this.showMore = newShowMore
-    },
-    getCheckColor: function (hover, task) {
-      if (task.is_completed) {
-        if (hover) {
-          return ''
-        }
-        else {
-          return 'success'
-        }
-      }
-      else {
-        if (hover) {
-          return 'success'
-        }
-        else {
-          return ''
-        }
-      }
     },
     getTaskDate: function (task) {
       var dateStr = task.date_from + ' ~ '

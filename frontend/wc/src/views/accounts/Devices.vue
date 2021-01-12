@@ -7,7 +7,7 @@
     v-if="initialized"
   >
     <v-simple-table>
-      <thead>
+      <thead class="device_management">
         <tr>
           <th>{{ $t('accounts.DEVICE') }}</th>
           <th>{{ $t('accounts.BROWSER') }}</th>
@@ -52,7 +52,7 @@
 </template>
 
 <style lang="scss">
-th {
+thead.device_management th {
   text-align: center !important;
   background-color: #eee;
 }
