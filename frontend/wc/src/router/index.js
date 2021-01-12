@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 import AccountsRoutes from '@/router/accounts'
+import NotesRoutes from '@/router/notes'
 
 Vue.use(VueRouter)
 
@@ -10,9 +10,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    redirect: {
+      name: 'notes.tasks'
+    }
   },
   ...AccountsRoutes,
+  ...NotesRoutes,
 ]
 
 const router = new VueRouter({

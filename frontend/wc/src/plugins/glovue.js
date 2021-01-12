@@ -10,7 +10,9 @@ const Const = {
       name: '한국어'
     },
   ],
-  PASSWORD_MIN: 8
+  PASSWORD_MIN: 8,
+  TASK_CARD_MIN_WIDTH: '240',
+  TASK_CARD_MAX_WIDTH: '348',
 }
 
 Const.install = function (Vue) {

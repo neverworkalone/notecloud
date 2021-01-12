@@ -3,11 +3,11 @@
   <v-app v-if="initialized">
     <Navigation/>
 
-    <v-content>
+    <v-main>
       <v-container fluid>
         <router-view/>
       </v-container>
-    </v-content>
+    </v-main>
 
     <Footer/>
   </v-app>
@@ -55,12 +55,12 @@ export default {
 
   data () {
     return {
-      first_init: false,
+      firstInit: false,
     }
   },
   computed: {
     initialized () {
-      return this.first_init
+      return this.firstInit
     }
   },
   mounted () {
@@ -86,17 +86,17 @@ export default {
           login_device: response.data['data']['login_device']
         })
 
-        vm.first_init = true
+        vm.firstInit = true
       })
       .catch(function (error) {
         if (error.response.status === 401) {
           localStorage.removeItem('token')
         }
-        this.first_init = true
+        this.firstInit = true
       })
     }
     else {
-      this.first_init = true
+      this.firstInit = true
     }
   }
 }

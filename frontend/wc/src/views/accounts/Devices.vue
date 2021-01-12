@@ -70,7 +70,7 @@ export default {
 
   data () {
     return {
-      first_init: false,
+      firstInit: false,
       devices: [],
     }
   },
@@ -79,7 +79,7 @@ export default {
       'login_device'
     ]),
     initialized () {
-      return this.first_init
+      return this.firstInit
     }
   },
   mounted () {
@@ -93,7 +93,7 @@ export default {
       var data = response.data['data']
       vm.devices = data
 
-      vm.first_init = true
+      vm.firstInit = true
     })
     .catch(function () {
     })

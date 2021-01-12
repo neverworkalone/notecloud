@@ -69,5 +69,30 @@
         "DEACTIVATE_DESCRIPTION": "Once deactivate account, you are not able to neither login nor signup with current email address.",
         "CONSENT": "I consent.",
         "CONSENT_HINT": "You must consent."
+    },
+    "tasks": {
+        "YEAR_MONTH": "{month} {year}",
+        "TODAY": "Today"
+    },
+    "calendar": {
+        "01": "January",
+        "02": "Feburary",
+        "03": "March",
+        "04": "April",
+        "05": "May",
+        "06": "June",
+        "07": "July",
+        "08": "August",
+        "09": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December",
+        "Sun": "Sun",
+        "Mon": "Mon",
+        "Tue": "Tue",
+        "Wed": "Wed",
+        "Thu": "Thu",
+        "Fri": "Fri",
+        "Sat": "Sat"
     }
 }

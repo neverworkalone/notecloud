@@ -40,7 +40,7 @@ export default {
 
   data () {
     return {
-      first_init: false,
+      firstInit: false,
       validation: false,
       rules: {
         required: v => !!v || this.$t('common.REQUIRED'),
