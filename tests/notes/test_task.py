@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from core.response import Response
 from core.testcase import TestCase
 
@@ -152,3 +154,61 @@ class TaskUpdateTest(TestCase):
             auth=True
         )
         assert response.status_code == Response.HTTP_204
+
+
+class TaskListTest(TestCase):
+    def setUp(self):
+        self.create_user()
+        self.create_task()
+
+    def test_task_list_all_completed(self):
+        task = Task.objects.create(
+            owner=self.user,
+            content='Boxing day',
+            color="white",
+            date_from='2020-12-25',
+        )
+
+        self.post(
+            '/api/notes/tasks/%d/complete/' % self.task.id,
+            auth=True
+        )
+        response = self.get(
+            '/api/notes/tasks/?date=' + self.task.date_from,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('calendar')[6].get('count') == 2 and
+            self.data.get('calendar')[6].get('incompleted_exist') and
+            not self.data.get('calendar')[6].get('all_completed')
+        )
+
+        if settings.FIRST_WEEKDAY_SUNDAY:
+            index = 4
+        else:
+            index = 3
+        assert (
+            self.data.get('calendar')[index].get('count') == 1 and
+            self.data.get('calendar')[index].get('all_completed') and
+            not self.data.get('calendar')[index].get('incompleted_exist')
+        )
+        assert (
+            self.data.get('calendar')[index - 1].get('count') == 0 and
+            not self.data.get('calendar')[index - 1].get('all_completed') and
+            not self.data.get('calendar')[index - 1].get('incompleted_exist')
+        )
+
+        self.post(
+            '/api/notes/tasks/%d/complete/' % task.id,
+            auth=True
+        )
+        response = self.get(
+            '/api/notes/tasks/?date=' + task.date_from,
+            auth=True
+        )
+        assert (
+            self.data.get('calendar')[index + 1].get('count') == 2 and
+            self.data.get('calendar')[index + 1].get('all_completed') and
+            not self.data.get('calendar')[index + 1].get('incompleted_exist')
+        )

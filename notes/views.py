@@ -1,7 +1,6 @@
 import datetime
 
 from django.conf import settings
-from django.db.models import Q
 from django.utils import timezone
 
 from core.permissions import (
@@ -43,61 +42,62 @@ class TaskViewSet(ModelViewSet):
 
 
 class TaskListViewSet(TaskViewSet):
-    def get_queryset(self, first_weekday):
-        return self.model.objects.active_tasks(
-            self.request.user,
-            first_weekday
-        )
+    def get_queryset(self, date):
+        return self.model.objects.today_tasks(self.request.user, date)
 
-    def get_weekly_tasks(self, first_weekday):
+    def get_calendar(self, first_weekday):
         calendar = []
-        queryset = self.get_queryset(first_weekday)
 
         for index in range(0, 7):
             date = first_weekday + timezone.timedelta(index)
+            tasks = self.get_queryset(date)
 
-            today_tasks = (
-                Q(date_from__lte=date.date()) &
-                (
-                    Q(is_completed=False) |
-                    (
-                        Q(is_completed=True) &
-                        Q(date_until__gte=date.date())
-                    )
-                )
-            )
-            tasks = queryset.filter(today_tasks)
-            serializer = self.get_serializer(tasks, many=True)
+            incompleted_exist = tasks.filter(is_completed=False).exists()
+            completed_exist = tasks.filter(is_completed=True).exists()
+            all_completed = bool(completed_exist and not incompleted_exist)
 
             data = {
                 'date': date.date(),
                 'weekday': tools.get_weekday_text(date.weekday()),
-                'tasks': serializer.data,
+                'count': tasks.count(),
+                'incompleted_exist': incompleted_exist,
+                'all_completed': all_completed,
             }
             calendar.append(data)
 
         return calendar
 
     def list(self, request, *args, **kwargs):
-        today = request.query_params.get('date')
-        if today:
-            today = datetime.datetime.strptime(
-                today,
+        date = request.query_params.get('date')
+        today = timezone.localtime(timezone.now())
+        if date:
+            date = datetime.datetime.strptime(
+                date,
                 settings.DATE_FORMAT_DEFAULT
             )
         else:
-            today = timezone.localtime(timezone.now())
+            date = today
 
-        first_weekday = tools.get_first_weekday(today)
+        queryset = self.get_queryset(date)
+        serializer = self.get_serializer(queryset, many=True)
+
+        first_weekday = tools.get_first_weekday(date)
         date_before, date_after = tools.get_date_pagination(first_weekday)
 
-        data = self.get_weekly_tasks(first_weekday)
+        if date:
+            date_current = date
+        else:
+            date_current = first_weekday
 
         pagination = {
             'date_before': date_before,
             'date_after': date_after,
-            'date_current': first_weekday.date(),
-            'today': timezone.localtime(timezone.now()).date(),
+            'date_current': date_current.date(),
+            'today': today.date(),
+        }
+        data = {
+            'calendar': self.get_calendar(first_weekday),
+            'tasks': serializer.data,
         }
         return PaginatedResponse(
             data=data,

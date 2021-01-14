@@ -28,6 +28,24 @@ class TaskManager(models.Manager):
         )
         return self.my(user).filter(tasks)
 
+    def today_tasks(self, user, date=None):
+        if not date:
+            date = timezone.now()
+
+        tasks = (
+            Q(date_from__lte=date.date()) &
+            (
+                Q(is_completed=False) |
+                (
+                    Q(is_completed=True) &
+                    Q(date_until__gte=date.date())
+                )
+            )
+        )
+        return self.my(user).filter(tasks).order_by(
+            '-is_completed', 'date_from', 'id'
+        )
+
 
 class Task(models.Model):
     owner = models.ForeignKey(
