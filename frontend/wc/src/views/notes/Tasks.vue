@@ -41,7 +41,7 @@
         <thead>
           <tr>
             <th
-              v-for="item in data"
+              v-for="item in calendar"
               :key="item.date"
               class="text-center pa-0"
             >
@@ -50,7 +50,7 @@
                 depressed
                 class="pt-5 pb-5"
                 :color="weekdayColor(item)"
-                @click="setDateCurrent(item)"
+                @click="getTasks(item.date)"
               >
                 <v-badge
                   dot
@@ -72,7 +72,7 @@
       <v-container>
         <v-row>
           <v-col
-            v-for="task in selectedTasks"
+            v-for="task in tasks"
             :key="task.id"
             :cols="isMobile ? '' : 'auto'"
             class="mr-auto"
@@ -169,15 +169,14 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      selectedDay: '',
       dateBefore: '',
       dateAfter: '',
       dateCurrent: '',
       today: '',
       year: '',
       month: '',
-      data: '',
-      selectedTasks: '',
+      calendar: '',
+      tasks: '',
       isMobile: false,
       showMore: [],
       colors: this.$const('TASK_COLORS'),
@@ -196,12 +195,15 @@ export default {
     }
   },
   beforeDestroy () {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {
+      return
+    }
     window.removeEventListener('resize', this.onResize, { passive: true })
   },
   mounted () {
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
+
     this.getTasks()
   },
   methods: {
@@ -218,7 +220,7 @@ export default {
       }
     },
     badgeValue: function (item) {
-      if (item.tasks.length == 0) {
+      if (item.count == 0) {
         return false
       }
       else {
@@ -226,40 +228,18 @@ export default {
       }
     },
     badgeColor: function (item) {
-      for (var i=0; i<item.tasks.length; i++) {
-        if (item.tasks[i].is_completed == false) {
-          return "red"
-        }
+      if (item.all_completed) {
+        return "black"
       }
-
-      if (item.tasks.length == 0) {
-        return "white"
+      else if (item.incompleted_exist) {
+        return "red"
       }
       else {
-        return "black"
+        return "white"
       }
     },
     getCalendarDay: function (date) {
       return parseInt(date.split('-')[2])
-    },
-    setDateCurrent: function (item) {
-      this.showMore = []
-
-      for (var i=0; i<item.tasks.length; i++) {
-        this.showMore.push(false)
-        item.tasks[i].index = i
-      }
-
-      this.dateCurrent = item.date
-      this.selectedTasks = item.tasks
-    },
-    setShowMore: function (index) {
-      var newShowMore = []
-      for (var i=0; i<this.showMore.length; i++) {
-        newShowMore.push(this.showMore[i])
-      }
-      newShowMore[index] = !this.showMore[index]
-      this.showMore = newShowMore
     },
     getTaskDate: function (task) {
       var dateStr = task.date_from + ' ~ '
@@ -269,17 +249,41 @@ export default {
 
       return dateStr
     },
-    applyUpdatedTask: function (task) {
-      for (var i=0; i<this.data.length; i++) {
-        for (var j=0; j<this.data[i].tasks.length; j++) {
-          if (this.data[i].tasks[j].id == task.id) {
-            this.data[i].tasks[j].is_completed = task.is_completed
-            this.data[i].tasks[j].date_until = task.date_until
-            this.data[i].tasks[j].content = task.content
-            this.data[i].tasks[j].color = task.color
+    initializeShowMore: function () {
+      this.showMore = []
+
+      for (var i=0; i<this.tasks.length; i++) {
+        this.showMore.push(false)
+        this.tasks[i].index = i
+      }
+    },
+    setShowMore: function (index) {
+      var newShowMore = []
+      for (var i=0; i<this.showMore.length; i++) {
+        newShowMore.push(this.showMore[i])
+      }
+      newShowMore[index] = !this.showMore[index]
+      this.showMore = newShowMore
+    },
+    toggleComplete: function (task) {
+      var vm = this
+
+      axios({
+        method: 'post',
+        url: '/notes/tasks/' + task.id + '/complete/'
+      })
+      .then(function (response) {
+        var data = response.data['data']
+
+        for (var i=0; i<vm.tasks.length; i++) {
+          if (vm.tasks[i].id == data.id) {
+            vm.tasks[i].is_completed = data.is_completed
+            vm.tasks[i].date_until = data.date_until
           }
         }
-      }
+      })
+      .catch(function () {
+      })
     },
     updateColor: function (id, color) {
       var vm = this
@@ -292,20 +296,13 @@ export default {
         },
       })
       .then(function (response) {
-        vm.applyUpdatedTask(response.data['data'])
-      })
-      .catch(function () {
-      })
-    },
-    toggleComplete: function (task) {
-      var vm = this
+        var data = response.data['data']
 
-      axios({
-        method: 'post',
-        url: '/notes/tasks/' + task.id + '/complete/'
-      })
-      .then(function (response) {
-        vm.applyUpdatedTask(response.data['data'])
+        for (var i=0; i<vm.tasks.length; i++) {
+          if (vm.tasks[i].id == data.id) {
+            vm.tasks[i].color = data.color
+          }
+        }
       })
       .catch(function () {
       })
@@ -327,15 +324,10 @@ export default {
         vm.dateAfter = response.data['pagination']['date_after']
         vm.dateCurrent = response.data['pagination']['date_current']
         vm.today = response.data['pagination']['today']
-        vm.data = response.data['data']
+        vm.calendar = response.data['data']['calendar']
+        vm.tasks = response.data['data']['tasks']
 
-        for (var i=0; i<vm.data.length; i++) {
-          if (vm.data[i].date == vm.dateCurrent) {
-            vm.setDateCurrent(vm.data[i])
-            break
-          }
-        }
-
+        vm.initializeShowMore()
         vm.setYearMonth(vm.dateCurrent.split('-'))
         vm.firstInit = true
       })
@@ -344,7 +336,7 @@ export default {
     },
     onResize () {
       this.isMobile = window.innerWidth < 600
-    },
+    }
   }
 }
 </script>
