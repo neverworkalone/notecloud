@@ -75,6 +75,7 @@ except IOError:
 SITE_NAME = 'Notecloud'
 FRONTEND_URL = 'http://127.0.0.1:8080'
 DEFAULT_FROM_EMAIL = EMAIL_ADDRESS
+DATABASE_ENGINE = 'django.db.backends.postgresql'
 DEBUG = False
 LOCAL_SERVER = False
 TRACE_ENABLED = False
@@ -180,7 +181,7 @@ WSGI_APPLICATION = 'notecloud.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': DATABASE_ENGINE,
         'NAME': DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
