@@ -18,7 +18,8 @@
         "CHANGE_LANGUAGE_HELP": "* The selected language will become the default language for your browsing.",
         "SEARCH": "Search",
         "DELETE": "Delete",
-        "REMOVE": "Remove"
+        "REMOVE": "Remove",
+        "CREATE": "Create"
     },
     "accounts": {
         "USERNAME": "Username",

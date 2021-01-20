@@ -87,6 +87,7 @@
                 <v-card-subtitle>
                   <v-hover v-slot="{ hover }">
                     <v-icon
+                      large
                       class="mr-2"
                       :color="hover ? 'teal' : ''"
                       @click="toggleComplete(task)"
@@ -95,6 +96,7 @@
                       mdi-check-circle-outline
                     </v-icon>
                     <v-icon
+                      large
                       class="mr-2"
                       :color="hover ? '' : 'teal'"
                       @click="toggleComplete(task)"
@@ -156,6 +158,118 @@
               </v-expand-transition>
             </v-card>
           </v-col>
+
+          <v-col
+            :cols="isMobile? '' : 'auto'"
+            class="mr-auto"
+          >
+            <v-dialog
+              v-model="dialog"
+              transition="dialog-bottom-transition"
+              width="90%"
+              :max-width="$const('TASK_NEW_MAX_WIDTH')"
+            >
+
+              <template v-slot:activator="{ on, attrs }">
+                <v-card
+                  :color="randomColor.color"
+                  :min-width="isMobile ? $const('TASK_CARD_MIN_WIDTH') : $const('TASK_CARD_MAX_WIDTH')"
+                  :max-width="$const('TASK_CARD_MAX_WIDTH')"
+                  class="text-center pa-10"
+                >
+                  <v-btn
+                    fab
+                    x-large
+                    elevation=8
+                    class="pa-12"
+                    :color="randomColor.sibling"
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="initializeDialog()"
+                  >
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </v-card>
+              </template>
+
+              <v-card
+                :color="getNewColor"
+              >
+                <v-card-subtitle
+                  class="pt-2 pb-0 pl-4"
+                >
+                  <v-icon
+                    class="ml-0"
+                  >
+                    mdi-calendar-check
+                  </v-icon>
+                  {{ dateCurrent }} ~
+                </v-card-subtitle>
+                <v-col
+                  class="pb-0"
+                >
+                  <v-textarea
+                    v-model="content"
+                    :background-color="getNewColor"
+                    solo
+                    auto-grow
+                    autofocus
+                  ></v-textarea>
+                </v-col>
+                <v-card-text
+                  class=""
+                >
+                  <v-card-actions
+                    class="pt-0 mt-0 pr-0"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      large
+                      color="primary"
+                      class="pl-8 pr-8"
+                      @click="newTask()"
+                    >
+                      {{ $t('common.CREATE') }}
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      icon
+                      @click="dialogExpand = !dialogExpand"
+                    >
+                      <v-icon>{{ dialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+
+                  <v-expand-transition>
+                    <div
+                      v-show="dialogExpand"
+                      class="pt-2"
+                    >
+                      <v-divider></v-divider>
+                      <v-container>
+                        <v-row>
+                          <v-col
+                            v-for="color in colors"
+                            :key="color.color"
+                            :cols="isMobile ? '' : 'auto'"
+                          >
+                            <v-btn
+                              x-small
+                              :color="color.color"
+                              @click="newColor = color.color"
+                            >
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </div>
+                  </v-expand-transition>
+                </v-card-text>
+              </v-card>
+
+            </v-dialog>
+          </v-col>
+
         </v-row>
       </v-container>
     </div>
@@ -180,6 +294,11 @@ export default {
       isMobile: false,
       showMore: [],
       colors: this.$const('TASK_COLORS'),
+      randomColor: [],
+      newColor: '',
+      content: '',
+      dialog: false,
+      dialogExpand: false,
       firstInit: false
     }
   },
@@ -189,6 +308,9 @@ export default {
         year: this.year,
         month: this.$t('calendar.' + this.month)
       })
+    },
+    getNewColor () {
+      return this.newColor
     },
     initialized () {
       return this.firstInit
@@ -218,6 +340,20 @@ export default {
       else {
         return "white"
       }
+    },
+    getRandomColor: function () {
+      if (this.$const('RANDOM_COLOR_FOR_NEW')) {
+        var index = Math.floor(Math.random() * Math.floor(this.colors.length))
+        this.randomColor = this.colors[index]
+      }
+      else {
+        this.randomColor = this.colors[this.$const('DEFAULT_COLOR_FOR_NEW')]
+      }
+    },
+    initializeDialog: function () {
+      this.newColor = this.randomColor.color
+      this.content = ''
+      this.dialogExpand = false
     },
     badgeValue: function (item) {
       if (item.count == 0) {
@@ -264,6 +400,29 @@ export default {
       }
       newShowMore[index] = !this.showMore[index]
       this.showMore = newShowMore
+    },
+    newTask: function () {
+      var vm = this
+
+      axios({
+        method: 'post',
+        url: '/notes/tasks/new/',
+        data: {
+          'date_from': this.dateCurrent,
+          'content': this.content,
+          'color': this.newColor
+        }
+      })
+      .then(function (response) {
+        var data = response.data['data']
+
+        vm.tasks.push(data)
+        vm.initializeShowMore()
+        vm.getRandomColor()
+        vm.dialog = false
+      })
+      .catch(function () {
+      })
     },
     toggleComplete: function (task) {
       var vm = this
@@ -327,8 +486,9 @@ export default {
         vm.calendar = response.data['data']['calendar']
         vm.tasks = response.data['data']['tasks']
 
-        vm.initializeShowMore()
         vm.setYearMonth(vm.dateCurrent.split('-'))
+        vm.initializeShowMore()
+        vm.getRandomColor()
         vm.firstInit = true
       })
       .catch(function () {

@@ -18,7 +18,8 @@
         "CHANGE_LANGUAGE_HELP": "* 선택한 언어는 이 기기에서 사이트 이용 시 기본 언어가 됩니다.",
         "SEARCH": "검색",
         "DELETE": "삭제",
-        "REMOVE": "제거"
+        "REMOVE": "제거",
+        "CREATE": "만들기"
     },
     "accounts": {
         "USERNAME": "아이디",
