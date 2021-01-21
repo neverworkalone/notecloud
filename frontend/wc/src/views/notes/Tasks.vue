@@ -110,12 +110,12 @@
               </v-card-actions>
               <v-card-title
                 class="pt-0 pb-0"
-                v-html="task.content"
+                v-text="task.content"
                 v-if="!task.is_completed"
               ></v-card-title>
               <v-card-title
                 class="pt-0 pb-0 text-decoration-line-through"
-                v-html="task.content"
+                v-text="task.content"
                 v-else
               ></v-card-title>
 
@@ -276,6 +276,12 @@
 
   </div>
 </template>
+
+<style lang="scss">
+.v-card__title {
+  white-space: break-spaces;
+}
+</style>
 
 <script>
 import axios from 'axios'
