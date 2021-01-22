@@ -19,7 +19,8 @@
         "SEARCH": "Search",
         "DELETE": "Delete",
         "REMOVE": "Remove",
-        "CREATE": "Create"
+        "CREATE": "Create",
+        "SAVE": "Save"
     },
     "accounts": {
         "USERNAME": "Username",

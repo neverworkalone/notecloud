@@ -71,100 +71,190 @@
 
       <v-container>
         <v-row>
-          <v-col
-            v-for="task in tasks"
-            :key="task.id"
-            :cols="isMobile ? '' : 'auto'"
-            class="mr-auto"
+          <v-dialog
+            v-model="editDialog"
+            transition="dialog-bottom-transition"
+            width="90%"
+            :max-width="$const('TASK_NEW_MAX_WIDTH')"
           >
-            <v-card
-              elevation=8
-              :color="task.color"
-              :min-width="isMobile? $const('TASK_CARD_MIN_WIDTH') : $const('TASK_CARD_MAX_WIDTH')"
-              :max-width="$const('TASK_CARD_MAX_WIDTH')"
-            >
-              <v-card-actions>
-                <v-card-subtitle>
-                  <v-hover v-slot="{ hover }">
-                    <v-icon
-                      large
-                      class="mr-2"
-                      :color="hover ? 'teal' : ''"
-                      @click="toggleComplete(task)"
-                      v-if="!task.is_completed"
-                    >
-                      mdi-check-circle-outline
-                    </v-icon>
-                    <v-icon
-                      large
-                      class="mr-2"
-                      :color="hover ? '' : 'teal'"
-                      @click="toggleComplete(task)"
-                      v-else
-                    >
-                      mdi-check-circle
-                    </v-icon>
-                  </v-hover>
-                  {{ getTaskDate(task) }}
-                </v-card-subtitle>
-              </v-card-actions>
-              <v-card-title
-                class="pt-0 pb-0"
-                v-text="task.content"
-                v-if="!task.is_completed"
-              ></v-card-title>
-              <v-card-title
-                class="pt-0 pb-0 text-decoration-line-through"
-                v-text="task.content"
-                v-else
-              ></v-card-title>
-
-              <v-card-actions
-                class="pt-0"
+            <template v-slot:activator="{ on, attrs }">
+              <v-col
+                v-for="task in tasks"
+                :key="task.id"
+                :cols="isMobile ? '' : 'auto'"
+                class="mr-auto"
               >
-                <v-spacer></v-spacer>
-                <v-btn
-                  icon
-                  @click="setShowMore(task.index)"
+                <v-card
+                  elevation=8
+                  :color="task.color"
+                  :min-width="isMobile? $const('TASK_CARD_MIN_WIDTH') : $const('TASK_CARD_MAX_WIDTH')"
+                  :max-width="$const('TASK_CARD_MAX_WIDTH')"
                 >
-                  <v-icon>{{ showMore[task.index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                </v-btn>
-              </v-card-actions>
-
-              <v-expand-transition>
-                <div v-show="showMore[task.index]">
-                  <v-divider></v-divider>
-
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col
-                          v-for="color in colors"
-                          :key="color.color"
-                          :cols="isMobile ? '' : 'auto'"
-                          class="mr-auto"
+                  <v-card-actions>
+                    <v-card-subtitle>
+                      <v-hover v-slot="{ hover }">
+                        <v-icon
+                          large
+                          class="mr-2"
+                          :color="hover ? 'teal' : ''"
+                          @click="toggleComplete(task)"
+                          v-if="!task.is_completed"
                         >
-                          <v-btn
-                            x-small
-                            :color="color.color"
-                            @click="updateColor(task.id, color.color)"
-                          >
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
-                </div>
-              </v-expand-transition>
+                          mdi-check-circle-outline
+                        </v-icon>
+                        <v-icon
+                          large
+                          class="mr-2"
+                          :color="hover ? '' : 'teal'"
+                          @click="toggleComplete(task)"
+                          v-else
+                        >
+                          mdi-check-circle
+                        </v-icon>
+                      </v-hover>
+                      {{ getTaskDate(task) }}
+                    </v-card-subtitle>
+                  </v-card-actions>
+
+                  <v-card-title
+                    class="pt-0 pb-0"
+                    v-text="task.content"
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="initializeEditDialog(task)"
+                    v-if="!task.is_completed"
+                  ></v-card-title>
+                  <v-card-title
+                    class="pt-0 pb-0 text-decoration-line-through"
+                    v-text="task.content"
+                    v-else
+                  ></v-card-title>
+
+                  <v-card-actions
+                    class="pt-0"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      icon
+                      @click="setShowMore(task.index)"
+                    >
+                      <v-icon>{{ showMore[task.index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+
+                  <v-expand-transition>
+                    <div v-show="showMore[task.index]">
+                      <v-divider></v-divider>
+
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col
+                              v-for="color in colors"
+                              :key="color.color"
+                              :cols="isMobile ? '' : 'auto'"
+                              class="mr-auto"
+                            >
+                              <v-btn
+                                x-small
+                                :color="color.color"
+                                @click="updateColor(task.id, color.color)"
+                              >
+                              </v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card-text>
+                    </div>
+                  </v-expand-transition>
+                </v-card>
+              </v-col>
+            </template>
+
+            <v-card
+              :color="editColor"
+            >
+              <v-card-subtitle
+                class="pt-2 pb-0 pl-4"
+              >
+                <v-icon
+                  class="ml-0"
+                >
+                  mdi-calendar-check
+                </v-icon>
+                {{ editDate }} ~
+              </v-card-subtitle>
+              <v-col
+                class="pb-0"
+              >
+                <v-textarea
+                  v-model="editContent"
+                  :background-color="editColor"
+                  solo
+                  auto-grow
+                  autofocus
+                ></v-textarea>
+              </v-col>
+              <v-card-text
+                class=""
+              >
+                <v-card-actions
+                  class="pt-0 mt-0 pr-0"
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    large
+                    color="primary"
+                    class="pl-8 pr-8"
+                    @click="editTask()"
+                  >
+                    {{ $t('common.SAVE') }}
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                    <v-btn
+                      icon
+                      @click="editDialogExpand = !editDialogExpand"
+                    >
+                      <v-icon>{{ editDialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+
+                  <v-expand-transition>
+                    <div
+                      v-show="editDialogExpand"
+                      class="pt-2"
+                    >
+                      <v-divider></v-divider>
+
+                        <v-container>
+                          <v-row>
+                            <v-col
+                              v-for="color in colors"
+                              :key="color.color"
+                              :cols="isMobile ? '' : 'auto'"
+                            >
+                              <v-btn
+                                x-small
+                                :color="color.color"
+                                @click="editColor = color.color"
+                              >
+                              </v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                    </div>
+                  </v-expand-transition>
+
+              </v-card-text>
             </v-card>
-          </v-col>
+          </v-dialog>
 
           <v-col
             :cols="isMobile? '' : 'auto'"
             class="mr-auto"
           >
             <v-dialog
-              v-model="dialog"
+              v-model="newDialog"
               transition="dialog-bottom-transition"
               width="90%"
               :max-width="$const('TASK_NEW_MAX_WIDTH')"
@@ -185,7 +275,7 @@
                     :color="randomColor.sibling"
                     v-bind="attrs"
                     v-on="on"
-                    @click="initializeDialog()"
+                    @click="initializeNewDialog()"
                   >
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
@@ -209,7 +299,7 @@
                   class="pb-0"
                 >
                   <v-textarea
-                    v-model="content"
+                    v-model="newContent"
                     :background-color="getNewColor"
                     solo
                     auto-grow
@@ -234,15 +324,15 @@
                     <v-spacer></v-spacer>
                     <v-btn
                       icon
-                      @click="dialogExpand = !dialogExpand"
+                      @click="newDialogExpand = !newDialogExpand"
                     >
-                      <v-icon>{{ dialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                      <v-icon>{{ newDialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                     </v-btn>
                   </v-card-actions>
 
                   <v-expand-transition>
                     <div
-                      v-show="dialogExpand"
+                      v-show="newDialogExpand"
                       class="pt-2"
                     >
                       <v-divider></v-divider>
@@ -302,9 +392,14 @@ export default {
       colors: this.$const('TASK_COLORS'),
       randomColor: [],
       newColor: '',
-      content: '',
-      dialog: false,
-      dialogExpand: false,
+      newContent: '',
+      editContent: '',
+      editColor: '',
+      editDate: '',
+      editDialog: false,
+      editDialogExpand: false,
+      newDialog: false,
+      newDialogExpand: false,
       firstInit: false
     }
   },
@@ -356,10 +451,17 @@ export default {
         this.randomColor = this.colors[this.$const('DEFAULT_COLOR_FOR_NEW')]
       }
     },
-    initializeDialog: function () {
+    initializeEditDialog: function (task) {
+      this.editID = task.id
+      this.editContent = task.content
+      this.editColor = task.color
+      this.editDate = task.date_from
+      this.editDialogExpand = false
+    },
+    initializeNewDialog: function () {
       this.newColor = this.randomColor.color
-      this.content = ''
-      this.dialogExpand = false
+      this.newContent = ''
+      this.newDialogExpand = false
     },
     badgeValue: function (item) {
       if (item.count == 0) {
@@ -407,6 +509,33 @@ export default {
       newShowMore[index] = !this.showMore[index]
       this.showMore = newShowMore
     },
+    editTask: function () {
+      var vm = this
+
+      axios({
+        method: 'patch',
+        url: '/notes/tasks/' + this.editID + '/',
+        data: {
+          'content': this.editContent,
+          'color': this.editColor
+        }
+      })
+      .then(function (response) {
+        var data = response.data['data']
+
+        for (var i=0; i<vm.tasks.length; i++) {
+          if (vm.tasks[i].id == data.id) {
+            vm.tasks[i].content = data.content
+            vm.tasks[i].color = data.color
+          }
+        }
+
+        vm.editMore = false
+        vm.editDialog = false
+      })
+      .catch(function () {
+      })
+    },
     newTask: function () {
       var vm = this
 
@@ -415,7 +544,7 @@ export default {
         url: '/notes/tasks/new/',
         data: {
           'date_from': this.dateCurrent,
-          'content': this.content,
+          'content': this.newContent,
           'color': this.newColor
         }
       })
@@ -425,7 +554,7 @@ export default {
         vm.tasks.push(data)
         vm.initializeShowMore()
         vm.getRandomColor()
-        vm.dialog = false
+        vm.newDialog = false
       })
       .catch(function () {
       })

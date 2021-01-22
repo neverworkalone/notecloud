@@ -19,7 +19,8 @@
         "SEARCH": "검색",
         "DELETE": "삭제",
         "REMOVE": "제거",
-        "CREATE": "만들기"
+        "CREATE": "만들기",
+        "SAVE": "저장"
     },
     "accounts": {
         "USERNAME": "아이디",
