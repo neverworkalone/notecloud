@@ -92,14 +92,14 @@
         <v-container
           v-if="!loading"
         >
-          <v-row>
-            <v-dialog
-              v-model="editDialog"
-              transition="dialog-bottom-transition"
-              width="90%"
-              :max-width="$const('TASK_NEW_MAX_WIDTH')"
-            >
-              <template v-slot:activator="{ on, attrs }">
+          <v-dialog
+            v-model="editDialog"
+            transition="dialog-bottom-transition"
+            width="90%"
+            :max-width="$const('TASK_NEW_MAX_WIDTH')"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-row>
                 <v-col
                   v-for="task in tasks"
                   :key="task.id"
@@ -191,173 +191,176 @@
                     </v-expand-transition>
                   </v-card>
                 </v-col>
-              </template>
 
-              <v-card
-                :color="editColor"
-              >
-                <v-card-subtitle
-                  class="pt-2 pb-0 pl-4"
-                >
-                  <v-icon
-                    class="ml-0"
-                  >
-                    mdi-calendar-check
-                  </v-icon>
-                  {{ editDate }} ~
-                </v-card-subtitle>
                 <v-col
-                  class="pb-0"
+                  :cols="isMobile? '' : 'auto'"
+                  class="mr-auto"
                 >
-                  <v-textarea
-                    v-model="editContent"
-                    :background-color="editColor"
-                    solo
-                    auto-grow
-                    autofocus
-                  ></v-textarea>
-                </v-col>
-                <v-card-text
-                  class=""
-                >
-                  <v-card-actions
-                    class="pt-0 mt-0 pr-0"
+                  <v-dialog
+                    v-model="newDialog"
+                    transition="dialog-bottom-transition"
+                    width="90%"
+                    :max-width="$const('TASK_NEW_MAX_WIDTH')"
                   >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      large
-                      color="primary"
-                      class="pl-8 pr-8"
-                      @click="editTask()"
+
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-card
+                        :color="randomColor.color"
+                        :min-width="isMobile ? $const('TASK_CARD_MIN_WIDTH') : $const('TASK_CARD_MAX_WIDTH')"
+                        :max-width="$const('TASK_CARD_MAX_WIDTH')"
+                        class="text-center pa-10"
+                      >
+                        <v-btn
+                          fab
+                          x-large
+                          elevation=8
+                          class="pa-12"
+                          :color="randomColor.sibling"
+                          v-bind="attrs"
+                          v-on="on"
+                          @click="initializeNewDialog()"
+                        >
+                          <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                      </v-card>
+                    </template>
+
+                    <v-card
+                      :color="getNewColor"
                     >
-                      {{ $t('common.SAVE') }}
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                      <v-btn
-                        icon
-                        @click="editDialogExpand = !editDialogExpand"
+                      <v-card-subtitle
+                        class="pt-2 pb-0 pl-4"
                       >
-                        <v-icon>{{ editDialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                      </v-btn>
-                    </v-card-actions>
-
-                    <v-expand-transition>
-                      <div
-                        v-show="editDialogExpand"
-                        class="pt-2"
+                        <v-icon
+                          class="ml-0"
+                        >
+                          mdi-calendar-check
+                        </v-icon>
+                        {{ dateCurrent }} ~
+                      </v-card-subtitle>
+                      <v-col
+                        class="pb-0"
                       >
-                        <v-divider></v-divider>
+                        <v-textarea
+                          v-model="newContent"
+                          :background-color="getNewColor"
+                          solo
+                          auto-grow
+                          autofocus
+                        ></v-textarea>
+                      </v-col>
+                      <v-card-text
+                        class=""
+                      >
+                        <v-card-actions
+                          class="pt-0 mt-0 pr-0"
+                        >
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            large
+                            color="primary"
+                            class="pl-8 pr-8"
+                            @click="newTask()"
+                          >
+                            {{ $t('common.CREATE') }}
+                          </v-btn>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            icon
+                            @click="newDialogExpand = !newDialogExpand"
+                          >
+                            <v-icon>{{ newDialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                          </v-btn>
+                        </v-card-actions>
 
-                          <v-container>
-                            <v-row>
-                              <v-col
-                                v-for="color in colors"
-                                :key="color.color"
-                                :cols="isMobile ? '' : 'auto'"
-                              >
-                                <v-btn
-                                  x-small
-                                  :color="color.color"
-                                  @click="editColor = color.color"
+                        <v-expand-transition>
+                          <div
+                            v-show="newDialogExpand"
+                            class="pt-2"
+                          >
+                            <v-divider></v-divider>
+                            <v-container>
+                              <v-row>
+                                <v-col
+                                  v-for="color in colors"
+                                  :key="color.color"
+                                  :cols="isMobile ? '' : 'auto'"
                                 >
-                                </v-btn>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                      </div>
-                    </v-expand-transition>
+                                  <v-btn
+                                    x-small
+                                    :color="color.color"
+                                    @click="newColor = color.color"
+                                  >
+                                  </v-btn>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </div>
+                        </v-expand-transition>
+                      </v-card-text>
+                    </v-card>
 
-                </v-card-text>
-              </v-card>
-            </v-dialog>
+                  </v-dialog>
+                </v-col>
 
-            <v-col
-              :cols="isMobile? '' : 'auto'"
-              class="mr-auto"
+              </v-row>
+            </template>
+
+            <v-card
+              :color="editColor"
             >
-              <v-dialog
-                v-model="newDialog"
-                transition="dialog-bottom-transition"
-                width="90%"
-                :max-width="$const('TASK_NEW_MAX_WIDTH')"
+              <v-card-subtitle
+                class="pt-2 pb-0 pl-4"
               >
-
-                <template v-slot:activator="{ on, attrs }">
-                  <v-card
-                    :color="randomColor.color"
-                    :min-width="isMobile ? $const('TASK_CARD_MIN_WIDTH') : $const('TASK_CARD_MAX_WIDTH')"
-                    :max-width="$const('TASK_CARD_MAX_WIDTH')"
-                    class="text-center pa-10"
-                  >
-                    <v-btn
-                      fab
-                      x-large
-                      elevation=8
-                      class="pa-12"
-                      :color="randomColor.sibling"
-                      v-bind="attrs"
-                      v-on="on"
-                      @click="initializeNewDialog()"
-                    >
-                      <v-icon>mdi-plus</v-icon>
-                    </v-btn>
-                  </v-card>
-                </template>
-
-                <v-card
-                  :color="getNewColor"
+                <v-icon
+                  class="ml-0"
                 >
-                  <v-card-subtitle
-                    class="pt-2 pb-0 pl-4"
+                  mdi-calendar-check
+                </v-icon>
+                {{ editDate }} ~
+              </v-card-subtitle>
+              <v-col
+                class="pb-0"
+              >
+                <v-textarea
+                  v-model="editContent"
+                  :background-color="editColor"
+                  solo
+                  auto-grow
+                  autofocus
+                ></v-textarea>
+              </v-col>
+              <v-card-text
+                class=""
+              >
+                <v-card-actions
+                  class="pt-0 mt-0 pr-0"
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    large
+                    color="primary"
+                    class="pl-8 pr-8"
+                    @click="editTask()"
                   >
-                    <v-icon
-                      class="ml-0"
+                    {{ $t('common.SAVE') }}
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                    <v-btn
+                      icon
+                      @click="editDialogExpand = !editDialogExpand"
                     >
-                      mdi-calendar-check
-                    </v-icon>
-                    {{ dateCurrent }} ~
-                  </v-card-subtitle>
-                  <v-col
-                    class="pb-0"
-                  >
-                    <v-textarea
-                      v-model="newContent"
-                      :background-color="getNewColor"
-                      solo
-                      auto-grow
-                      autofocus
-                    ></v-textarea>
-                  </v-col>
-                  <v-card-text
-                    class=""
-                  >
-                    <v-card-actions
-                      class="pt-0 mt-0 pr-0"
-                    >
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        large
-                        color="primary"
-                        class="pl-8 pr-8"
-                        @click="newTask()"
-                      >
-                        {{ $t('common.CREATE') }}
-                      </v-btn>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        icon
-                        @click="newDialogExpand = !newDialogExpand"
-                      >
-                        <v-icon>{{ newDialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                      </v-btn>
-                    </v-card-actions>
+                      <v-icon>{{ editDialogExpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    </v-btn>
+                  </v-card-actions>
 
-                    <v-expand-transition>
-                      <div
-                        v-show="newDialogExpand"
-                        class="pt-2"
-                      >
-                        <v-divider></v-divider>
+                  <v-expand-transition>
+                    <div
+                      v-show="editDialogExpand"
+                      class="pt-2"
+                    >
+                      <v-divider></v-divider>
+
                         <v-container>
                           <v-row>
                             <v-col
@@ -368,21 +371,19 @@
                               <v-btn
                                 x-small
                                 :color="color.color"
-                                @click="newColor = color.color"
+                                @click="editColor = color.color"
                               >
                               </v-btn>
                             </v-col>
                           </v-row>
                         </v-container>
-                      </div>
-                    </v-expand-transition>
-                  </v-card-text>
-                </v-card>
+                    </div>
+                  </v-expand-transition>
 
-              </v-dialog>
-            </v-col>
+              </v-card-text>
+            </v-card>
 
-          </v-row>
+          </v-dialog>
         </v-container>
       </transition>
 
