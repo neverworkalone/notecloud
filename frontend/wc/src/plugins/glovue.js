@@ -37,7 +37,8 @@ const Const = {
   TASK_CARD_MAX_WIDTH: '348',
   TASK_NEW_MAX_WIDTH: '530',
   RANDOM_COLOR_FOR_NEW: false,
-  DEFAULT_COLOR_FOR_NEW: 0,
+  DEFAULT_COLOR_INDEX: 0,
+  SNACKBAR_TIMEOUT_MS: 2000,
 }
 
 Const.install = function (Vue) {

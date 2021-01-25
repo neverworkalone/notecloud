@@ -92,7 +92,11 @@
                   :max-width="$const('TASK_CARD_MAX_WIDTH')"
                 >
                   <v-card-actions>
-                    <v-card-subtitle>
+                    <v-row
+                      align="center"
+                      justify="space-around"
+                      class="pa-7 pl-5 pr-2"
+                    >
                       <v-hover v-slot="{ hover }">
                         <v-icon
                           large
@@ -113,8 +117,68 @@
                           mdi-check-circle
                         </v-icon>
                       </v-hover>
+
                       {{ getTaskDate(task) }}
-                    </v-card-subtitle>
+
+                      <v-menu
+                        transition="slide-y-transition"
+                        bottom
+                        offset-y
+                        class="mx-auto"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            small
+                            text
+                            class="ml-auto"
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            <v-icon>mdi-dots-vertical</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list>
+                          <v-list-item
+                            @click="copyToClipboard(task)"
+                          >
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                <v-icon
+                                  class="mr-1"
+                                >
+                                  mdi-clipboard-text-outline
+                                </v-icon>
+                                {{ $t('tasks.COPY_CONTENT') }}
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider></v-divider>
+                          <v-list-item
+                            two-line
+                            @click="deleteTask(task)"
+                          >
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                <v-icon
+                                  color="error"
+                                  class="mr-1"
+                                >
+                                  mdi-trash-can-outline
+                                </v-icon>
+                                <font color="error">
+                                  {{ $t('tasks.DELETE_TASK') }}
+                                </font>
+                              </v-list-item-title>
+                              <v-list-item-subtitle
+                                class="ml-8"
+                              >
+                                {{ $t('tasks.DELETE_TASK_DESCRIPTION') }}
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </v-row>
                   </v-card-actions>
 
                   <v-card-title
@@ -366,6 +430,19 @@
       </v-container>
     </div>
 
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="$const('SNACKBAR_TIMEOUT_MS')"
+    >
+      <v-icon
+        :color="snackbarIconColor"
+        class="mr-1"
+      >
+        {{ this.snackbarIcon }}
+      </v-icon>
+      {{ this.snackbarContent }}
+    </v-snackbar>
+
   </div>
 </template>
 
@@ -402,6 +479,10 @@ export default {
       editDialogExpand: false,
       newDialog: false,
       newDialogExpand: false,
+      snackbar: false,
+      snackbarContent: '',
+      snackbarIcon: '',
+      snackbarIconColor: '',
       firstInit: false
     }
   },
@@ -450,7 +531,7 @@ export default {
         this.randomColor = this.colors[index]
       }
       else {
-        this.randomColor = this.colors[this.$const('DEFAULT_COLOR_FOR_NEW')]
+        this.randomColor = this.colors[this.$const('DEFAULT_COLOR_INDEX')]
       }
     },
     initializeEditDialog: function (task) {
@@ -510,6 +591,13 @@ export default {
       }
       newShowMore[index] = !this.showMore[index]
       this.showMore = newShowMore
+    },
+    copyToClipboard: function (task) {
+      this.$clipboard(task.content)
+      this.snackbarContent = this.$t('tasks.COPIED_TO_CLIPBOARD')
+      this.snackbarIcon = 'mdi-check'
+      this.snackbarIconColor = 'success'
+      this.snackbar = true
     },
     editTask: function () {
       var vm = this
@@ -599,6 +687,28 @@ export default {
             vm.tasks[i].color = data.color
           }
         }
+      })
+      .catch(function () {
+      })
+    },
+    deleteTask: function (task) {
+      var vm = this
+
+      axios({
+        method: 'delete',
+        url: '/notes/tasks/' + task.id + '/'
+      })
+      .then(function () {
+        for (var i=0; i<vm.tasks.length; i++) {
+          if (vm.tasks[i].id == task.id) {
+            vm.tasks.splice(i, 1)
+          }
+        }
+
+        vm.snackbarContent = vm.$t('common.DELETED')
+        vm.snackbarIcon = 'mdi-check'
+        vm.snackbarIconColor = 'success'
+        vm.snackbar = true
       })
       .catch(function () {
       })

@@ -13,6 +13,7 @@
         "INVALID_EMAIL": "올바른 이메일 주소가 아닙니다.",
         "REGISTER": "등록",
         "UPDATED": "업데이트 했습니다.",
+        "DELETED": "삭제 했습니다.",
         "SUBMIT": "제출",
         "CHANGE_LANGUAGE": "언어 변경",
         "CHANGE_LANGUAGE_HELP": "* 선택한 언어는 이 기기에서 사이트 이용 시 기본 언어가 됩니다.",
@@ -73,6 +74,10 @@
         "CONSENT_HINT": "동의해아 합니다."
     },
     "tasks": {
+        "DELETE_TASK": "할 일 삭제",
+        "DELETE_TASK_DESCRIPTION": "추가 확인 없이 바로 삭제합니다.",
+        "COPY_CONTENT": "클립보드로 내용 복사",
+        "COPIED_TO_CLIPBOARD": "클립보드로 복사했습니다.",
         "YEAR_MONTH": "{year}년 {month}",
         "TODAY": "오늘"
     },

@@ -13,6 +13,7 @@
         "INVALID_EMAIL": "Invalid Email address.",
         "REGISTER": "Register",
         "UPDATED": "Updated",
+        "DELETED": "Deleted.",
         "SUBMIT": "Submit",
         "CHANGE_LANGUAGE": "Change language",
         "CHANGE_LANGUAGE_HELP": "* The selected language will become the default language for your browsing.",
@@ -73,6 +74,10 @@
         "CONSENT_HINT": "You must consent."
     },
     "tasks": {
+        "DELETE_TASK": "Delete task",
+        "DELETE_TASK_DESCRIPTION": "Immediately delete without a prompt.",
+        "COPY_CONTENT": "Copy content to clipboard",
+        "COPIED_TO_CLIPBOARD": "Successfully copied to the clipboard.",
         "YEAR_MONTH": "{month} {year}",
         "TODAY": "Today"
     },
