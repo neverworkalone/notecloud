@@ -71,7 +71,8 @@
         "DEACTIVATE_ACCOUNT": "Are you sure to deactivate account?",
         "DEACTIVATE_DESCRIPTION": "Once deactivate account, you are not able to neither login nor signup with current email address.",
         "CONSENT": "I consent.",
-        "CONSENT_HINT": "You must consent."
+        "CONSENT_HINT": "You must consent.",
+        "DATE_FORMAT_LABEL": "Date format"
     },
     "tasks": {
         "DELETE_TASK": "Delete task",
@@ -101,5 +102,8 @@
         "Thu": "Thu",
         "Fri": "Fri",
         "Sat": "Sat"
+    },
+    "error": {
+        "LOGIN_LOGIC": "Error code: Affogato"
     }
 }

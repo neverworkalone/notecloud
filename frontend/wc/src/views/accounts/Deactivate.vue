@@ -96,7 +96,7 @@
             type: 'removeUser'
           })
 
-          localStorage.removeItem('token')
+          localStorage.clear()
 
           axios.defaults.headers.common['Authorization'] = ''
           router.push({ name: 'home' })

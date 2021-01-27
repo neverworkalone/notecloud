@@ -68,6 +68,12 @@ export default {
     var local_key = localStorage.getItem('token')
     axios.defaults.baseURL = this.$apiURL()
 
+    var date_format = localStorage.getItem('date_format')
+    if (!date_format) {
+      date_format = this.$const('DATE_FORMAT_DEFAULT')
+      localStorage.setItem('date_format', date_format)
+    }
+
     if (local_key) {
       axios({
         method: 'post',
@@ -83,16 +89,17 @@ export default {
           type: 'updateUser',
           key: local_key,
           user: response.data['data']['user'],
-          login_device: response.data['data']['login_device']
+          login_device: response.data['data']['login_device'],
+          date_format: date_format
         })
 
         vm.firstInit = true
       })
       .catch(function (error) {
         if (error.response.status === 401) {
-          localStorage.removeItem('token')
+          localStorage.clear()
         }
-        this.firstInit = true
+        vm.firstInit = true
       })
     }
     else {

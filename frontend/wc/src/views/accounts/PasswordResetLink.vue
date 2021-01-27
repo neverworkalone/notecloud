@@ -100,7 +100,7 @@
             type: 'removeUser'
           })
 
-          localStorage.removeItem('token')
+          localStorage.clear()
 
           axios.defaults.headers.common['Authorization'] = ''
           alert(vm.$t('accounts.PASSWORD_RESET_COMPLETED'))

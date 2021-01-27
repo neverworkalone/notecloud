@@ -124,28 +124,36 @@
           var key = response.data['data']['key']
           var user = response.data['data']['user']
           var login_device = response.data['data']['login_device']
+          var date_format = vm.$const('DATE_FORMAT_DEFAULT')
 
           vm.$store.commit({
             type: 'updateUser',
             key: key,
             user: user,
-            login_device: login_device
+            login_device: login_device,
+            date_format: date_format
           })
 
           axios.defaults.headers.common['Authorization'] = 'Token ' + key
 
           if (login_device.is_registered) {
-            localStorage.token = key
+            localStorage.setItem('token', key)
+            localStorage.setItem('date_format', date_format)
             router.push({ name: 'home' })
           }
           else {
             router.push({ name: 'accounts.register_device' })
           }
         })
-        .catch(function () {
-          alert(vm.$t('accounts.LOGIN_FAILED'))
+        .catch(function (error) {
+          if (error.response) {
+            alert(vm.$t('accounts.LOGIN_FAILED'))
+          }
+          else {
+            alert(vm.$t('error.LOGIN_LOGIC'))
+          }
         })
-      },
+      }
     }
   }
 </script>

@@ -84,7 +84,8 @@
     methods: {
       changeLocale: function () {
         if (this.$root.$i18n.locale != this.locale) {
-          localStorage.locale = this.$root.$i18n.locale = this.locale;
+          this.$root.$i18n.locale = this.locale
+          localStorage.setItem('locale', this.locale)
         }
         this.dialog = false
       }

@@ -10,6 +10,13 @@ const Const = {
       name: '한국어'
     },
   ],
+  DATE_FORMAT: [
+    'YYYY-MM-DD',
+    'YYYY/MM/DD',
+    'MM/DD/YYYY',
+    'DD/MM/YYYY'
+  ],
+  DATE_FORMAT_DEFAULT: 'YYYY-MM-DD',
   TASK_COLORS: [
     { color: 'white', sibling: 'grey lighten-3' },
     { color: 'yellow', sibling: 'yellow accent-1' },

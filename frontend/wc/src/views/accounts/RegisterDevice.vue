@@ -56,7 +56,8 @@
     computed: {
       ...mapState([
         'key',
-        'login_device'
+        'login_device',
+        'date_format'
       ]),
       get_device: function () {
         return this.login_device.device + '(' + this.login_device.os + ') ' + this.login_device.browser + ' ' + this.login_device.ip_address
@@ -71,7 +72,8 @@
           url: '/accounts/device/' + this.login_device.id + '/register/',
         })
         .then(function () {
-          localStorage.token = vm.key
+          localStorage.setItem('token', vm.key)
+          localStorage.setItem('date_format', vm.date_format)
           router.push({ name: 'home' })
         })
         .catch(function () {
