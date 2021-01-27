@@ -10,5 +10,10 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: true
     }
+  },
+  devServer: {
+    https: false,
+    hot: true,
+    disableHostCheck: true
   }
 }

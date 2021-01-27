@@ -736,7 +736,7 @@ export default {
     },
     getTasks: function (date) {
       var vm = this
-      var url = '/notes/tasks'
+      var url = '/notes/tasks/'
 
       if (date) {
         url = '/notes/tasks/?date=' + date
