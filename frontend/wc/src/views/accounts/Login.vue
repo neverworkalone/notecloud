@@ -48,6 +48,7 @@
               :type="show ? 'text' : 'password'"
               :label="$t('accounts.PASSWORD')"
               @click:append="show = !show"
+              autocomplete
             ></v-text-field>
           </v-col>
         </v-row>
