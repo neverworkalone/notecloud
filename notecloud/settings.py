@@ -46,6 +46,7 @@ if TEST_SETTING:
 try:
     secrets = json.loads(open(os.path.join(BASE_DIR, SECRETS_PATH)).read())
 
+    DB_ENGINE = 'django.db.backends.postgresql'
     DB_HOST = ''
     DB_PORT = ''
     DB_NAME = ''
@@ -75,7 +76,6 @@ except IOError:
 SITE_NAME = 'Notecloud'
 FRONTEND_URL = 'http://127.0.0.1:8080'
 DEFAULT_FROM_EMAIL = EMAIL_ADDRESS
-DATABASE_ENGINE = 'django.db.backends.postgresql'
 DEBUG = False
 LOCAL_SERVER = False
 TRACE_ENABLED = False
@@ -181,7 +181,7 @@ WSGI_APPLICATION = 'notecloud.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': DATABASE_ENGINE,
+        'ENGINE': DB_ENGINE,
         'NAME': DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
