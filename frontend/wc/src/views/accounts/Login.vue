@@ -108,7 +108,11 @@
         var vm = this
 
         if (!this.validation) {
-          alert(this.$t('common.INPUT_ERROR'))
+          this.$dialog.notify.info(
+            this.$t('common.INPUT_ERROR'), {
+              position: 'top-right'
+            }
+          )
           return
         }
 
@@ -147,10 +151,19 @@
         })
         .catch(function (error) {
           if (error.response) {
-            alert(vm.$t('accounts.LOGIN_FAILED'))
+            vm.$dialog.notify.warning(
+              vm.$t('accounts.LOGIN_FAILED'), {
+                position: 'top-right'
+              }
+            )
           }
           else {
-            alert(vm.$t('error.LOGIN_LOGIC'))
+            vm.$dialog.notify.error(
+              vm.$t('error.LOGIN_LOGIC'), {
+                position: 'top-right',
+                timeout: 0
+              }
+            )
           }
         })
       }

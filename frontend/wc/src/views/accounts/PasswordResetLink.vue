@@ -82,7 +82,11 @@
       submit: function () {
         var vm = this
         if (!this.validation) {
-          alert(this.$t('common.INPUT_ERROR'))
+          this.$dialog.notify.info(
+            this.$t('common.INPUT_ERROR'), {
+              position: 'top-right'
+            }
+          )
           return
         }
 
@@ -103,13 +107,21 @@
           localStorage.clear()
 
           axios.defaults.headers.common['Authorization'] = ''
-          alert(vm.$t('accounts.PASSWORD_RESET_COMPLETED'))
+          vm.$dialog.notify.success(
+            vm.$t('accounts.PASSWORD_RESET_COMPLETED'), {
+              position: 'top-right'
+            }
+          )
           router.push({ name: 'accounts.login' })
         })
         .catch(function (error) {
           if (error.response && error.response.data) {
             for (var field in error.response.data) {
-              alert(error.response.data[field])
+              vm.$dialog.notify.info(
+                error.response.data[field], {
+                  position: 'top-right'
+                }
+              )
             }
           }
         })

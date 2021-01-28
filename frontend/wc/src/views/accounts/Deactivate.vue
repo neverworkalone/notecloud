@@ -76,7 +76,11 @@
       submit: function () {
         var vm = this
         if (!this.validation) {
-          alert(this.$t('common.INPUT_ERROR'))
+          this.$dialog.notify.info(
+            this.$t('common.INPUT_ERROR'), {
+              position: 'top-right'
+            }
+          )
           return
         }
 

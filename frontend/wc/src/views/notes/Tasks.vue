@@ -430,19 +430,6 @@
       </v-container>
     </div>
 
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="$const('SNACKBAR_TIMEOUT_MS')"
-    >
-      <v-icon
-        :color="snackbarIconColor"
-        class="mr-1"
-      >
-        {{ this.snackbarIcon }}
-      </v-icon>
-      {{ this.snackbarContent }}
-    </v-snackbar>
-
   </div>
 </template>
 
@@ -479,10 +466,6 @@ export default {
       editDialogExpand: false,
       newDialog: false,
       newDialogExpand: false,
-      snackbar: false,
-      snackbarContent: '',
-      snackbarIcon: '',
-      snackbarIconColor: '',
       firstInit: false
     }
   },
@@ -615,10 +598,12 @@ export default {
     },
     copyToClipboard: function (task) {
       this.$clipboard(task.content)
-      this.snackbarContent = this.$t('tasks.COPIED_TO_CLIPBOARD')
-      this.snackbarIcon = 'mdi-check'
-      this.snackbarIconColor = 'success'
-      this.snackbar = true
+      this.$dialog.notify.success(
+        this.$t('tasks.COPIED_TO_CLIPBOARD'), {
+          position: 'bottom-right',
+          timeout: 2000
+        }
+      )
     },
     editTask: function () {
       var vm = this
@@ -726,10 +711,12 @@ export default {
           }
         }
 
-        vm.snackbarContent = vm.$t('common.DELETED')
-        vm.snackbarIcon = 'mdi-check'
-        vm.snackbarIconColor = 'success'
-        vm.snackbar = true
+        vm.$dialog.notify.success(
+          vm.$t('common.DELETED'), {
+            position: 'bottom-right',
+            timeout: 2000
+          }
+        )
       })
       .catch(function () {
       })

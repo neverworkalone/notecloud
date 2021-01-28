@@ -86,7 +86,11 @@
       submit: function () {
         var vm = this
         if (!this.validation) {
-          alert(this.$t('common.INPUT_ERROR'))
+          this.$dialog.notify.info(
+            this.$t('common.INPUT_ERROR'), {
+              position: 'top-right'
+            }
+          )
           return
         }
 
@@ -99,13 +103,21 @@
           },
         })
         .then(function () {
-          alert(vm.$t('accounts.SIGNUP_COMPLETED'))
+          vm.$dialog.notify.success(
+            vm.$t('accounts.SIGNUP_COMPLETED'), {
+              position: 'top-right'
+            }
+          )
           router.push({ name: 'accounts.login' })
         })
         .catch(function (error) {
           if (error.response && error.response.data) {
             for (var field in error.response.data) {
-              alert(field + ': ' + error.response.data[field])
+              vm.$dialog.notify.info(
+                field + ': ' + error.response.data[field], {
+                  position: 'top-right'
+                }
+              )
             }
           }
         })

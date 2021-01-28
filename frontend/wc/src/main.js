@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import vuetify from './plugins/vuetify'
+import VuetifyDialog from 'vuetify-dialog'
+import 'vuetify-dialog/dist/vuetify-dialog.css'
 import i18n from './plugins/i18n'
 import Clipboard from 'v-clipboard'
 import glovue from './plugins/glovue'
@@ -9,6 +11,11 @@ import { store } from './store'
 import App from './App.vue'
 
 Vue.use(Vuex)
+Vue.use(VuetifyDialog, {
+  context: {
+    vuetify
+  }
+});
 Vue.use(Clipboard)
 Vue.use(glovue);
 Vue.config.productionTip = false

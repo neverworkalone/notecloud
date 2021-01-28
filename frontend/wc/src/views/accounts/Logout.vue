@@ -72,7 +72,12 @@
           localStorage.clear()
 
           axios.defaults.headers.common['Authorization'] = ''
-          router.push({ name: 'home' })
+          vm.$dialog.notify.success(
+            vm.$t('accounts.LOGOUT_COMPLETED'), {
+              position: 'top-right'
+            }
+          )
+          router.push({ name: 'accounts.login' })
         })
         .catch(function () {
           router.push({ name: 'home' })

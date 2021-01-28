@@ -85,7 +85,11 @@
       submit: function () {
         var vm = this
         if (!this.validation) {
-          alert(this.$t('common.INPUT_ERROR'))
+          this.$dialog.notify.info(
+            this.$t('common.INPUT_ERROR'), {
+              position: 'top-right'
+            }
+          )
           return
         }
 
@@ -102,7 +106,11 @@
         .catch(function (error) {
           if (error.response && error.response.data) {
             for (var field in error.response.data) {
-              alert(error.response.data[field])
+              vm.$dialog.notify.info(
+                error.response.data[field], {
+                  position: 'top-right'
+                }
+              )
             }
           }
         })
