@@ -15,5 +15,6 @@ module.exports = {
     https: false,
     hot: true,
     disableHostCheck: true
-  }
+  },
+  outputDir: 'checkcheck.one/dist'
 }
