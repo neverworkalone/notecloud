@@ -1,12 +1,12 @@
 # notecloud
-[![Build Status](https://travis-ci.com/genonfire/notecloud.svg?token=x8L5Xw9gvF2UWqzUyEyx&branch=main)](https://travis-ci.com/genonfire/notecloud) [![codecov](https://codecov.io/gh/genonfire/notecloud/branch/main/graph/badge.svg?token=PM0UMVTOTQ)](https://codecov.io/gh/genonfire/notecloud)
+[![Build Status](https://travis-ci.com/neverworkalone/notecloud.svg?token=x8L5Xw9gvF2UWqzUyEyx&branch=master)](https://travis-ci.com/neverworkalone/notecloud)
 
-Notecloud by gencode
+Notecloud a.k.a. CheckCheck son of Workcloud
 
 
 # Getting started with notecloud
 
-    $ git clone https://github.com/genonfire/notecloud.git
+    $ git clone https://github.com/neverworkalone/notecloud.git
     $ pip install -r requirements.txt
     $ cd frontend/wc
     $ npm install
@@ -14,4 +14,4 @@ Notecloud by gencode
 
 # API Docs
 
-http://wiki.gencode.me/display/WC/API+docs
+http://wiki.gencode.me/display/WC/API+docs (TBD)

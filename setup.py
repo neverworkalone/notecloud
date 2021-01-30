@@ -15,7 +15,7 @@ def read(f):
 setup(
     name='notecloud',
     version=0.1,
-    url='https://github.com/genonfire/notecloud',
+    url='https://github.com/neverworkalone/notecloud',
     license='MIT',
     description='notecloud',
     long_description=read('README.md'),
@@ -43,6 +43,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     project_urls={
-        'Source': 'https://github.com/genonfire/notecloud',
+        'Source': 'https://github.com/neverworkalone/notecloud',
     },
 )

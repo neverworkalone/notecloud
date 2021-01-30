@@ -74,11 +74,11 @@ except IOError:
 # See tests/test_config.json
 
 SITE_NAME = 'Notecloud'
-FRONTEND_URL = 'http://127.0.0.1:8080'
+FRONTEND_URL = 'https://checkcheck.one'
 DEFAULT_FROM_EMAIL = EMAIL_ADDRESS
 DEBUG = False
 LOCAL_SERVER = False
-TRACE_ENABLED = False
+TRACE_ENABLED = True
 REST_PAGINATION_SIZE_DEFAULT = 20
 DATE_TIME_FORMAT_DEFAULT = '%Y-%m-%dT%H:%M:%S%z'
 DATE_FORMAT_DEFAULT = '%Y-%m-%d'
