@@ -81,6 +81,7 @@
         "DELETE_TASK_DESCRIPTION": "추가 확인 없이 바로 삭제합니다.",
         "COPY_CONTENT": "클립보드로 내용 복사",
         "COPIED_TO_CLIPBOARD": "클립보드로 복사했습니다.",
+        "TASK_COMPLETED": "체크체크!",
         "YEAR_MONTH": "{year}년 {month}",
         "TODAY": "오늘"
     },

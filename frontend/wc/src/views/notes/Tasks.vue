@@ -623,6 +623,7 @@ export default {
           if (vm.tasks[i].id == data.id) {
             vm.tasks[i].content = data.content
             vm.tasks[i].color = data.color
+            break
           }
         }
 
@@ -669,6 +670,16 @@ export default {
           if (vm.tasks[i].id == data.id) {
             vm.tasks[i].is_completed = data.is_completed
             vm.tasks[i].date_until = data.date_until
+
+            if (data.is_completed) {
+              vm.$dialog.notify.success(
+                vm.$t('tasks.TASK_COMPLETED'), {
+                  position: 'bottom-right',
+                  timeout: 2000
+                }
+              )
+            }
+            break
           }
         }
       })
@@ -691,6 +702,7 @@ export default {
         for (var i=0; i<vm.tasks.length; i++) {
           if (vm.tasks[i].id == data.id) {
             vm.tasks[i].color = data.color
+            break
           }
         }
       })
@@ -708,6 +720,7 @@ export default {
         for (var i=0; i<vm.tasks.length; i++) {
           if (vm.tasks[i].id == task.id) {
             vm.tasks.splice(i, 1)
+            break
           }
         }
 

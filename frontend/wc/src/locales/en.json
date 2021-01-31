@@ -81,6 +81,7 @@
         "DELETE_TASK_DESCRIPTION": "Immediately delete without a prompt.",
         "COPY_CONTENT": "Copy content to clipboard",
         "COPIED_TO_CLIPBOARD": "Successfully copied to the clipboard.",
+        "TASK_COMPLETED": "Check Check!",
         "YEAR_MONTH": "{month} {year}",
         "TODAY": "Today"
     },
