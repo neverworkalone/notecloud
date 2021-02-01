@@ -34,6 +34,9 @@ class TaskViewSet(ModelViewSet):
     def get_queryset(self):
         return self.model.objects.my(self.request.user)
 
+    def perform_delete(self, instance):
+        tools.delete_task(instance)
+
     def complete(self, request, *args, **kwargs):
         instance = self.get_object()
         tools.toggle_complete(instance)

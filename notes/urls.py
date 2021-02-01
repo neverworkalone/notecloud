@@ -13,7 +13,7 @@ urlpatterns = [
     path(
         'tasks/<int:pk>/', views.TaskViewSet.as_view({
             'patch': 'partial_update',
-            'delete': 'destroy',
+            'delete': 'delete',
         }), name='edit_task'
     ),
     path(

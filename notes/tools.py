@@ -14,6 +14,11 @@ def toggle_complete(task):
     task.save(update_fields=['is_completed', 'date_until'])
 
 
+def delete_task(task):
+    task.is_deleted = True
+    task.save(update_fields=['is_deleted'])
+
+
 def get_first_weekday(date):
     if settings.FIRST_WEEKDAY_SUNDAY:
         if date.isoweekday() == 7:
