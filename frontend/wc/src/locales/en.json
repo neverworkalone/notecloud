@@ -85,6 +85,12 @@
         "YEAR_MONTH": "{month} {year}",
         "TODAY": "Today"
     },
+    "info": {
+        "SITENAME": "CheckCheck"
+    },
+    "error": {
+        "LOGIN_LOGIC": "Error code: Affogato"
+    },
     "calendar": {
         "01": "January",
         "02": "Feburary",
@@ -105,8 +111,5 @@
         "Thu": "Thu",
         "Fri": "Fri",
         "Sat": "Sat"
-    },
-    "error": {
-        "LOGIN_LOGIC": "Error code: Affogato"
     }
 }

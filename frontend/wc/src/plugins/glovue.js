@@ -1,5 +1,4 @@
 const Const = {
-  SITENAME: 'notecloud',
   LANGUAGES: [
     {
       code: 'en',

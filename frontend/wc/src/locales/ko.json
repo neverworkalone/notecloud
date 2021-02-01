@@ -85,6 +85,12 @@
         "YEAR_MONTH": "{year}년 {month}",
         "TODAY": "오늘"
     },
+    "info": {
+        "SITENAME": "체크체크"
+    },
+    "error": {
+        "LOGIN_LOGIC": "에러 코드: 아포가토"
+    },
     "calendar": {
         "01": "1월",
         "02": "2월",
@@ -105,8 +111,5 @@
         "Thu": "목",
         "Fri": "금",
         "Sat": "토"
-    },
-    "error": {
-        "LOGIN_LOGIC": "에러 코드: 아포가토"
     }
 }

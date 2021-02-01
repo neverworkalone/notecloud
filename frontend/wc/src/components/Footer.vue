@@ -7,7 +7,7 @@
     class="font-weight-medium"
   >
     <v-col class="text-center">
-      &copy; {{ new Date().getFullYear() }} {{ $const('SITENAME') }}
+      &copy; {{ new Date().getFullYear() }} {{ $t('info.SITENAME') }}
 
       <v-dialog v-model="dialog" scrollable max-width="300px">
         <template v-slot:activator="{ on }">

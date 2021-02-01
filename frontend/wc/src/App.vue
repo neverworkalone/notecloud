@@ -64,6 +64,8 @@ export default {
     }
   },
   mounted () {
+    document.title = this.$t('info.SITENAME')
+
     var vm = this
     var local_key = localStorage.getItem('token')
     axios.defaults.baseURL = this.$apiURL()
