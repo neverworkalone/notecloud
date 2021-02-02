@@ -2,12 +2,12 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/repos/workcloud/frontend/wc
+    working_directory: ~/repos/notecloud/frontend/wc
     docker:
       - image: vuejs/ci
     steps:
       - checkout:
-          path: ~/repos/workcloud
+          path: ~/repos/notecloud
       - restore_cache:
           keys:
             - v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
@@ -25,6 +25,6 @@ jobs:
 
 workflows:
   version: 2
-  workcloud:
+  notecloud:
     jobs:
       - build
