@@ -1,5 +1,5 @@
 # notecloud
-[![Build Status](https://travis-ci.com/neverworkalone/notecloud.svg?token=x8L5Xw9gvF2UWqzUyEyx&branch=master)](https://travis-ci.com/neverworkalone/notecloud)
+[![Build Status](https://travis-ci.com/neverworkalone/notecloud.svg?token=x8L5Xw9gvF2UWqzUyEyx&branch=master)](https://travis-ci.com/neverworkalone/notecloud) [![CircleCI](https://circleci.com/gh/neverworkalone/notecloud.svg?style=shield&circle-token=a9d14d97a75f3eaf5a953b4a5fde4ca6fed24883)](https://app.circleci.com/pipelines/github/neverworkalone/notecloud)
 
 Notecloud a.k.a. CheckCheck son of Workcloud
 
