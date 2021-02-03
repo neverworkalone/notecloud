@@ -21,6 +21,7 @@ class User(AbstractUser):
     # For later use such as Email confirmation
     is_approved = models.BooleanField(default=False)
     is_prime = models.BooleanField(default=False)
+    prime_until = models.DateField(blank=True, null=True)
 
     objects = UserManager()
 

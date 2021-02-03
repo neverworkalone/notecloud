@@ -182,6 +182,7 @@ class UserSettingSerializer(ModelSerializer):
             'username',
             'is_approved',
             'is_prime',
+            'prime_until',
             'date_joined',
         ]
         read_only_fields = [
@@ -189,6 +190,7 @@ class UserSettingSerializer(ModelSerializer):
             'username',
             'is_approved',
             'is_prime',
+            'prime_until',
             'date_joined',
         ]
 
@@ -202,6 +204,7 @@ class IAmSerializer(ModelSerializer):
             'is_staff',
             'is_approved',
             'is_prime',
+            'prime_until',
             'date_joined',
             'last_login',
         ]

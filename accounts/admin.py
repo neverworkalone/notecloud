@@ -11,6 +11,7 @@ class UserAdmin(admin.ModelAdmin):
         'date_joined',
         'last_login',
         'is_prime',
+        'prime_until',
         'is_approved',
         'is_active',
         'is_staff',
