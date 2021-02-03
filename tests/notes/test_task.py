@@ -15,7 +15,7 @@ class TaskCreateTest(TestCase):
 
     def test_task_new_basic(self):
         response = self.post(
-            '/api/notes/tasks/new/',
+            '/api/notes/task/new/',
             {
                 'date_from': '2020-12-25',
                 'date_until': '2020-12-31',
@@ -38,7 +38,7 @@ class TaskCreateTest(TestCase):
 
     def test_task_new_default_color(self):
         response = self.post(
-            '/api/notes/tasks/new/',
+            '/api/notes/task/new/',
             {
                 'date_from': '2020-12-01',
                 'content': 'Test',
@@ -69,7 +69,7 @@ class TaskUpdateTest(TestCase):
         )
 
         response = self.patch(
-            '/api/notes/tasks/%d/' % task.id,
+            '/api/notes/task/%d/' % task.id,
             {
                 'color': 'white'
             }
@@ -77,17 +77,17 @@ class TaskUpdateTest(TestCase):
         assert response.status_code == Response.HTTP_401
 
         response = self.delete(
-            '/api/notes/tasks/%d/' % task.id,
+            '/api/notes/task/%d/' % task.id,
         )
         assert response.status_code == Response.HTTP_401
 
         response = self.post(
-            '/api/notes/tasks/%d/complete/' % task.id,
+            '/api/notes/task/%d/complete/' % task.id,
         )
         assert response.status_code == Response.HTTP_401
 
         response = self.patch(
-            '/api/notes/tasks/%d/' % task.id,
+            '/api/notes/task/%d/' % task.id,
             {
                 'color': 'white'
             },
@@ -96,20 +96,20 @@ class TaskUpdateTest(TestCase):
         assert response.status_code == Response.HTTP_404
 
         response = self.delete(
-            '/api/notes/tasks/%d/' % task.id,
+            '/api/notes/task/%d/' % task.id,
             auth=True
         )
         assert response.status_code == Response.HTTP_404
 
         response = self.post(
-            '/api/notes/tasks/%d/complete/' % task.id,
+            '/api/notes/task/%d/complete/' % task.id,
             auth=True
         )
         assert response.status_code == Response.HTTP_404
 
     def test_task_update(self):
         response = self.patch(
-            '/api/notes/tasks/%d/' % self.task.id,
+            '/api/notes/task/%d/' % self.task.id,
             {
                 'date_from': '2020-12-25',
                 'content': 'Boxing',
@@ -130,7 +130,7 @@ class TaskUpdateTest(TestCase):
 
     def test_task_toggle_complete(self):
         response = self.post(
-            '/api/notes/tasks/%d/complete/' % self.task.id,
+            '/api/notes/task/%d/complete/' % self.task.id,
             auth=True
         )
         assert (
@@ -139,7 +139,7 @@ class TaskUpdateTest(TestCase):
             self.data.get('is_completed') != self.task.is_completed
         )
         response = self.post(
-            '/api/notes/tasks/%d/complete/' % self.task.id,
+            '/api/notes/task/%d/complete/' % self.task.id,
             auth=True
         )
         assert (
@@ -150,7 +150,7 @@ class TaskUpdateTest(TestCase):
 
     def test_task_delete(self):
         response = self.delete(
-            '/api/notes/tasks/%d/' % self.task.id,
+            '/api/notes/task/%d/' % self.task.id,
             auth=True
         )
         assert response.status_code == Response.HTTP_204
@@ -170,7 +170,7 @@ class TaskListTest(TestCase):
         )
 
         self.post(
-            '/api/notes/tasks/%d/complete/' % self.task.id,
+            '/api/notes/task/%d/complete/' % self.task.id,
             auth=True
         )
         response = self.get(
@@ -200,7 +200,7 @@ class TaskListTest(TestCase):
         )
 
         self.post(
-            '/api/notes/tasks/%d/complete/' % task.id,
+            '/api/notes/task/%d/complete/' % task.id,
             auth=True
         )
         response = self.get(
