@@ -40,3 +40,33 @@ class TaskSerializer(ModelSerializer):
             date_from=validated_data.get('date_from'),
         )
         return task
+
+
+class MemoSerializer(ModelSerializer):
+    class Meta:
+        model = models.Memo
+        fields = [
+            'id',
+            'owner',
+            'title',
+            'content',
+            'updated_at',
+            'is_deleted',
+        ]
+        read_only_fields = [
+            'id',
+            'updated_at',
+            'is_deleted',
+        ]
+        extra_kwargs = {
+            'title': {'required': True},
+            'content': {'required': True},
+        }
+
+    def create(self, validated_data):
+        task = self.Meta.model.objects.create(
+            owner=self.context.get('request').user,
+            title=validated_data.get('title'),
+            content=validated_data.get('content'),
+        )
+        return task

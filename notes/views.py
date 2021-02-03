@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from core.permissions import (
     IsApproved,
+    IsPrime,
 )
 from core.response import (
     PaginatedResponse,
@@ -106,3 +107,18 @@ class TaskListViewSet(TaskViewSet):
             data=data,
             pagination=pagination,
         )
+
+
+class MemoViewSet(ModelViewSet):
+    serializer_class = serializers.MemoSerializer
+    model = models.Memo
+
+    def get_permissions(self):
+        permission_classes = [IsPrime]
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        return self.model.objects.my(self.request.user)
+
+    def perform_delete(self, instance):
+        tools.delete_memo(instance)

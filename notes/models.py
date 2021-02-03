@@ -16,18 +16,6 @@ class TaskManager(models.Manager):
     def my_ongoing(self, user):
         return self.my(user).filter(is_completed=False)
 
-    def active_tasks(self, user, first_weekday):
-        last_weekday = first_weekday + timezone.timedelta(6)
-        tasks = (
-            Q(is_completed=False) |
-            (
-                Q(is_completed=True) &
-                Q(date_until__gte=first_weekday) &
-                Q(date_until__lte=last_weekday)
-            )
-        )
-        return self.my(user).filter(tasks)
-
     def today_tasks(self, user, date=None):
         if not date:
             date = timezone.now()
@@ -77,7 +65,8 @@ class Task(models.Model):
 
 
 class MemoManager(models.Manager):
-    pass
+    def my(self, user):
+        return self.filter(owner=user).filter(is_deleted=False)
 
 
 class Memo(models.Model):

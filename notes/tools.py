@@ -55,3 +55,9 @@ def get_weekly_calendar(first_weekday):
         calendar.append(data)
 
     return calendar
+
+
+def delete_memo(memo):
+    memo.is_deleted = True
+    memo.updated_at = timezone.now()
+    memo.save(update_fields=['is_deleted', 'updated_at'])

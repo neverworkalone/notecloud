@@ -26,4 +26,15 @@ urlpatterns = [
             'get': 'list'
         }), name='tasks'
     ),
+    path(
+        'memo/new/', views.MemoViewSet.as_view({
+            'post': 'create',
+        }), name='new_memo'
+    ),
+    path(
+        'memo/<int:pk>/', views.MemoViewSet.as_view({
+            'patch': 'partial_update',
+            'delete': 'delete',
+        }), name='edit_memo'
+    ),
 ]
