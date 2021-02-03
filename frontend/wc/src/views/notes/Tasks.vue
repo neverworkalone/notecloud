@@ -609,8 +609,10 @@ export default {
       var vm = this
 
       axios({
-        method: 'patch',
-        url: '/notes/task/' + this.editID + '/',
+        method: this.$api('NOTES_EDIT_TASK').method,
+        url: this.$api('NOTES_EDIT_TASK').url.replace(
+          '{pk}', this.editID
+        ),
         data: {
           'content': this.editContent,
           'color': this.editColor
@@ -637,8 +639,8 @@ export default {
       var vm = this
 
       axios({
-        method: 'post',
-        url: '/notes/task/new/',
+        method: this.$api('NOTES_NEW_TASK').method,
+        url: this.$api('NOTES_NEW_TASK').url,
         data: {
           'date_from': this.dateCurrent,
           'content': this.newContent,
@@ -660,8 +662,10 @@ export default {
       var vm = this
 
       axios({
-        method: 'post',
-        url: '/notes/task/' + task.id + '/complete/'
+        method: this.$api('NOTES_COMPLETE_TASK').method,
+        url: this.$api('NOTES_COMPLETE_TASK').url.replace(
+          '{pk}', task.id
+        )
       })
       .then(function (response) {
         var data = response.data['data']
@@ -690,8 +694,10 @@ export default {
       var vm = this
 
       axios({
-        method: 'patch',
-        url: '/notes/task/' + id + '/',
+        method: this.$api('NOTES_EDIT_TASK').method,
+        url: this.$api('NOTES_EDIT_TASK').url.replace(
+          '{pk}', id
+        ),
         data: {
           color: color,
         },
@@ -713,8 +719,10 @@ export default {
       var vm = this
 
       axios({
-        method: 'delete',
-        url: '/notes/task/' + task.id + '/'
+        method: this.$api('NOTES_DELETE_TASK').method,
+        url: this.$api('NOTES_DELETE_TASK').url.replace(
+          '{pk}', task.id
+        )
       })
       .then(function () {
         for (var i=0; i<vm.tasks.length; i++) {
@@ -736,14 +744,16 @@ export default {
     },
     getTasks: function (date) {
       var vm = this
-      var url = '/notes/tasks/'
+      var url = this.$api('NOTES_TASKS').url
 
       if (date) {
-        url = '/notes/tasks/?date=' + date
+        url = this.$api('NOTES_TASKS_DATE').url.replace(
+          '{date}', date
+        )
       }
 
       axios({
-        method: 'get',
+        method: this.$api('NOTES_TASKS').method,
         url: url
       })
       .then(function (response) {

@@ -50,6 +50,31 @@ const APIs = {
   ACCOUNTS_DEACTIVATE: {
     'method': 'post',
     'url': '/accounts/deactivate/'
+  },
+
+  NOTES_NEW_TASK: {
+    'method': 'post',
+    'url': '/notes/task/new/'
+  },
+  NOTES_EDIT_TASK: {
+    'method': 'patch',
+    'url': '/notes/task/{pk}/'
+  },
+  NOTES_DELETE_TASK: {
+    'method': 'delete',
+    'url': '/notes/task/{pk}/'
+  },
+  NOTES_COMPLETE_TASK: {
+    'method': 'post',
+    'url': '/notes/task/{pk}/complete/'
+  },
+  NOTES_TASKS: {
+    'method': 'get',
+    'url': '/notes/tasks/'
+  },
+  NOTES_TASKS_DATE: {
+    'method': 'get',
+    'url': '/notes/tasks/?date={date}'
   }
 }
 
