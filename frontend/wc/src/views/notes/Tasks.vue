@@ -610,7 +610,7 @@ export default {
 
       axios({
         method: 'patch',
-        url: '/notes/tasks/' + this.editID + '/',
+        url: '/notes/task/' + this.editID + '/',
         data: {
           'content': this.editContent,
           'color': this.editColor
@@ -638,7 +638,7 @@ export default {
 
       axios({
         method: 'post',
-        url: '/notes/tasks/new/',
+        url: '/notes/task/new/',
         data: {
           'date_from': this.dateCurrent,
           'content': this.newContent,
@@ -661,7 +661,7 @@ export default {
 
       axios({
         method: 'post',
-        url: '/notes/tasks/' + task.id + '/complete/'
+        url: '/notes/task/' + task.id + '/complete/'
       })
       .then(function (response) {
         var data = response.data['data']
@@ -691,7 +691,7 @@ export default {
 
       axios({
         method: 'patch',
-        url: '/notes/tasks/' + id + '/',
+        url: '/notes/task/' + id + '/',
         data: {
           color: color,
         },
@@ -714,7 +714,7 @@ export default {
 
       axios({
         method: 'delete',
-        url: '/notes/tasks/' + task.id + '/'
+        url: '/notes/task/' + task.id + '/'
       })
       .then(function () {
         for (var i=0; i<vm.tasks.length; i++) {
