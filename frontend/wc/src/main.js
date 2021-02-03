@@ -5,6 +5,7 @@ import VuetifyDialog from 'vuetify-dialog'
 import 'vuetify-dialog/dist/vuetify-dialog.css'
 import i18n from './plugins/i18n'
 import Clipboard from 'v-clipboard'
+import apiurls from './plugins/apiurls'
 import glovue from './plugins/glovue'
 import router from './router'
 import { store } from './store'
@@ -17,6 +18,7 @@ Vue.use(VuetifyDialog, {
   }
 });
 Vue.use(Clipboard)
+Vue.use(apiurls);
 Vue.use(glovue);
 Vue.config.productionTip = false
 

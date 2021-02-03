@@ -68,7 +68,7 @@ export default {
 
     var vm = this
     var local_key = localStorage.getItem('token')
-    axios.defaults.baseURL = this.$apiURL()
+    axios.defaults.baseURL = this.$baseURL()
 
     var date_format = localStorage.getItem('date_format')
     if (!date_format) {
@@ -78,8 +78,8 @@ export default {
 
     if (local_key) {
       axios({
-        method: 'post',
-        url: '/accounts/connect/',
+        method: this.$api('ACCOUNTS_CONNECT').method,
+        url: this.$api('ACCOUNTS_CONNECT').url,
         headers: {
           Authorization: 'Token ' + local_key
         }
