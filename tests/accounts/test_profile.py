@@ -44,7 +44,6 @@ class ProfileTest(TestCase):
             },
             auth=True
         )
-        self.log(self.data.get('is_prime'), self.data.get('prime_until'))
         assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('username') == self.user.username and

@@ -1,6 +1,7 @@
 import datetime
 
 from django.conf import settings
+from django.db.models import Q
 from django.utils import timezone
 
 from core.permissions import (
@@ -15,6 +16,7 @@ from core.viewsets import (
     ModelViewSet,
 )
 
+from utils.constants import Const
 from utils.debug import Debug  # noqa
 
 from . import (
@@ -122,3 +124,17 @@ class MemoViewSet(ModelViewSet):
 
     def perform_delete(self, instance):
         tools.delete_memo(instance)
+
+
+class MemoListViewSet(MemoViewSet):
+    def get_queryset(self):
+        q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH_QUERY)
+        if q:
+            search_query = (
+                Q(title__icontains=q) |
+                Q(content__icontains=q)
+            )
+        else:
+            search_query = Q()
+
+        return self.model.objects.my(self.request.user).filter(search_query)

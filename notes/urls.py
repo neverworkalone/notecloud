@@ -37,4 +37,9 @@ urlpatterns = [
             'delete': 'delete',
         }), name='edit_memo'
     ),
+    path(
+        'memos/', views.MemoListViewSet.as_view({
+            'get': 'list'
+        }), name='memos'
+    ),
 ]

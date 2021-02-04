@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 from accounts.models import User
 from accounts.tools import Test
 
-from notes.models import Task
+from notes.models import Memo, Task
 
 
 class TestCase(_TestCase):
@@ -86,7 +86,7 @@ class TestCase(_TestCase):
 
         return APIClient(enforce_csrf_checks=True, HTTP_USER_AGENT=user_agent)
 
-    def create_user(self):
+    def create_user(self, is_prime=False):
         self.client = self.get_client()
         self.username = Test.USERNAME
         self.password = Test.PASSWORD
@@ -94,23 +94,21 @@ class TestCase(_TestCase):
             username=self.username,
             password=self.password,
             is_approved=True,
-            is_prime=False,
+            is_prime=is_prime,
         )
 
         self.key = self.user.key()
         self.auth_header = 'Token ' + self.key
 
     def create_task(
-        self, owner=None, date_from=None, content=None, color=None
+        self,
+        owner=None,
+        date_from='2020-12-24',
+        content='Meet Santa',
+        color='red'
     ):
         if not owner:
             owner = self.user
-        if not date_from:
-            date_from = '2020-12-24'
-        if not content:
-            content = 'Meet Santa'
-        if not color:
-            color = 'red'
 
         self.task = Task.objects.create(
             owner=owner,
@@ -118,3 +116,20 @@ class TestCase(_TestCase):
             color=color,
             date_from=date_from,
         )
+        return self.task
+
+    def create_memo(
+        self,
+        owner=None,
+        title='test',
+        content='content'
+    ):
+        if not owner:
+            owner = self.user
+
+        self.memo = Memo.objects.create(
+            owner=owner,
+            title=title,
+            content=content,
+        )
+        return self.memo
