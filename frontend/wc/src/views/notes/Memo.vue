@@ -128,15 +128,16 @@
 <script>
 import axios from 'axios'
 import FormatDate from '@/mixins/formatDate'
+import Mobile from '@/mixins/mobile'
 
 export default {
   mixins: [
-    FormatDate
+    FormatDate,
+    Mobile
   ],
   data () {
     return {
       memos: '',
-      isMobile: false,
       firstInit: false
     }
   },
@@ -146,9 +147,6 @@ export default {
     }
   },
   mounted () {
-    this.onResize()
-    window.addEventListener('resize', this.onResize, { passive: true })
-
     this.getMemo()
   },
   methods: {
@@ -173,9 +171,6 @@ export default {
       })
       .catch(function () {
       })
-    },
-    onResize () {
-      this.isMobile = window.innerWidth < 600
     }
   }
 }
