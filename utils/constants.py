@@ -33,6 +33,7 @@ class _ConstProject(_Const):
 
     COLOR_MAX_LENGTH = 32
     TASK_COLOR_DEFAULT = 'white'
+    MEMO_TIME_FORMAT = '%I:%M %p'
 
 
 Const = _ConstProject()

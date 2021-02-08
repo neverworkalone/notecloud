@@ -91,4 +91,19 @@ class Memo(models.Model):
     objects = MemoManager()
 
     class Meta:
-        ordering = ('-id',)
+        ordering = ('-updated_at',)
+
+    def date_or_time(self):
+        today = timezone.localtime(timezone.now())
+        updated_at = timezone.localtime(self.updated_at)
+
+        if updated_at.date() == today.date():
+            return {
+                'date': None,
+                'time': updated_at.time().strftime(Const.MEMO_TIME_FORMAT),
+            }
+        else:
+            return {
+                'date': updated_at.date(),
+                'time': None,
+            }

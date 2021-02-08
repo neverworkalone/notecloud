@@ -50,11 +50,13 @@ class MemoSerializer(ModelSerializer):
             'title',
             'content',
             'updated_at',
+            'date_or_time',
             'is_deleted',
         ]
         read_only_fields = [
             'id',
             'updated_at',
+            'date_or_time',
             'is_deleted',
         ]
         extra_kwargs = {

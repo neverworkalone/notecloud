@@ -85,6 +85,13 @@
         "YEAR_MONTH": "{year}년 {month}",
         "TODAY": "오늘"
     },
+    "memo": {
+        "COPY_MEMO_LINK": "링크 복사",
+        "SHARE_MEMO": "공유",
+        "SHARE_MEMO_DESCRIPTION": "누구나 볼 수 있도록 공유합니다.",
+        "DELETE_MEMO": "메모 삭제",
+        "DELETE_MEMO_DESCRIPTION": "추가 확인 없이 바로 삭제합니다."
+    },
     "info": {
         "SITENAME": "체크체크"
     },

@@ -75,6 +75,22 @@ const APIs = {
   NOTES_TASKS_DATE: {
     'method': 'get',
     'url': '/notes/tasks/?date={date}'
+  },
+  NOTES_NEW_MEMO: {
+    'method': 'post',
+    'url': '/notes/memo/new/'
+  },
+  NOTES_EDIT_MEMO: {
+    'method': 'patch',
+    'url': '/notes/memo/{pk}/'
+  },
+  NOTES_DELETE_MEMO: {
+    'method': 'delete',
+    'url': '/notes/memo/{pk}/'
+  },
+  NOTES_MEMOS: {
+    'method': 'get',
+    'url': '/notes/memos/'
   }
 }
 

@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import SettingMenu from '../../components/SettingMenu'
+import SettingMenu from '@/components/SettingMenu'
 import { mapState } from 'vuex';
 
 export default {

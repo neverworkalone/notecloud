@@ -74,7 +74,14 @@
       >
       </v-app-bar-nav-icon>
 
-      <router-link :to="{ name: 'home' }">
+      <router-link :to="{ name: 'notes.tasks' }">
+        <v-img
+          src="@/assets/logo.png"
+          max-width="50"
+        ></v-img>
+      </router-link>
+
+      <router-link :to="{ name: 'notes.memo' }">
         <v-img
           src="@/assets/logo.png"
           max-width="50"

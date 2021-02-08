@@ -85,6 +85,13 @@
         "YEAR_MONTH": "{month} {year}",
         "TODAY": "Today"
     },
+    "memo": {
+        "COPY_MEMO_LINK": "Copy link",
+        "SHARE_MEMO": "Share",
+        "SHARE_MEMO_DESCRIPTION": "Share memo with everyone.",
+        "DELETE_MEMO": "Delete memo",
+        "DELETE_MEMO_DESCRIPTION": "Immediately delete without a prompt."
+    },
     "info": {
         "SITENAME": "CheckCheck"
     },

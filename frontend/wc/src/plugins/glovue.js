@@ -38,12 +38,12 @@ const Const = {
     { color: 'blue-grey lighten-1', sibling: 'blue-grey' },
     { color: 'grey', sibling: 'grey darken-1' }
   ],
-  PASSWORD_MIN: 8,
   TASK_CARD_MIN_WIDTH: '240',
   TASK_CARD_MAX_WIDTH: '348',
   TASK_NEW_MAX_WIDTH: '530',
   RANDOM_COLOR_FOR_NEW: false,
   DEFAULT_COLOR_INDEX: 0,
+  PASSWORD_MIN: 8
 }
 
 Const.install = function (Vue) {

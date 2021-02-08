@@ -441,8 +441,12 @@
 
 <script>
 import axios from 'axios'
+import FormatDate from '@/mixins/formatDate'
 
 export default {
+  mixins: [
+    FormatDate
+  ],
   data () {
     return {
       dateBefore: '',
@@ -478,9 +482,6 @@ export default {
     },
     getNewColor () {
       return this.newColor
-    },
-    dateFormat () {
-      return localStorage.getItem('date_format')
     },
     initialized () {
       return this.firstInit
@@ -553,22 +554,6 @@ export default {
     },
     getCalendarDay: function (date) {
       return parseInt(date.split('-')[2])
-    },
-    formatDate: function (dateIn) {
-      var date = dateIn.split('-')
-
-      if (this.dateFormat == 'YYYY/MM/DD') {
-        return [date[0], date[1], date[2]].join('/')
-      }
-      else if (this.dateFormat == 'MM/DD/YYYY') {
-        return [date[1], date[2], date[0]].join('/')
-      }
-      else if (this.dateFormat == 'DD/MM/YYYY') {
-        return [date[2], date[1], date[0]].join('/')
-      }
-      else {
-        return [date[0], date[1], date[2]].join('-')
-      }
     },
     getTaskDate: function (task) {
       var dateFrom = this.formatDate(task.date_from)
