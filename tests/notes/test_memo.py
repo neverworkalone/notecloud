@@ -120,6 +120,16 @@ class MemoListTest(TestCase):
         for index, memo in enumerate(reversed(memo_list)):
             assert (
                 memo.id == self.data[index].get('id') and
-                memo.title == self.data[index].get('title') and
-                memo.content == self.data[index].get('content')
+                memo.title == self.data[index].get('title')
+            )
+
+        for index, memo in enumerate(reversed(memo_list)):
+            response = self.get(
+                '/api/notes/memo/%d/' % memo.id,
+                auth=True
+            )
+            assert (
+                response.status_code == Response.HTTP_200 and
+                self.data.get('title') == memo.title and
+                self.data.get('content') == memo.content
             )

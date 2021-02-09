@@ -35,7 +35,8 @@ urlpatterns = [
         'memo/<int:pk>/', views.MemoViewSet.as_view({
             'patch': 'partial_update',
             'delete': 'delete',
-        }), name='edit_memo'
+            'get': 'retrieve',
+        }), name='memo'
     ),
     path(
         'memos/', views.MemoListViewSet.as_view({

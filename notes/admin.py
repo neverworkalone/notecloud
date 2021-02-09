@@ -22,13 +22,10 @@ class TaskAdmin(admin.ModelAdmin):
         'content',
     )
     ordering = (
-        '-date_from',
         '-id',
-        'created_at',
     )
     list_display_links = (
         'id',
-        'owner',
         'content',
     )
 
@@ -39,8 +36,9 @@ class MemoAdmin(admin.ModelAdmin):
         'id',
         'owner',
         'title',
-        'content',
+        'doctype',
         'updated_at',
+        'is_shared',
         'is_deleted',
     )
     search_fields = (
@@ -51,10 +49,8 @@ class MemoAdmin(admin.ModelAdmin):
     )
     ordering = (
         '-id',
-        'updated_at',
     )
     list_display_links = (
         'id',
-        'owner',
         'title',
     )

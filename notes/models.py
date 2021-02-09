@@ -86,6 +86,12 @@ class Memo(models.Model):
         null=True,
     )
     updated_at = models.DateTimeField(default=timezone.now)
+    doctype = models.CharField(
+        max_length=Const.MEMO_TYPE_MAX_LENGTH,
+        blank=True,
+        null=True,
+    )
+    is_shared = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
 
     objects = MemoManager()

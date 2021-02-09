@@ -61,3 +61,7 @@ def delete_memo(memo):
     memo.is_deleted = True
     memo.updated_at = timezone.now()
     memo.save(update_fields=['is_deleted', 'updated_at'])
+
+
+def get_doctype(content):  # TODO: implement
+    return 'doc'

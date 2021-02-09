@@ -5,7 +5,10 @@ from core.serializers import (
 from utils.constants import Const
 from utils.debug import Debug  # noqa
 
-from . import models
+from . import (
+    models,
+    tools,
+)
 
 
 class TaskSerializer(ModelSerializer):
@@ -49,14 +52,15 @@ class MemoSerializer(ModelSerializer):
             'id',
             'title',
             'content',
+            'doctype',
             'updated_at',
-            'date_or_time',
+            'is_shared',
             'is_deleted',
         ]
         read_only_fields = [
             'id',
+            'doctype',
             'updated_at',
-            'date_or_time',
             'is_deleted',
         ]
         extra_kwargs = {
@@ -65,9 +69,26 @@ class MemoSerializer(ModelSerializer):
         }
 
     def create(self, validated_data):
+        content = validated_data.get('content')
+        doctype = tools.get_doctype(content)
+
         task = self.Meta.model.objects.create(
             owner=self.context.get('request').user,
             title=validated_data.get('title'),
-            content=validated_data.get('content'),
+            content=content,
+            doctype=doctype,
         )
         return task
+
+
+class MemoListSerializer(ModelSerializer):
+    class Meta:
+        model = models.Memo
+        fields = [
+            'id',
+            'title',
+            'doctype',
+            'date_or_time',
+            'is_shared',
+            'is_deleted'
+        ]

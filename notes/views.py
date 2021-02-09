@@ -14,6 +14,7 @@ from core.response import (
 )
 from core.viewsets import (
     ModelViewSet,
+    ReadOnlyModelViewSet,
 )
 
 from utils.constants import Const
@@ -47,7 +48,14 @@ class TaskViewSet(ModelViewSet):
         return Response(serializer.data)
 
 
-class TaskListViewSet(TaskViewSet):
+class TaskListViewSet(ReadOnlyModelViewSet):
+    serializer_class = serializers.TaskSerializer
+    model = models.Task
+
+    def get_permissions(self):
+        permission_classes = [IsApproved]
+        return [permission() for permission in permission_classes]
+
     def get_queryset(self, date):
         return self.model.objects.today_tasks(self.request.user, date)
 
@@ -126,7 +134,14 @@ class MemoViewSet(ModelViewSet):
         tools.delete_memo(instance)
 
 
-class MemoListViewSet(MemoViewSet):
+class MemoListViewSet(ReadOnlyModelViewSet):
+    serializer_class = serializers.MemoListSerializer
+    model = models.Memo
+
+    def get_permissions(self):
+        permission_classes = [IsPrime]
+        return [permission() for permission in permission_classes]
+
     def get_queryset(self):
         q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH_QUERY)
         if q:
