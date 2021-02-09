@@ -68,6 +68,15 @@ class MemoManager(models.Manager):
     def my(self, user):
         return self.filter(owner=user).filter(is_deleted=False)
 
+    def my_trash(self, user):
+        return self.filter(owner=user).filter(is_deleted=True)
+
+    def my_shared(self, user):
+        return self.my(user).filter(is_shared=True)
+
+    def shared(self):
+        return self.filter(is_deleted=False).filter(is_shared=True)
+
 
 class Memo(models.Model):
     owner = models.ForeignKey(

@@ -43,4 +43,14 @@ urlpatterns = [
             'get': 'list'
         }), name='memos'
     ),
+    path(
+        'memos/shared/', views.SharedMemoListViewSet.as_view({
+            'get': 'list'
+        }), name='shared_memos'
+    ),
+    path(
+        'memo/shared/<int:pk>/', views.SharedMemoViewSet.as_view({
+            'get': 'retrieve'
+        }), name='shared_memo'
+    ),
 ]

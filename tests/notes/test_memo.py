@@ -133,3 +133,93 @@ class MemoListTest(TestCase):
                 self.data.get('title') == memo.title and
                 self.data.get('content') == memo.content
             )
+
+
+class MemoShareTest(TestCase):
+    def setUp(self):
+        self.create_user(is_prime=True)
+        self.create_memo()
+
+    def test_memo_yet_shared(self):
+        response = self.get(
+            '/api/notes/memo/shared/%d/' % self.memo.id
+        )
+        assert (
+            response.status_code == Response.HTTP_404
+        )
+
+        response = self.get(
+            '/api/notes/memos/shared/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not len(self.data)
+        )
+
+        response = self.get(
+            '/api/notes/memo/shared/%d/' % self.memo.id,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_404
+        )
+
+    def test_memo_shared(self):
+        response = self.patch(
+            '/api/notes/memo/%d/' % self.memo.id,
+            {
+                'is_shared': True,
+            },
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('is_shared')
+        )
+
+        response = self.get(
+            '/api/notes/memos/shared/'
+        )
+        assert (
+            response.status_code == Response.HTTP_401
+        )
+
+        response = self.get(
+            '/api/notes/memos/shared/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            len(self.data) == 1 and
+            self.data[0].get('id') == self.memo.id
+        )
+
+        response = self.get(
+            '/api/notes/memo/shared/%d/' % self.memo.id
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('title') and
+            self.data.get('content')
+        )
+
+    def test_memo_delete_shared(self):
+        self.patch(
+            '/api/notes/memo/%d/' % self.memo.id,
+            {
+                'is_shared': True,
+            },
+            auth=True
+        )
+        self.delete(
+            '/api/notes/memo/%d/' % self.memo.id,
+            auth=True
+        )
+        response = self.get(
+            '/api/notes/memo/shared/%d/' % self.memo.id
+        )
+        assert (
+            response.status_code == Response.HTTP_404
+        )
+        # TODO: check whether is_shared is False after restoring it

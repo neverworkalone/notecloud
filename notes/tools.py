@@ -59,8 +59,9 @@ def get_weekly_calendar(first_weekday):
 
 def delete_memo(memo):
     memo.is_deleted = True
+    memo.is_shared = False
     memo.updated_at = timezone.now()
-    memo.save(update_fields=['is_deleted', 'updated_at'])
+    memo.save(update_fields=['is_deleted', 'is_shared', 'updated_at'])
 
 
 def get_doctype(content):  # TODO: implement

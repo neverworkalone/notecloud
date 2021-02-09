@@ -122,7 +122,8 @@ class TestCase(_TestCase):
         self,
         owner=None,
         title='test',
-        content='content'
+        content='content',
+        doctype='text'
     ):
         if not owner:
             owner = self.user
@@ -131,5 +132,6 @@ class TestCase(_TestCase):
             owner=owner,
             title=title,
             content=content,
+            doctype=doctype,
         )
         return self.memo

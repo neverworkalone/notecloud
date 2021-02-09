@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from core.permissions import (
+    AllowAny,
     IsApproved,
     IsPrime,
 )
@@ -153,3 +154,20 @@ class MemoListViewSet(ReadOnlyModelViewSet):
             search_query = Q()
 
         return self.model.objects.my(self.request.user).filter(search_query)
+
+
+class SharedMemoListViewSet(MemoListViewSet):
+    def get_queryset(self):
+        return self.model.objects.my_shared(self.request.user)
+
+
+class SharedMemoViewSet(ReadOnlyModelViewSet):
+    serializer_class = serializers.MemoSerializer
+    model = models.Memo
+
+    def get_permissions(self):
+        permission_classes = [AllowAny]
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        return self.model.objects.shared()
