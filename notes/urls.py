@@ -39,18 +39,33 @@ urlpatterns = [
         }), name='memo'
     ),
     path(
+        'memo/<int:pk>/restore/', views.MemoTrashViewSet.as_view({
+            'post': 'restore',
+        }), name='restore_memo'
+    ),
+    path(
         'memos/', views.MemoListViewSet.as_view({
-            'get': 'list'
+            'get': 'list',
         }), name='memos'
     ),
     path(
+        'memos/trash/', views.MemoTrashListViewSet.as_view({
+            'get': 'list',
+        }), name='trash_memos'
+    ),
+    path(
+        'memos/trash/empty/', views.MemoTrashViewSet.as_view({
+            'post': 'empty',
+        }), name='empty_trash_memos'
+    ),
+    path(
         'memos/shared/', views.SharedMemoListViewSet.as_view({
-            'get': 'list'
+            'get': 'list',
         }), name='shared_memos'
     ),
     path(
         'memo/shared/<int:pk>/', views.SharedMemoViewSet.as_view({
-            'get': 'retrieve'
+            'get': 'retrieve',
         }), name='shared_memo'
     ),
 ]

@@ -135,6 +135,25 @@ class MemoViewSet(ModelViewSet):
         tools.delete_memo(instance)
 
 
+class MemoTrashViewSet(MemoViewSet):
+    def get_queryset(self):
+        return self.model.objects.my_trash(self.request.user)
+
+    def restore(self, request, *args, **kwargs):
+        instance = self.get_object()
+        Debug.trace(
+            'Restoring %s' % instance
+        )
+        tools.restore_memo(instance)
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def empty(self, request, *args, **kwargs):
+        self.get_queryset().delete()
+        return Response(status=Response.HTTP_204)
+
+
 class MemoListViewSet(ReadOnlyModelViewSet):
     serializer_class = serializers.MemoListSerializer
     model = models.Memo
@@ -154,6 +173,11 @@ class MemoListViewSet(ReadOnlyModelViewSet):
             search_query = Q()
 
         return self.model.objects.my(self.request.user).filter(search_query)
+
+
+class MemoTrashListViewSet(MemoListViewSet):
+    def get_queryset(self):
+        return self.model.objects.my_trash(self.request.user)
 
 
 class SharedMemoListViewSet(MemoListViewSet):

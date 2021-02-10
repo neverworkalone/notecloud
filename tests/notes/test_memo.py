@@ -71,6 +71,12 @@ class MemoUpdateTest(TestCase):
             self.data.get('content') == 'no content'
         )
 
+
+class MemoTrashTest(TestCase):
+    def setUp(self):
+        self.create_user(is_prime=True)
+        self.create_memo()
+
     def test_memo_delete(self):
         response = self.delete(
             '/api/notes/memo/%d/' % self.memo.id,
@@ -83,6 +89,54 @@ class MemoUpdateTest(TestCase):
             auth=True
         )
         assert not self.data
+
+    def test_memo_trash(self):
+        memo_list = []
+        for index in range(5):
+            memo = self.create_memo()
+            memo_list.append(memo)
+
+            self.delete(
+                '/api/notes/memo/%d/' % memo.id,
+                auth=True
+            )
+
+        self.get(
+            '/api/notes/memos/trash/',
+            auth=True
+        )
+        for index, memo in enumerate(reversed(memo_list)):
+            assert (
+                memo.id == self.data[index].get('id') and
+                memo.title == self.data[index].get('title')
+            )
+
+        self.post(
+            '/api/notes/memo/%d/restore/' % memo_list[0].id,
+            auth=True
+        )
+        self.get(
+            '/api/notes/memos/trash/',
+            auth=True
+        )
+        assert (
+            len(self.data) == 4
+        )
+
+        response = self.post(
+            '/api/notes/memos/trash/empty/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_204
+        )
+        response = self.get(
+            '/api/notes/memos/trash/',
+            auth=True
+        )
+        assert (
+            not len(self.data)
+        )
 
 
 class MemoListTest(TestCase):
@@ -222,4 +276,12 @@ class MemoShareTest(TestCase):
         assert (
             response.status_code == Response.HTTP_404
         )
-        # TODO: check whether is_shared is False after restoring it
+
+        response = self.post(
+            '/api/notes/memo/%d/restore/' % self.memo.id,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not self.data.get('is_shared')
+        )
