@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils import timezone
 
+from utils.constants import Const
 from utils.debug import Debug  # noqa
 
 
@@ -72,5 +73,14 @@ def restore_memo(memo):
         memo.save(update_fields=['is_deleted', 'updated_at'])
 
 
-def get_doctype(content):  # TODO: implement
-    return 'doc'
+def get_doctype(content):
+    if Const.DOCTYPE_CODE in content:
+        return 'code'
+    elif Const.DOCTYPE_TABLE in content:
+        return 'table'
+    elif Const.DOCTYPE_BULLET in content:
+        return 'bullet'
+    elif Const.DOCTYPE_ORDER in content:
+        return 'order'
+    else:
+        return 'doc'

@@ -5,6 +5,8 @@ from django.utils import timezone
 from core.response import Response
 from core.testcase import TestCase
 
+from utils.constants import Const
+
 from notes.models import Memo
 
 
@@ -323,3 +325,69 @@ class MemoShareTest(TestCase):
             response.status_code == Response.HTTP_200 and
             not self.data.get('is_shared')
         )
+
+
+class MemoDocTypeTest(TestCase):
+    def setUp(self):
+        self.create_user(is_prime=True)
+
+    def test_memo_doctype_code(self):
+        self.post(
+            '/api/notes/memo/new/',
+            {
+                'title': 'code',
+                'content': Const.DOCTYPE_CODE
+            },
+            auth=True
+        )
+        assert self.data.get('doctype') == 'code'
+
+    def test_memo_doctype_table(self):
+        self.post(
+            '/api/notes/memo/new/',
+            {
+                'title': 'table',
+                'content': Const.DOCTYPE_TABLE
+            },
+            auth=True
+        )
+        assert self.data.get('doctype') == 'table'
+
+    def test_memo_doctype_bullet(self):
+        self.post(
+            '/api/notes/memo/new/',
+            {
+                'title': 'bullet',
+                'content': Const.DOCTYPE_BULLET
+            },
+            auth=True
+        )
+        assert self.data.get('doctype') == 'bullet'
+
+    def test_memo_doctype_order(self):
+        self.post(
+            '/api/notes/memo/new/',
+            {
+                'title': 'order',
+                'content': Const.DOCTYPE_ORDER
+            },
+            auth=True
+        )
+        assert self.data.get('doctype') == 'order'
+
+    def test_memo_doctype_mix(self):
+        content = '%s%s%s%s' % (
+            '<ol><li>order</li></ol>',
+            '<ul><li>bullet</li></ul>',
+            '<table><tr><td>table</td></tr></table>',
+            '<pre><code>import datetime</code></pre>'
+        )
+        self.post(
+            '/api/notes/memo/new/',
+            {
+                'title': 'mix',
+                'content': content
+            },
+            auth=True
+        )
+        assert self.data.get('doctype') == 'code'

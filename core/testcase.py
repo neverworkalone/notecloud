@@ -123,7 +123,7 @@ class TestCase(_TestCase):
         owner=None,
         title='test',
         content='content',
-        doctype='text'
+        doctype='doc'
     ):
         if not owner:
             owner = self.user

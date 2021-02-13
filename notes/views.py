@@ -132,6 +132,7 @@ class MemoViewSet(ModelViewSet):
         return self.model.objects.my(self.request.user)
 
     def sync_update(self, instance, partial):
+        instance.doctype = tools.get_doctype(instance.content)
         instance.updated_at = timezone.now()
 
     def perform_delete(self, instance):

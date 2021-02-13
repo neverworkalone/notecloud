@@ -19,7 +19,7 @@
                   color="info"
                   class="mr-5"
                 >
-                  mdi-text-box-outline
+                  {{ docIcon(memo) }}
                 </v-icon>
                 {{ memo.title }}
                 <div
@@ -151,14 +151,20 @@ export default {
     this.getMemos()
   },
   methods: {
-    // printDateOrTime: function (dateOrTime) {
-    //   if (dateOrTime.date) {
-    //     return this.formatDate(dateOrTime.date)
-    //   }
-    //   else {
-    //     return dateOrTime.time
-    //   }
-    // },
+    docIcon: function (memo) {
+      switch(memo.doctype) {
+        case 'code':
+          return 'mdi-file-code-outline'
+        case 'table':
+          return 'mdi-table'
+        case 'bullet':
+          return 'mdi-format-list-bulleted'
+        case 'order':
+          return 'mdi-format-list-numbered'
+        default:
+          return 'mdi-text-box-outline'
+      }
+    },
     editMemo: function (memo) {
       router.push({
         name: 'notes.editMemo',

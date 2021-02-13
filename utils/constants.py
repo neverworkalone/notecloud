@@ -35,6 +35,10 @@ class _ConstProject(_Const):
     TASK_COLOR_DEFAULT = 'white'
     MEMO_TYPE_MAX_LENGTH = 32
     MEMO_TIME_FORMAT = '%I:%M %p'
+    DOCTYPE_CODE = '<pre><code>'
+    DOCTYPE_TABLE = '<table>'
+    DOCTYPE_BULLET = '<ul><li>'
+    DOCTYPE_ORDER = '<ol><li>'
 
 
 Const = _ConstProject()
