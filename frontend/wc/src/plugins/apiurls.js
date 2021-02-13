@@ -76,6 +76,7 @@ const APIs = {
     'method': 'get',
     'url': '/notes/tasks/?date={date}'
   },
+
   NOTES_NEW_MEMO: {
     'method': 'post',
     'url': '/notes/memo/new/'
@@ -88,9 +89,33 @@ const APIs = {
     'method': 'delete',
     'url': '/notes/memo/{pk}/'
   },
+  NOTES_VIEW_MEMO: {
+    'method': 'get',
+    'url': '/notes/memo/{pk}/'
+  },
+  NOTES_RESTORE_MEMO: {
+    'method': 'post',
+    'url': '/notes/memo/{pk}/restore/'
+  },
   NOTES_MEMOS: {
     'method': 'get',
     'url': '/notes/memos/'
+  },
+  NOTES_TRASH_MEMOS: {
+    'method': 'get',
+    'url': '/notes/memos/trash/'
+  },
+  NOTES_EMPTY_TRASH_MEMOS: {
+    'method': 'post',
+    'url': '/notes/memos/trash/empty/'
+  },
+  NOTES_SHARED_MEMOS: {
+    'method': 'get',
+    'url': '/notes/memos/shared/'
+  },
+  NOTES_SHARED_MEMO: {
+    'method': 'get',
+    'url': '/notes/memos/shared/{pk}/'
   }
 }
 

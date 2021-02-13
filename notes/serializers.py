@@ -1,3 +1,5 @@
+from rest_framework import serializers
+
 from core.serializers import (
     ModelSerializer,
 )
@@ -46,6 +48,8 @@ class TaskSerializer(ModelSerializer):
 
 
 class MemoSerializer(ModelSerializer):
+    title = serializers.CharField(min_length=1)
+
     class Meta:
         model = models.Memo
         fields = [
@@ -54,6 +58,7 @@ class MemoSerializer(ModelSerializer):
             'content',
             'doctype',
             'updated_at',
+            'date_or_time',
             'is_shared',
             'is_deleted',
         ]

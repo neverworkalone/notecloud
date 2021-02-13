@@ -131,6 +131,9 @@ class MemoViewSet(ModelViewSet):
     def get_queryset(self):
         return self.model.objects.my(self.request.user)
 
+    def sync_update(self, instance, partial):
+        instance.updated_at = timezone.now()
+
     def perform_delete(self, instance):
         tools.delete_memo(instance)
 

@@ -21,7 +21,10 @@
         "DELETE": "삭제",
         "REMOVE": "제거",
         "CREATE": "만들기",
-        "SAVE": "저장"
+        "SAVE": "저장",
+        "APPLY": "적용",
+        "CLOSE": "닫기",
+        "BACK": "뒤로가기"
     },
     "accounts": {
         "USERNAME": "아이디",
@@ -90,7 +93,15 @@
         "SHARE_MEMO": "공유",
         "SHARE_MEMO_DESCRIPTION": "누구나 볼 수 있도록 공유합니다.",
         "DELETE_MEMO": "메모 삭제",
-        "DELETE_MEMO_DESCRIPTION": "추가 확인 없이 바로 삭제합니다."
+        "DELETE_MEMO_DESCRIPTION": "휴지통으로 이동합니다.",
+        "MEMO_SAVED": "저장했습니다."
+    },
+    "editor": {
+        "ADD_LINK": "링크 추가하기",
+        "CHANGE_LINK": "링크 변경하기",
+        "REMOVE_LINK": "링크 제거",
+        "QUIT_EDITING": "글 작성을 그만두시겠습니까?",
+        "LAST_UPDATED_AT": "{date_or_time}에 저장됨"
     },
     "info": {
         "SITENAME": "체크체크"

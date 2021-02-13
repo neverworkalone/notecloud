@@ -1,5 +1,11 @@
+import datetime
+from django.conf import settings
+from django.utils import timezone
+
 from core.response import Response
 from core.testcase import TestCase
+
+from notes.models import Memo
 
 
 class MemoCreateTest(TestCase):
@@ -69,6 +75,38 @@ class MemoUpdateTest(TestCase):
             response.status_code == Response.HTTP_200 and
             self.data.get('title') == 'test' and
             self.data.get('content') == 'no content'
+        )
+
+    def test_memo_updated_at(self):
+        yesterday = timezone.now() - timezone.timedelta(1)
+        memo = Memo.objects.create(
+            owner=self.user,
+            title='test',
+            content='content',
+            doctype='text',
+            updated_at=yesterday
+        )
+
+        response = self.get(
+            '/api/notes/memo/%d/' % memo.id,
+            auth=True
+        )
+        response = self.patch(
+            '/api/notes/memo/%d/' % memo.id,
+            {
+                'content': 'no content',
+            },
+            auth=True
+        )
+        updated_at = datetime.datetime.strptime(
+            self.data.get('updated_at'),
+            settings.DATE_TIME_FORMAT_DEFAULT
+        )
+        self.log(updated_at, yesterday)
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('content') == 'no content' and
+            updated_at > yesterday
         )
 
 

@@ -12,5 +12,12 @@ export default [
     component: () => import(
       /* webpackChunkName: "notes" */ '../views/notes/Memo.vue'
     )
+  },
+  {
+    path: '/notes/memo/edit/:pk',
+    name: 'notes.editMemo',
+    component: () => import(
+      /* webpackChunkName: "notes" */ '../views/notes/EditMemo.vue'
+    )
   }
 ]

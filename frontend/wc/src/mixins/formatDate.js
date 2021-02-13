@@ -22,6 +22,14 @@ var FormatDate = {
       else {
         return [date[0], date[1], date[2]].join('-')
       }
+    },
+    getDateOrTime: function (dateOrTime) {
+      if (dateOrTime.date) {
+        return this.formatDate(dateOrTime.date)
+      }
+      else {
+        return dateOrTime.time
+      }
     }
   }
 }
