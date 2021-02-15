@@ -59,6 +59,7 @@ class MemoSerializer(ModelSerializer):
             'doctype',
             'updated_at',
             'date_or_time',
+            'is_pinned',
             'is_shared',
             'is_deleted',
         ]
@@ -94,6 +95,7 @@ class MemoListSerializer(ModelSerializer):
             'title',
             'doctype',
             'date_or_time',
+            'is_pinned',
             'is_shared',
             'is_deleted'
         ]

@@ -184,6 +184,11 @@ class MemoTrashListViewSet(MemoListViewSet):
         return self.model.objects.my_trash(self.request.user)
 
 
+class PinnedMemoListViewSet(MemoListViewSet):
+    def get_queryset(self):
+        return self.model.objects.my_pinned(self.request.user)
+
+
 class SharedMemoListViewSet(MemoListViewSet):
     def get_queryset(self):
         return self.model.objects.my_shared(self.request.user)

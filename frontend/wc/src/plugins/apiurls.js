@@ -109,6 +109,10 @@ const APIs = {
     'method': 'post',
     'url': '/notes/memos/trash/empty/'
   },
+  NOTES_PINNED_MEMOS: {
+    'method': 'get',
+    'url': '/notes/memos/pinned/'
+  },
   NOTES_SHARED_MEMOS: {
     'method': 'get',
     'url': '/notes/memos/shared/'

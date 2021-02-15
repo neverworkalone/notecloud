@@ -61,9 +61,17 @@ def get_weekly_calendar(first_weekday):
 def delete_memo(memo):
     if not memo.is_deleted:
         memo.is_deleted = True
+        memo.is_pinned = False
         memo.is_shared = False
         memo.updated_at = timezone.now()
-        memo.save(update_fields=['is_deleted', 'is_shared', 'updated_at'])
+        memo.save(
+            update_fields=[
+                'is_deleted',
+                'is_pinned',
+                'is_shared',
+                'updated_at'
+            ]
+        )
 
 
 def restore_memo(memo):

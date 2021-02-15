@@ -38,6 +38,7 @@ class MemoAdmin(admin.ModelAdmin):
         'title',
         'doctype',
         'updated_at',
+        'is_pinned',
         'is_shared',
         'is_deleted',
     )

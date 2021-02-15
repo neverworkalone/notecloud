@@ -59,6 +59,11 @@ urlpatterns = [
         }), name='empty_trash_memos'
     ),
     path(
+        'memos/pinned/', views.PinnedMemoListViewSet.as_view({
+            'get': 'list',
+        }), name='pinned_memos'
+    ),
+    path(
         'memos/shared/', views.SharedMemoListViewSet.as_view({
             'get': 'list',
         }), name='shared_memos'

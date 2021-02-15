@@ -71,6 +71,9 @@ class MemoManager(models.Manager):
     def my_trash(self, user):
         return self.filter(owner=user).filter(is_deleted=True)
 
+    def my_pinned(self, user):
+        return self.my(user).filter(is_pinned=True)
+
     def my_shared(self, user):
         return self.my(user).filter(is_shared=True)
 
@@ -100,6 +103,7 @@ class Memo(models.Model):
         blank=True,
         null=True,
     )
+    is_pinned = models.BooleanField(default=False)
     is_shared = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
 

@@ -327,6 +327,83 @@ class MemoShareTest(TestCase):
         )
 
 
+class MemoPinnedTest(TestCase):
+    def setUp(self):
+        self.create_user(is_prime=True)
+        self.create_memo()
+
+    def test_memo_yet_pinned(self):
+        response = self.get(
+            '/api/notes/memos/pinned/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not len(self.data)
+        )
+
+    def test_memo_pinned(self):
+        response = self.patch(
+            '/api/notes/memo/%d/' % self.memo.id,
+            {
+                'is_pinned': True
+            },
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            self.data.get('is_pinned')
+        )
+
+        response = self.get(
+            '/api/notes/memos/pinned/'
+        )
+        assert (
+            response.status_code == Response.HTTP_401
+        )
+
+        response = self.get(
+            '/api/notes/memos/pinned/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            len(self.data) == 1 and
+            self.data[0].get('id') == self.memo.id
+        )
+
+    def test_memo_delete_pinned(self):
+        self.patch(
+            '/api/notes/memo/%d/' % self.memo.id,
+            {
+                'is_pinned': True,
+            },
+            auth=True
+        )
+        self.delete(
+            '/api/notes/memo/%d/' % self.memo.id,
+            auth=True
+        )
+
+        response = self.get(
+            '/api/notes/memos/pinned/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not len(self.data)
+        )
+
+        response = self.post(
+            '/api/notes/memo/%d/restore/' % self.memo.id,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not self.data.get('is_pinned')
+        )
+
+
 class MemoDocTypeTest(TestCase):
     def setUp(self):
         self.create_user(is_prime=True)
