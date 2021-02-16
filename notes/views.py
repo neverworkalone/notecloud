@@ -139,6 +139,35 @@ class MemoViewSet(ModelViewSet):
         tools.delete_memo(instance)
 
 
+class MemoToggleViewSet(MemoViewSet):
+    serializer_class = serializers.MemoListSerializer
+    model = models.Memo
+
+    def pin(self, request, *args, **kwargs):
+        instance = self.get_object()
+        tools.pin_memo(instance)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def unpin(self, request, *args, **kwargs):
+        instance = self.get_object()
+        tools.pin_memo(instance, unpin=True)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def share(self, request, *args, **kwargs):
+        instance = self.get_object()
+        tools.share_memo(instance)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def unshare(self, request, *args, **kwargs):
+        instance = self.get_object()
+        tools.share_memo(instance, unshare=True)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
 class MemoTrashViewSet(MemoViewSet):
     def get_queryset(self):
         return self.model.objects.my_trash(self.request.user)

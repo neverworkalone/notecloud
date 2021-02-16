@@ -306,15 +306,17 @@ export default {
     },
     pinMemo: function (memo, unpin=false) {
       var vm = this
+      var apiType = 'NOTES_PIN_MEMO'
+
+      if (unpin) {
+        apiType = 'NOTES_UNPIN_MEMO'
+      }
 
       axios({
-        method: this.$api('NOTES_EDIT_MEMO').method,
-        url: this.$api('NOTES_EDIT_MEMO').url.replace(
+        method: this.$api(apiType).method,
+        url: this.$api(apiType).url.replace(
           '{pk}', memo.id
-        ),
-        data: {
-          is_pinned: !unpin
-        }
+        )
       })
       .then(function (response) {
         var data = response.data['data']
@@ -342,15 +344,17 @@ export default {
     },
     shareMemo: function (memo, unshare=false) {
       var vm = this
+      var apiType = 'NOTES_SHARE_MEMO'
+
+      if (unshare) {
+        apiType = 'NOTES_UNSHARE_MEMO'
+      }
 
       axios({
-        method: this.$api('NOTES_EDIT_MEMO').method,
-        url: this.$api('NOTES_EDIT_MEMO').url.replace(
+        method: this.$api(apiType).method,
+        url: this.$api(apiType).url.replace(
           '{pk}', memo.id
-        ),
-        data: {
-          is_shared: !unshare
-        }
+        )
       })
       .then(function (response) {
         var data = response.data['data']

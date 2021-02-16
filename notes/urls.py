@@ -39,6 +39,26 @@ urlpatterns = [
         }), name='memo'
     ),
     path(
+        'memo/<int:pk>/pin/', views.MemoToggleViewSet.as_view({
+            'post': 'pin',
+        }), name='pin_memo'
+    ),
+    path(
+        'memo/<int:pk>/unpin/', views.MemoToggleViewSet.as_view({
+            'post': 'unpin',
+        }), name='unpin_memo'
+    ),
+    path(
+        'memo/<int:pk>/share/', views.MemoToggleViewSet.as_view({
+            'post': 'share',
+        }), name='share_memo'
+    ),
+    path(
+        'memo/<int:pk>/unshare/', views.MemoToggleViewSet.as_view({
+            'post': 'unshare',
+        }), name='unshare_memo'
+    ),
+    path(
         'memo/<int:pk>/restore/', views.MemoTrashViewSet.as_view({
             'post': 'restore',
         }), name='restore_memo'

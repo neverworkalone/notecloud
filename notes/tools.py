@@ -81,6 +81,16 @@ def restore_memo(memo):
         memo.save(update_fields=['is_deleted', 'updated_at'])
 
 
+def pin_memo(memo, unpin=False):
+    memo.is_pinned = not unpin
+    memo.save(update_fields=['is_pinned'])
+
+
+def share_memo(memo, unshare=False):
+    memo.is_shared = not unshare
+    memo.save(update_fields=['is_shared'])
+
+
 def get_doctype(content):
     if Const.DOCTYPE_CODE in content:
         return 'code'

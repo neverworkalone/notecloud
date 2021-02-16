@@ -260,11 +260,8 @@ class MemoShareTest(TestCase):
         )
 
     def test_memo_shared(self):
-        response = self.patch(
-            '/api/notes/memo/%d/' % self.memo.id,
-            {
-                'is_shared': True,
-            },
+        response = self.post(
+            '/api/notes/memo/%d/share/' % self.memo.id,
             auth=True
         )
         assert (
@@ -286,7 +283,8 @@ class MemoShareTest(TestCase):
         assert (
             response.status_code == Response.HTTP_200 and
             len(self.data) == 1 and
-            self.data[0].get('id') == self.memo.id
+            self.data[0].get('id') == self.memo.id and
+            self.data[0].get('date_or_time') == self.memo.date_or_time()
         )
 
         response = self.get(
@@ -296,6 +294,24 @@ class MemoShareTest(TestCase):
             response.status_code == Response.HTTP_200 and
             self.data.get('title') and
             self.data.get('content')
+        )
+
+        response = self.post(
+            '/api/notes/memo/%d/unshare/' % self.memo.id,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not self.data.get('is_shared')
+        )
+
+        response = self.get(
+            '/api/notes/memos/shared/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            len(self.data) == 0
         )
 
     def test_memo_delete_shared(self):
@@ -343,11 +359,8 @@ class MemoPinnedTest(TestCase):
         )
 
     def test_memo_pinned(self):
-        response = self.patch(
-            '/api/notes/memo/%d/' % self.memo.id,
-            {
-                'is_pinned': True
-            },
+        response = self.post(
+            '/api/notes/memo/%d/pin/' % self.memo.id,
             auth=True
         )
         assert (
@@ -369,7 +382,26 @@ class MemoPinnedTest(TestCase):
         assert (
             response.status_code == Response.HTTP_200 and
             len(self.data) == 1 and
-            self.data[0].get('id') == self.memo.id
+            self.data[0].get('id') == self.memo.id and
+            self.data[0].get('date_or_time') == self.memo.date_or_time()
+        )
+
+        response = self.post(
+            '/api/notes/memo/%d/unpin/' % self.memo.id,
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            not self.data.get('is_pinned')
+        )
+
+        response = self.get(
+            '/api/notes/memos/pinned/',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            len(self.data) == 0
         )
 
     def test_memo_delete_pinned(self):

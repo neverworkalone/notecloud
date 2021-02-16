@@ -120,6 +120,22 @@ const APIs = {
   NOTES_SHARED_MEMO: {
     'method': 'get',
     'url': '/notes/memos/shared/{pk}/'
+  },
+  NOTES_PIN_MEMO: {
+    'method': 'post',
+    'url': '/notes/memo/{pk}/pin/'
+  },
+  NOTES_UNPIN_MEMO: {
+    'method': 'post',
+    'url': '/notes/memo/{pk}/unpin/'
+  },
+  NOTES_SHARE_MEMO: {
+    'method': 'post',
+    'url': '/notes/memo/{pk}/share/'
+  },
+  NOTES_UNSHARE_MEMO: {
+    'method': 'post',
+    'url': '/notes/memo/{pk}/unshare/'
   }
 }
 
