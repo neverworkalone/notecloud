@@ -90,11 +90,23 @@
     },
     "memo": {
         "COPY_MEMO_LINK": "Copy link",
+        "PIN_MEMO": "Pin memo",
+        "UNPIN_MEMO": "Unpin memo",
+        "MEMO_IS_PINNED": "Memo is pinned",
+        "MEMO_IS_UNPINNED": "Memo is unpinned",
+        "MEMO_IS_SHARED": "Memo is shared",
+        "MEMO_NO_LONGER_SHARED": "Memo is no longer shared.",
         "SHARE_MEMO": "Share",
         "SHARE_MEMO_DESCRIPTION": "Share memo with everyone.",
+        "UNSHARE_MEMO": "Unshare",
         "DELETE_MEMO": "Delete memo",
         "DELETE_MEMO_DESCRIPTION": "Move to trash.",
-        "MEMO_SAVED": "Memo saved."
+        "MEMO_SAVED": "Memo saved.",
+        "NEW_MEMO": "New",
+        "MEMO_LIST": "Memo",
+        "MEMO_PINNED": "Pinned",
+        "MEMO_SHARED": "Shared",
+        "MEMO_TRASH": "Trash"
     },
     "editor": {
         "ADD_LINK": "Add link",

@@ -90,11 +90,23 @@
     },
     "memo": {
         "COPY_MEMO_LINK": "링크 복사",
+        "PIN_MEMO": "고정된 항목에 추가",
+        "UNPIN_MEMO": "고정된 항목에서 제거",
+        "MEMO_IS_PINNED": "고정했습니다.",
+        "MEMO_IS_UNPINNED": "고정 해제했습니다.",
+        "MEMO_IS_SHARED": "공유했습니다.",
+        "MEMO_NO_LONGER_SHARED": "공유 해제했습니다.",
         "SHARE_MEMO": "공유",
         "SHARE_MEMO_DESCRIPTION": "누구나 볼 수 있도록 공유합니다.",
+        "UNSHARE_MEMO": "공유 해제",
         "DELETE_MEMO": "메모 삭제",
         "DELETE_MEMO_DESCRIPTION": "휴지통으로 이동합니다.",
-        "MEMO_SAVED": "저장했습니다."
+        "MEMO_SAVED": "저장했습니다.",
+        "NEW_MEMO": "새로 만들기",
+        "MEMO_LIST": "메모",
+        "MEMO_PINNED": "고정됨",
+        "MEMO_SHARED": "공유중",
+        "MEMO_TRASH": "휴지통"
     },
     "editor": {
         "ADD_LINK": "링크 추가하기",

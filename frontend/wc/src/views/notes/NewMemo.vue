@@ -1,12 +1,10 @@
 <template>
-  <div
-    v-if="initialized"
-  >
+  <div>
     <v-container
       class="pa-0"
     >
       <v-text-field
-        v-model="memo.title"
+        v-model="title"
         outlined
         dense
       >
@@ -25,7 +23,7 @@
       class="text-center pb-0"
     >
       <v-btn
-        :to="{ name: 'notes.memoMenu', params: { menu: menuIndex } }"
+        :to="{ name: 'notes.memo' }"
       >
         {{ $t('common.BACK') }}
       </v-btn>
@@ -38,23 +36,15 @@
         {{ $t('common.SAVE') }}
       </v-btn>
     </v-container>
-    <v-container
-      class="text-right caption pa-0"
-    >
-       {{ updated_at }}
-    </v-container>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import router from '@/router'
 import TipTap from '@/components/TipTap'
-import FormatDate from '@/mixins/formatDate'
 
 export default {
-  mixins: [
-    FormatDate
-  ],
   components: {
     TipTap
   },
@@ -63,37 +53,12 @@ export default {
       options: {
         content: ''
       },
-      menuIndex: 1,
-      memo: null,
-      firstInit: false
+      title: '',
+      saved: false
     }
-  },
-  computed: {
-    title () {
-      return this.memo.title
-    },
-    content () {
-      return this.memo.content
-    },
-    updated_at () {
-      return this.$t('editor.LAST_UPDATED_AT', {
-        date_or_time: this.getDateOrTime(this.memo.date_or_time)
-      })
-    },
-    initialized () {
-      return this.firstInit
-    }
-  },
-  mounted () {
-    this.menuIndex = this.$route.params.menu
-    if (!this.menuIndex) {
-      this.menuIndex = 1
-    }
-
-    this.getMemo(this.$route.params.pk)
   },
   async beforeRouteLeave (to, from, next) {
-    if (this.memo.content == this.options.content) {
+    if (this.saved || (!this.title && !this.options.content)) {
       next()
     }
     else {
@@ -122,17 +87,16 @@ export default {
       var vm = this
 
       axios({
-        method: this.$api('NOTES_EDIT_MEMO').method,
-        url: this.$api('NOTES_EDIT_MEMO').url.replace(
-          '{pk}', this.memo.id
-        ),
+        method: this.$api('NOTES_NEW_MEMO').method,
+        url: this.$api('NOTES_NEW_MEMO').url,
         data: {
-          title: this.memo.title,
+          title: this.title,
           content: this.options.content
         }
       })
-      .then(function (response) {
-        vm.memo = response.data['data']
+      .then(function () {
+        vm.saved = true
+        router.push({ name: 'notes.memo' })
 
         vm.$dialog.notify.success(
           vm.$t('memo.MEMO_SAVED'), {
@@ -151,23 +115,6 @@ export default {
             )
           }
         }
-      })
-    },
-    getMemo: function (pk) {
-      var vm = this
-
-      axios({
-        method: this.$api('NOTES_VIEW_MEMO').method,
-        url: this.$api('NOTES_VIEW_MEMO').url.replace(
-          '{pk}', pk
-        )
-      })
-      .then(function (response) {
-        vm.memo = response.data['data']
-        vm.options.content = vm.memo.content
-        vm.firstInit = true
-      })
-      .catch(function () {
       })
     }
   }
