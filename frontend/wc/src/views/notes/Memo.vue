@@ -225,6 +225,14 @@
         </tbody>
       </v-simple-table>
     </v-container>
+
+    <Pagination
+      :pagination="pagination"
+      :first="firstPage"
+      :prev="prevPage"
+      :next="nextPage"
+    />
+
   </div>
 </template>
 
@@ -233,15 +241,27 @@ import axios from 'axios'
 import router from '@/router'
 import FormatDate from '@/mixins/formatDate'
 import Mobile from '@/mixins/mobile'
+import Pagination from '@/components/Pagination'
 
 export default {
   mixins: [
     FormatDate,
     Mobile
   ],
+  components: {
+    Pagination
+  },
   data () {
     return {
+      pagination: {
+        pageTotal: 1,
+        currentPage: 1,
+        firstLink: null,
+        prevLink: null,
+        nextLink: null
+      },
       menuIndex: this.$const('MEMO_MENU_DEFAULT'),
+      page: 1,
       memos: '',
       firstInit: false
     }
@@ -256,7 +276,12 @@ export default {
     if (!this.menuIndex) {
       this.menuIndex = this.$const('MEMO_MENU_DEFAULT')
     }
-    this.getMemos(this.menuIndex)
+    this.page = this.$route.params.page
+    if (!this.page) {
+      this.page = 1
+    }
+
+    this.getMemos(this.menuIndex, null, this.page)
   },
   methods: {
     docIcon: function (memo) {
@@ -278,26 +303,55 @@ export default {
         name: 'notes.editMemo',
         params: {
           menu: this.menuIndex,
+          page: this.pagination.currentPage,
           pk: memo.id
         }
       })
     },
-    getMemos: function (index=1) {
+    firstPage: function () {
+      this.getMemos(this.menuIndex, this.pagination.firstLink)
+    },
+    prevPage: function () {
+      this.getMemos(this.menuIndex, this.pagination.prevLink)
+    },
+    nextPage: function () {
+      this.getMemos(this.menuIndex, this.pagination.nextLink)
+    },
+    getMemos: function (index=1, url=null, page=0) {
       var vm = this
-      var apiType = 'NOTES_MEMOS'
+      var method = 'get'
 
-      if (index == this.$const('MEMO_MENU_PINNED')) {
-        apiType = 'NOTES_PINNED_MEMOS'
+      if (!page) {
+        page = 1
       }
-      else if (index == this.$const('MEMO_MENU_SHARED')) {
-        apiType = 'NOTES_SHARED_MEMOS'
+
+      if (!url) {
+        var apiType = 'NOTES_MEMOS'
+
+        if (index == this.$const('MEMO_MENU_PINNED')) {
+          apiType = 'NOTES_PINNED_MEMOS'
+        }
+        else if (index == this.$const('MEMO_MENU_SHARED')) {
+          apiType = 'NOTES_SHARED_MEMOS'
+        }
+        method = this.$api(apiType).method
+        url = this.$api(apiType).url.replace(
+          '{page}', page
+        )
       }
 
       axios({
-        method: this.$api(apiType).method,
-        url: this.$api(apiType).url
+        method: method,
+        url: url
       })
       .then(function (response) {
+        var pagination = response.data['pagination']
+        vm.pagination.pageTotal = pagination['page_total']
+        vm.pagination.currentPage = pagination['current_page']
+        vm.pagination.prevLink = pagination['prev_link']
+        vm.pagination.nextLink = pagination['next_link']
+        vm.pagination.firstLink = pagination['first_link']
+
         vm.memos = response.data['data']
         vm.firstInit = true
       })

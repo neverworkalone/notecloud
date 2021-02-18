@@ -1,7 +1,7 @@
 <template>
   <div class="editor">
 
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, getMarkAttrs, menu }">
+    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, getMarkAttrs }">
       <div class="menubar">
 
         <button
@@ -241,9 +241,7 @@ export default {
   },
   data () {
     return {
-      editor: null,
-      linkUrl: null,
-      linkMenuIsActive: false
+      editor: null
     }
   },
   mounted () {

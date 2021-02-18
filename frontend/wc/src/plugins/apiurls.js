@@ -99,7 +99,7 @@ const APIs = {
   },
   NOTES_MEMOS: {
     'method': 'get',
-    'url': '/notes/memos/'
+    'url': '/notes/memos/?page={page}'
   },
   NOTES_TRASH_MEMOS: {
     'method': 'get',
@@ -111,11 +111,11 @@ const APIs = {
   },
   NOTES_PINNED_MEMOS: {
     'method': 'get',
-    'url': '/notes/memos/pinned/'
+    'url': '/notes/memos/pinned/?page={page}'
   },
   NOTES_SHARED_MEMOS: {
     'method': 'get',
-    'url': '/notes/memos/shared/'
+    'url': '/notes/memos/shared/?page={page}'
   },
   NOTES_SHARED_MEMO: {
     'method': 'get',

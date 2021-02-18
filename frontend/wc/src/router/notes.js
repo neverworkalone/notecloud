@@ -10,21 +10,22 @@ export default [
     path: '/notes/memo',
     name: 'notes.memo',
     redirect: {
-      name: 'notes.memoMenu',
+      name: 'notes.memoPage',
       params: {
-        menu: 1
+        menu: 1,
+        page: 1
       }
     }
   },
   {
-    path: '/notes/memo/:menu',
-    name: 'notes.memoMenu',
+    path: '/notes/memo/:menu/:page',
+    name: 'notes.memoPage',
     component: () => import(
       /* webpackChunkName: "notes" */ '../views/notes/Memo.vue'
     )
   },
   {
-    path: '/notes/memo/edit/:menu/:pk',
+    path: '/notes/memo/edit/:menu/:page/:pk',
     name: 'notes.editMemo',
     component: () => import(
       /* webpackChunkName: "editNotes" */ '../views/notes/EditMemo.vue'

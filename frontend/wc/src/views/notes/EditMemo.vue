@@ -25,7 +25,13 @@
       class="text-center pb-0"
     >
       <v-btn
-        :to="{ name: 'notes.memoMenu', params: { menu: menuIndex } }"
+        :to="{
+          name: 'notes.memoPage',
+          params: {
+            menu: menuIndex,
+            page: page
+          }
+        }"
       >
         {{ $t('common.BACK') }}
       </v-btn>
@@ -64,6 +70,7 @@ export default {
         content: ''
       },
       menuIndex: 1,
+      page: 1,
       memo: null,
       firstInit: false
     }
@@ -87,7 +94,11 @@ export default {
   mounted () {
     this.menuIndex = this.$route.params.menu
     if (!this.menuIndex) {
-      this.menuIndex = 1
+      this.menuIndex = this.$const('MEMO_MENU_DEFAULT')
+    }
+    this.page = this.$route.params.page
+    if (!this.page) {
+      this.page = 1
     }
 
     this.getMemo(this.$route.params.pk)
