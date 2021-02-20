@@ -16,6 +16,13 @@ const routes = [
   },
   ...AccountsRoutes,
   ...NotesRoutes,
+  {
+    path: '/opennote/:pk',
+    name: 'notes.sharedMemo',
+    component: () => import(
+      /* webpackChunkName: "openNotes" */ '../views/notes/SharedMemo.vue'
+    )
+  },
 ]
 
 const router = new VueRouter({

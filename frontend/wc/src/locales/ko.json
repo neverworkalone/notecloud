@@ -24,7 +24,8 @@
         "SAVE": "저장",
         "APPLY": "적용",
         "CLOSE": "닫기",
-        "BACK": "뒤로가기"
+        "BACK": "뒤로가기",
+        "DOWNLOAD": "다운로드"
     },
     "accounts": {
         "USERNAME": "아이디",
@@ -90,6 +91,8 @@
     },
     "memo": {
         "COPY_MEMO_LINK": "링크 복사",
+        "SCAN_QR_CODE": "QR 코드 스캔",
+        "SCAN_QR_CODE_DESCRIPTION": "스마트폰의 카메라앱을 이용해 QR 코드를 스캔할 수 있습니다.",
         "PIN_MEMO": "고정된 항목에 추가",
         "UNPIN_MEMO": "고정된 항목에서 제거",
         "MEMO_IS_PINNED": "고정했습니다.",

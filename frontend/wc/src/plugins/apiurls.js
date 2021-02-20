@@ -119,7 +119,7 @@ const APIs = {
   },
   NOTES_SHARED_MEMO: {
     'method': 'get',
-    'url': '/notes/memos/shared/{pk}/'
+    'url': '/notes/memo/shared/{pk}/'
   },
   NOTES_PIN_MEMO: {
     'method': 'post',

@@ -43,187 +43,264 @@
     <v-container
       class="content pt-0"
     >
-      <v-simple-table>
-        <tbody>
-          <tr
-            v-for="memo in memos"
-            :key="memo.id"
-          >
-            <td>
-              <div
-                @click="editMemo(memo)"
-                style="cursor: pointer;"
+      <v-dialog
+        v-model="copyLinkDialog"
+        transition="dialog-bottom-transition"
+        width="90%"
+        :max-width="$const('MEMO_LINK_MAX_WIDTH')"
+      >
+        <template v-slot:activator="{ on, attrs }">
+
+          <v-simple-table>
+            <tbody>
+              <tr
+                v-for="memo in memos"
+                :key="memo.id"
               >
-                <v-icon
-                  color="info"
-                >
-                  {{ docIcon(memo) }}
-                </v-icon>
+                <td>
+                  <div
+                    @click="editMemo(memo)"
+                    style="cursor: pointer;"
+                  >
+                    <DocIcon
+                      :doctype="memo.doctype"
+                    />
+                    {{ memo.title }}
 
-                {{ memo.title }}
-
-                <div
-                  class="ml-7"
-                  v-if="isMobile"
+                    <div
+                      class="ml-7"
+                      v-if="isMobile"
+                    >
+                      {{ getDateOrTime(memo.date_or_time) }}
+                      <v-icon
+                        small
+                        color="info"
+                        v-if="memo.is_shared"
+                      >
+                        mdi-account-multiple-outline
+                      </v-icon>
+                      <v-icon
+                        small
+                        color="info"
+                        v-if="memo.is_pinned"
+                      >
+                        mdi-pin-outline
+                      </v-icon>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  width="50"
+                  v-if="!isMobile"
+                  class="pa-0"
                 >
-                  {{ getDateOrTime(memo.date_or_time) }}
                   <v-icon
-                    small
-                    color="info"
                     v-if="memo.is_shared"
                   >
                     mdi-account-multiple-outline
                   </v-icon>
                   <v-icon
-                    small
-                    color="info"
                     v-if="memo.is_pinned"
                   >
                     mdi-pin-outline
                   </v-icon>
-                </div>
-              </div>
-            </td>
-            <td
-              width="50"
-              v-if="!isMobile"
-              class="pa-0"
+                </td>
+                <td
+                  width="120"
+                  v-if="!isMobile"
+                >
+                  {{ getDateOrTime(memo.date_or_time) }}
+                </td>
+                <td
+                  width="60"
+                  class="ma-0 pa-0"
+                >
+                  <v-menu
+                    transition="slide-y-transition"
+                    bottom
+                    offset-y
+                    class="mx-auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        small
+                        text
+                        class="ml-auto"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon>mdi-dots-vertical</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+
+                      <v-list-item
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="copyLink(memo)"
+                        v-if="menuIndex == $const('MEMO_MENU_SHARED') && memo.is_shared"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-icon
+                              class="mr-1"
+                            >
+                              mdi-link-variant
+                            </v-icon>
+                            {{ $t('memo.COPY_MEMO_LINK') }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+
+                      <v-list-item
+                        @click="pinMemo(memo, unpin=true)"
+                        v-if="memo.is_pinned"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-icon
+                              class="mr-1"
+                            >
+                              mdi-pin-off-outline
+                            </v-icon>
+                            {{ $t('memo.UNPIN_MEMO') }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item
+                        @click="pinMemo(memo)"
+                        v-else
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-icon
+                              class="mr-1"
+                            >
+                              mdi-pin-outline
+                            </v-icon>
+                            {{ $t('memo.PIN_MEMO') }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+
+                      <v-list-item
+                        @click="shareMemo(memo, unshare=true)"
+                        v-if="memo.is_shared"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-icon
+                              class="mr-1"
+                            >
+                              mdi-account-multiple-remove-outline
+                            </v-icon>
+                            {{ $t('memo.UNSHARE_MEMO') }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item
+                        two-line
+                        @click="shareMemo(memo)"
+                        v-else
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-icon
+                              class="mr-1"
+                            >
+                              mdi-account-multiple-outline
+                            </v-icon>
+                            {{ $t('memo.SHARE_MEMO') }}
+                          </v-list-item-title>
+                          <v-list-item-subtitle
+                            class="ml-8"
+                          >
+                            {{ $t('memo.SHARE_MEMO_DESCRIPTION') }}
+                          </v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+
+                      <v-divider></v-divider>
+                      <v-list-item
+                        two-line
+                        @click="deleteMemo(memo)"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-icon
+                              class="mr-1"
+                            >
+                              mdi-trash-can-outline
+                            </v-icon>
+                            {{ $t('memo.DELETE_MEMO') }}
+                          </v-list-item-title>
+                          <v-list-item-subtitle
+                            class="ml-8"
+                          >
+                            {{ $t('memo.DELETE_MEMO_DESCRIPTION') }}
+                          </v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+
+        </template>
+
+        <v-container
+          class="text-center"
+        >
+          <v-card>
+            <v-card-title>
+              {{ $t('memo.SCAN_QR_CODE') }}
+            </v-card-title>
+            <vue-qrcode
+              id="qrImage"
+              :width="$const('QR_CODE_WIDTH')"
+              :value="qrValue"
+              :margin="0"
+            />
+            <v-card-subtitle
+              class="pb-0"
             >
-              <v-icon
-                v-if="memo.is_shared"
+              <v-text-field
+                id="opennoteURL"
+                v-model="qrValue"
+                outlined
+                dense
+                readonly
               >
-                mdi-account-multiple-outline
-              </v-icon>
-              <v-icon
-                v-if="memo.is_pinned"
-              >
-                mdi-pin-outline
-              </v-icon>
-            </td>
-            <td
-              width="120"
-              v-if="!isMobile"
+              </v-text-field>
+            </v-card-subtitle>
+            <v-card-actions
             >
-              {{ getDateOrTime(memo.date_or_time) }}
-            </td>
-            <td
-              width="60"
-              class="ma-0 pa-0"
-            >
-              <v-menu
-                transition="slide-y-transition"
-                bottom
-                offset-y
-                class="mx-auto"
+              <v-tooltip
+                top
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    small
-                    text
-                    class="ml-auto"
+                  <v-icon
                     v-bind="attrs"
                     v-on="on"
-                  >
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
+                  >mdi-help-circle-outline</v-icon>
                 </template>
-                <v-list>
+                <span>{{ $t('memo.SCAN_QR_CODE_DESCRIPTION') }}</span>
+              </v-tooltip>
+              <v-spacer></v-spacer>
+              <v-btn
+                depressed
+                @click="copyLinkToClipboard()"
+              >
+                {{ $t('memo.COPY_MEMO_LINK') }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-container>
 
-                  <v-list-item
-                    @click="pinMemo(memo, unpin=true)"
-                    v-if="memo.is_pinned"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <v-icon
-                          class="mr-1"
-                        >
-                          mdi-pin-off-outline
-                        </v-icon>
-                        {{ $t('memo.UNPIN_MEMO') }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item
-                    @click="pinMemo(memo)"
-                    v-else
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <v-icon
-                          class="mr-1"
-                        >
-                          mdi-pin-outline
-                        </v-icon>
-                        {{ $t('memo.PIN_MEMO') }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
+      </v-dialog>
 
-                  <v-list-item
-                    @click="shareMemo(memo, unshare=true)"
-                    v-if="memo.is_shared"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <v-icon
-                          class="mr-1"
-                        >
-                          mdi-account-multiple-remove-outline
-                        </v-icon>
-                        {{ $t('memo.UNSHARE_MEMO') }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item
-                    two-line
-                    @click="shareMemo(memo)"
-                    v-else
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <v-icon
-                          class="mr-1"
-                        >
-                          mdi-account-multiple-outline
-                        </v-icon>
-                        {{ $t('memo.SHARE_MEMO') }}
-                      </v-list-item-title>
-                      <v-list-item-subtitle
-                        class="ml-8"
-                      >
-                        {{ $t('memo.SHARE_MEMO_DESCRIPTION') }}
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-divider></v-divider>
-                  <v-list-item
-                    two-line
-                    @click="deleteMemo(memo)"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <v-icon
-                          class="mr-1"
-                        >
-                          mdi-trash-can-outline
-                        </v-icon>
-                        {{ $t('memo.DELETE_MEMO') }}
-                      </v-list-item-title>
-                      <v-list-item-subtitle
-                        class="ml-8"
-                      >
-                        {{ $t('memo.DELETE_MEMO_DESCRIPTION') }}
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </td>
-          </tr>
-        </tbody>
-      </v-simple-table>
     </v-container>
 
     <Pagination
@@ -241,7 +318,9 @@ import axios from 'axios'
 import router from '@/router'
 import FormatDate from '@/mixins/formatDate'
 import Mobile from '@/mixins/mobile'
+import DocIcon from '@/components/DocIcon'
 import Pagination from '@/components/Pagination'
+import VueQrcode from 'vue-qrcode'
 
 export default {
   mixins: [
@@ -249,7 +328,9 @@ export default {
     Mobile
   ],
   components: {
-    Pagination
+    DocIcon,
+    Pagination,
+    VueQrcode
   },
   data () {
     return {
@@ -263,6 +344,8 @@ export default {
       menuIndex: this.$const('MEMO_MENU_DEFAULT'),
       page: 1,
       memos: '',
+      copyLinkDialog: false,
+      qrValue: null,
       firstInit: false
     }
   },
@@ -284,20 +367,6 @@ export default {
     this.getMemos(this.menuIndex, null, this.page)
   },
   methods: {
-    docIcon: function (memo) {
-      switch(memo.doctype) {
-        case 'code':
-          return 'mdi-file-code-outline'
-        case 'table':
-          return 'mdi-table'
-        case 'bullet':
-          return 'mdi-format-list-bulleted'
-        case 'order':
-          return 'mdi-format-list-numbered'
-        default:
-          return 'mdi-text-box-outline'
-      }
-    },
     editMemo: function (memo) {
       router.push({
         name: 'notes.editMemo',
@@ -456,6 +525,26 @@ export default {
       })
       .catch(function () {
       })
+    },
+    copyLink: function (memo) {
+      var props = this.$router.resolve({
+        name: 'notes.sharedMemo',
+        params: {
+          pk: memo.id
+        }
+      })
+      this.qrValue = location.origin + props.href
+    },
+    copyLinkToClipboard: function () {
+      document.querySelector("#opennoteURL").select()
+      document.execCommand("Copy")
+
+      this.$dialog.notify.success(
+        this.$t('tasks.COPIED_TO_CLIPBOARD'), {
+          position: 'bottom-right',
+          timeout: 2000
+        }
+      )
     }
   }
 }

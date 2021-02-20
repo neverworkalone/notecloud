@@ -24,7 +24,8 @@
         "SAVE": "Save",
         "APPLY": "Apply",
         "CLOSE": "Close",
-        "BACK": "Back"
+        "BACK": "Back",
+        "DOWNLOAD": "Download"
     },
     "accounts": {
         "USERNAME": "Username",
@@ -90,6 +91,8 @@
     },
     "memo": {
         "COPY_MEMO_LINK": "Copy link",
+        "SCAN_QR_CODE": "Scan QR Code",
+        "SCAN_QR_CODE_DESCRIPTION": "Scan this QR Code with a camera app of your smartphone.",
         "PIN_MEMO": "Pin memo",
         "UNPIN_MEMO": "Unpin memo",
         "MEMO_IS_PINNED": "Memo is pinned",

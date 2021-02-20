@@ -34,20 +34,6 @@ export default {
     this.getTrash()
   },
   methods: {
-    docIcon: function (memo) {
-      switch(memo.doctype) {
-        case 'code':
-          return 'mdi-file-code-outline'
-        case 'table':
-          return 'mdi-table'
-        case 'bullet':
-          return 'mdi-format-list-bulleted'
-        case 'order':
-          return 'mdi-format-list-numbered'
-        default:
-          return 'mdi-text-box-outline'
-      }
-    },
     getTrash: function () {
       var vm = this
 
