@@ -109,7 +109,11 @@
         "MEMO_LIST": "Memo",
         "MEMO_PINNED": "Pinned",
         "MEMO_SHARED": "Shared",
-        "MEMO_TRASH": "Trash"
+        "MEMO_TRASH": "Trash",
+        "TRASH_DESCRIPTION": "Memos in trash are deleted forever after 30 days.",
+        "EMPTY_TRASH": "Empty trash",
+        "RESTORE_FROM_TRASH": "Restore from trash",
+        "RESTORED": "Restored"
     },
     "editor": {
         "ADD_LINK": "Add link",

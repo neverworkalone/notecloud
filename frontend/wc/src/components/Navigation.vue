@@ -114,10 +114,83 @@
   </v-container>
 </template>
 
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  name: 'Navigation',
+  data () {
+    return {
+      drawer: null,
+      search: '',
+    }
+  },
+  computed: {
+    ...mapState([
+      'user'
+    ]),
+    username: function () {
+      return this.user.username
+    },
+    menu: function () {
+      var menuList = []
+
+      if (this.user.is_prime) {
+        menuList.push(
+          {
+            text: this.$t('memo.MEMO_TRASH'),
+            icon: 'mdi-trash-can-outline',
+            to: { name: 'notes.trash' }
+          }
+        )
+      }
+
+      if (this.user) {
+        menuList.push(
+          {
+            text: this.$t('accounts.SETTING'),
+            icon: 'mdi-cog',
+            to: { name: 'accounts.profile' }
+          },
+          {
+            text: this.$t('accounts.LOGOUT'),
+            icon: 'mdi-logout',
+            to: { name: 'accounts.logout' }
+          }
+        )
+      }
+      return menuList
+    }
+  },
+  beforeDestroy () {
+    document.onkeydown = null
+  },
+  methods: {
+    onBlur () {
+      this.resetSearch()
+    },
+    onEsc () {
+      this.resetSearch()
+      this.$refs.search.blur()
+    },
+    resetSearch () {
+      this.$nextTick(() => (this.search = undefined))
+    },
+    onEnter () {
+      this.searchAnything(this.search)
+    },
+    searchAnything(anything) {
+      // TODO: implement search
+      window.console.log(anything)
+      this.onBlur()
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 .nav {
   a {
-    font-weight: bold;
     color: #2c3e50;
 
     &.router-link-exact-active {
@@ -129,7 +202,6 @@
   min-height:30px;
 
   a {
-    font-size:0.9em !important;
     color: rgba(0, 0, 0, 0.88) !important;
     text-decoration: none;
   }
@@ -139,67 +211,3 @@
   }
 }
 </style>
-
-<script>
-  import { mapState } from 'vuex';
-
-  export default {
-    name: 'Navigation',
-    data () {
-      return {
-        drawer: null,
-        search: '',
-      }
-    },
-    computed: {
-      ...mapState([
-        'user'
-      ]),
-      username: function () {
-        return this.user.username
-      },
-      menu: function () {
-        if (this.user) {
-          return [
-            {
-              text: this.$t('accounts.SETTING'),
-              icon: 'mdi-cog',
-              to: { name: 'accounts.profile' }
-            },
-            {
-              text: this.$t('accounts.LOGOUT'),
-              icon: 'mdi-logout',
-              to: { name: 'accounts.logout' }
-            }
-          ]
-        }
-        else {
-          return []
-        }
-      },
-    },
-    beforeDestroy () {
-      document.onkeydown = null
-    },
-    methods: {
-      onBlur () {
-        this.resetSearch()
-      },
-      onEsc () {
-        this.resetSearch()
-        this.$refs.search.blur()
-      },
-      resetSearch () {
-        this.$nextTick(() => (this.search = undefined))
-      },
-      onEnter () {
-        this.searchAnything(this.search)
-      },
-      searchAnything(anything) {
-        // TODO: implement search
-        window.console.log(anything)
-        this.onBlur()
-      }
-    }
-  }
-</script>

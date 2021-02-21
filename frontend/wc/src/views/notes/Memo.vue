@@ -132,8 +132,8 @@
                         <v-icon>mdi-dots-vertical</v-icon>
                       </v-btn>
                     </template>
-                    <v-list>
 
+                    <v-list>
                       <v-list-item
                         v-bind="attrs"
                         v-on="on"
@@ -243,6 +243,7 @@
                       </v-list-item>
                     </v-list>
                   </v-menu>
+
                 </td>
               </tr>
             </tbody>

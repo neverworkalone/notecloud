@@ -1,6 +1,7 @@
 <template>
   <v-icon
-    color="info"
+    :color="iconColor"
+    class="mr-1"
   >
     {{ docIcon(doctype) }}
   </v-icon>
@@ -9,10 +10,19 @@
 <script>
 export default {
   props: {
-    doctype: String
+    doctype: String,
+    color: String
   },
   data () {
     return {
+    }
+  },
+  computed: {
+    iconColor () {
+      if (this.color) {
+        return this.color
+      }
+      return 'info'
     }
   },
   methods: {
