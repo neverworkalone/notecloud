@@ -4,29 +4,52 @@ import VueRouter from 'vue-router'
 import AccountsRoutes from '@/router/accounts'
 import NotesRoutes from '@/router/notes'
 
+import { store } from '@/store'
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    redirect: {
-      name: 'notes.tasks'
-    }
+    name: 'landing',
+    component: () => import('../views/Landing.vue')
   },
-  ...AccountsRoutes,
-  ...NotesRoutes,
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue')
+  },
   {
     path: '/opennote/:pk',
     name: 'notes.sharedMemo',
-    component: () => import(
-      /* webpackChunkName: "openNotes" */ '../views/notes/SharedMemo.vue'
-    )
+    component: () => import('../views/notes/SharedMemo.vue')
   },
+  ...AccountsRoutes,
+  ...NotesRoutes,
 ]
 
 const router = new VueRouter({
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isApproved) {
+      next({ name: 'accounts.login' })
+    }
+    else if (
+      to.matched.some(record => record.meta.requiresPrime) &&
+      !store.getters.isPrime
+    ) {
+      next() // TODO: BETA_VERSION - redirect to prime page
+    }
+    else {
+      next()
+    }
+  }
+  else {
+    next()
+  }
 })
 
 export default router

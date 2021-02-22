@@ -75,6 +75,7 @@ except IOError:
 
 SITE_NAME = 'Notecloud'
 FRONTEND_URL = 'https://checkcheck.one'
+BETA_VERSION = True
 DEFAULT_FROM_EMAIL = EMAIL_ADDRESS
 DEBUG = False
 LOCAL_SERVER = False

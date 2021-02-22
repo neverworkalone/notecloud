@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from rest_framework import permissions as rest_permission
 
 
@@ -24,7 +26,7 @@ class IsPrime(IsAuthenticated):
             request.user and
             request.user.is_authenticated and
             request.user.is_approved and
-            request.user.is_prime
+            (request.user.is_prime or settings.BETA_VERSION)
         )
 
 

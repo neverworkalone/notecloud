@@ -10,6 +10,17 @@ export const store = new Vuex.Store({
     login_device: '',
     date_format: ''
   },
+  getters: {
+    isApproved: state => {
+      return state.user && state.user.is_approved
+    },
+    isPrime: state => {
+      return state.user && state.user.is_approved && state.user.is_prime
+    },
+    isStaff: state => {
+      return state.user && state.user.is_staff
+    }
+  },
   mutations: {
     updateUser(state, payload) {
       if (payload.key) {
