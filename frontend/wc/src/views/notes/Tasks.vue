@@ -433,12 +433,6 @@
   </div>
 </template>
 
-<style lang="scss">
-.v-card__title {
-  white-space: break-spaces;
-}
-</style>
-
 <script>
 import axios from 'axios'
 import FormatDate from '@/mixins/formatDate'
@@ -487,12 +481,6 @@ export default {
     initialized () {
       return this.firstInit
     }
-  },
-  beforeDestroy () {
-    if (typeof window === 'undefined') {
-      return
-    }
-    window.removeEventListener('resize', this.onResize, { passive: true })
   },
   mounted () {
     this.getTasks()
@@ -759,3 +747,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-card__title {
+  white-space: break-spaces;
+}
+</style>

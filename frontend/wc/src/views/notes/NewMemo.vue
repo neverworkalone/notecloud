@@ -23,7 +23,7 @@
       class="text-center pb-0"
     >
       <v-btn
-        :to="{ name: 'notes.memo' }"
+        @click="$router.push({ name: 'notes.memo' })"
       >
         {{ $t('common.BACK') }}
       </v-btn>

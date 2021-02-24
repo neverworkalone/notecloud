@@ -123,7 +123,34 @@
         "LAST_UPDATED_AT": "Last updated at {date_or_time}"
     },
     "info": {
-        "SITENAME": "CheckCheck"
+        "SITENAME": "CheckCheck",
+        "PRODUCT": "Product",
+        "CONTACT": "Contact",
+        "FORUM": "Forum",
+        "CHECK": "CheckCheck",
+        "MEMO": "Memo"
+    },
+    "landing": {
+        "CHECKCHECK_TODAY": "CheckCheck Today!",
+        "GET_IT_FREE": "Get it free",
+        "WITH_ONLY_EMAIL": "(With only Email)",
+        "CONTACT_US": "Contact us"
+    },
+    "slides": {
+        "1": "Forget it again? Start CheckCheck!",
+        "2": "Writing virtues to Planner everyday? CheckCheck today!",
+        "3": "Home, Work, PC or SmartPhone Just CheckCheck!"
+    },
+    "FAQ": {
+        "title": "FAQ",
+        "header1": "Any limitation of free version?",
+        "content1": "Not in Beta",
+        "header2": "Can I use with an App(iOS/Android)?",
+        "content2": "Not yet.",
+        "header3": "I'm having trouble while using service.",
+        "content3": "Please report us with detail via Contact menu.",
+        "header4": "I haven't received any response of my contact",
+        "content4": "We are not sending any automatic replies to keep your inbox clean. Please ask reply when you contact us if you really want to get it."
     },
     "error": {
         "LOGIN_LOGIC": "Error code: Affogato"

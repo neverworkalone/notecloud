@@ -77,7 +77,7 @@
               position: 'top-right'
             }
           )
-          router.push({ name: 'accounts.login' })
+          router.push({ name: 'home' })
         })
         .catch(function () {
           router.push({ name: 'home' })

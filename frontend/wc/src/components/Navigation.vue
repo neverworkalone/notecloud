@@ -74,40 +74,29 @@
       >
       </v-app-bar-nav-icon>
 
-      <router-link :to="{ name: 'notes.tasks' }">
-        <v-img
-          src="@/assets/logo.png"
-          max-width="50"
-        ></v-img>
-      </router-link>
-
-      <router-link :to="{ name: 'notes.memo' }">
-        <v-img
-          src="@/assets/logo.png"
-          max-width="50"
-        ></v-img>
-      </router-link>
+      <Logo
+        :to="{ name: 'notes.tasks' }"
+      />
 
       <v-spacer></v-spacer>
 
-      <v-responsive>
-        <v-text-field
-          id="search"
-          ref="search"
-          v-model="search"
-          outlined
-          dense
-          single-line
-          clearable
-          hide-details
-          prepend-inner-icon="mdi-magnify"
-          :placeholder="$t('common.SEARCH')"
-          @blur="onBlur"
-          @keydown.esc="onEsc"
-          @keydown.enter="onEnter"
-        >
-        </v-text-field>
-      </v-responsive>
+      <v-text-field
+        id="search"
+        ref="search"
+        v-model="search"
+        outlined
+        dense
+        single-line
+        clearable
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        :placeholder="$t('common.SEARCH')"
+        class="ml-8"
+        @blur="onBlur"
+        @keydown.esc="onEsc"
+        @keydown.enter="onEnter"
+      >
+      </v-text-field>
 
     </v-app-bar>
 
@@ -115,10 +104,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import Logo from '@/components/Logo'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Navigation',
+  components: {
+    Logo
+  },
   data () {
     return {
       drawer: null,
@@ -135,7 +128,32 @@ export default {
     menu: function () {
       var menuList = []
 
-      if (this.user.is_prime) {
+      menuList.push(
+        {
+          text: this.$t('info.PRODUCT'),
+          icon: 'mdi-home-outline',
+          to: { name: 'home' }
+        }
+      )
+
+      if (this.user) {
+        menuList.push(
+          {
+            text: this.$t('info.CHECK'),
+            icon: 'mdi-check',
+            to: { name: 'notes.tasks' }
+          }
+        )
+      }
+
+      if (this.user) { // TODO: BETA_VERSION - check prime
+        menuList.push(
+          {
+            text: this.$t('info.MEMO'),
+            icon: 'mdi-text-box-outline',
+            to: { name: 'notes.memo' }
+          }
+        )
         menuList.push(
           {
             text: this.$t('memo.MEMO_TRASH'),

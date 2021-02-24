@@ -1,7 +1,12 @@
 <template>
 
   <v-app v-if="initialized">
-    <Navigation/>
+    <Navigation
+      v-if="user"
+    />
+    <AppBar
+      v-else
+    />
 
     <v-main>
       <v-container fluid>
@@ -23,32 +28,18 @@
 
 </template>
 
-<style lang="scss">
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-.content {
-  padding: 20px;
-}
-
-.uninitialized {
-  text-align:center;
-  margin:5em;
-}
-</style>
-
 <script>
-import Navigation from './components/Navigation'
-import Footer from './components/Footer'
+import AppBar from './components/AppBar'
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
 
   components: {
+    AppBar,
     Navigation,
     Footer,
   },
@@ -59,6 +50,9 @@ export default {
     }
   },
   computed: {
+    ...mapState([
+      'user'
+    ]),
     initialized () {
       return this.firstInit
     }
@@ -110,3 +104,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+.content {
+  padding: 20px;
+}
+
+.uninitialized {
+  text-align:center;
+  margin:5em;
+}
+</style>

@@ -32,6 +32,7 @@
               :hint="$t('common.REQUIRED_MIN', { min: $const('PASSWORD_MIN') })"
               counter
               @click:append="show1 = !show1"
+              autocomplete
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="3">
@@ -44,6 +45,7 @@
               :label="$t('accounts.PASSWORD_CONFIRM')"
               counter
               @click:append="show2 = !show2"
+              autocomplete
             ></v-text-field>
           </v-col>
         </v-row>
