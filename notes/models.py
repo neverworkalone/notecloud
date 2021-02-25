@@ -61,7 +61,7 @@ class Task(models.Model):
     objects = TaskManager()
 
     class Meta:
-        ordering = ('date_from', 'id')
+        ordering = ('date_from', 'id',)
 
 
 class MemoManager(models.Manager):
@@ -119,7 +119,7 @@ class Memo(models.Model):
         if updated_at.date() == today.date():
             return {
                 'date': None,
-                'time': updated_at.time().strftime(Const.MEMO_TIME_FORMAT),
+                'time': updated_at.time().strftime(Const.TIME_FORMAT_DEFAULT),
             }
         else:
             return {

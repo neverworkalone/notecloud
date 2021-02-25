@@ -5,7 +5,10 @@ from rest_framework.test import APIClient
 from accounts.models import User
 from accounts.tools import Test
 
+from forums.models import Question
 from notes.models import Memo, Task
+
+from utils.constants import Const
 
 
 class TestCase(_TestCase):
@@ -86,7 +89,7 @@ class TestCase(_TestCase):
 
         return APIClient(enforce_csrf_checks=True, HTTP_USER_AGENT=user_agent)
 
-    def create_user(self, is_prime=False):
+    def create_user(self, is_prime=False, is_staff=False):
         self.client = self.get_client()
         self.username = Test.USERNAME
         self.password = Test.PASSWORD
@@ -95,6 +98,7 @@ class TestCase(_TestCase):
             password=self.password,
             is_approved=True,
             is_prime=is_prime,
+            is_staff=is_staff,
         )
 
         self.key = self.user.key()
@@ -135,3 +139,19 @@ class TestCase(_TestCase):
             doctype=doctype,
         )
         return self.memo
+
+    def create_question(
+        self,
+        user=None,
+        address=None,
+        title='title',
+        content='content',
+    ):
+        self.question = Question.objects.create(
+            user=user,
+            address=address,
+            title=title,
+            content=content,
+            state=Const.QUESTION_STATE_NEW,
+        )
+        return self.question

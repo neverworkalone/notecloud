@@ -28,5 +28,7 @@ class _TextProject(_Text):
     Just for this project
     """
 
+    INVALID_QUESTION_STATE = _("Invalid question state")
+
 
 Text = _TextProject()

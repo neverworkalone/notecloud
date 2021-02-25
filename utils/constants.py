@@ -16,9 +16,15 @@ class _Const(object):
     IP_ADDRESS_MAX_LENGTH = 45
     DESC_MAX_LENGTH = 1024
     TITLE_MAX_LENGTH = 100
-    DEFAULT_LINK_COUNT = 10
+    LENGTH_16 = 16
+    LENGTH_32 = 32
+    LENGTH_64 = 64
+    LENGTH_128 = 128
 
-    QUERY_PARAM_SEARCH_QUERY = 'q'
+    DEFAULT_LINK_COUNT = 10
+    QUERY_PARAM_SEARCH = 'q'
+
+    TIME_FORMAT_DEFAULT = '%I:%M %p'
 
     def __setattr__(self, name, value):
         raise AttributeError("cannot re-bind const(%s)" % name)
@@ -34,11 +40,22 @@ class _ConstProject(_Const):
     COLOR_MAX_LENGTH = 32
     TASK_COLOR_DEFAULT = 'white'
     MEMO_TYPE_MAX_LENGTH = 32
-    MEMO_TIME_FORMAT = '%I:%M %p'
+    TIME_FORMAT_DEFAULT = '%I:%M %p'
     DOCTYPE_CODE = '<pre><code>'
     DOCTYPE_TABLE = '<table>'
     DOCTYPE_BULLET = '<ul><li>'
     DOCTYPE_ORDER = '<ol><li>'
+
+    QUERY_PARAM_STATE = 'state'
+    QUESTION_STATE_NEW = 'new'
+    QUESTION_STATE_OPEN = 'open'
+    QUESTION_STATE_CLOSED = 'closed'
+    QUESTION_STATE_DELETED = 'deleted'
+    QUESTION_STATE_LIST = [
+        QUESTION_STATE_OPEN,
+        QUESTION_STATE_CLOSED,
+        QUESTION_STATE_DELETED,
+    ]
 
 
 Const = _ConstProject()

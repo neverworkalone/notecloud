@@ -196,7 +196,7 @@ class MemoListViewSet(ReadOnlyModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH_QUERY)
+        q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH)
         if q:
             search_query = (
                 Q(title__icontains=q) |
