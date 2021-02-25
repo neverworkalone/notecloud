@@ -13,17 +13,17 @@ const routes = [
   {
     path: '/',
     name: 'landing',
-    component: () => import('../views/Landing.vue')
+    component: () => import('@/views/Landing.vue')
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/Home.vue')
+    component: () => import('@/views/Home.vue')
   },
   {
     path: '/opennote/:pk',
     name: 'notes.sharedMemo',
-    component: () => import('../views/notes/SharedMemo.vue')
+    component: () => import('@/views/notes/SharedMemo.vue')
   },
   ...AccountsRoutes,
   ...NotesRoutes,
@@ -38,6 +38,12 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isApproved) {
       next({ name: 'accounts.login' })
+    }
+    else if (
+      to.matched.some(record => record.meta.StaffOnly) &&
+      !store.getters.isStaff
+    ) {
+      next(false)
     }
     else if (
       to.matched.some(record => record.meta.requiresPrime) &&

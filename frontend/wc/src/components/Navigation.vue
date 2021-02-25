@@ -141,6 +141,16 @@ export default {
         }
       )
 
+      if (this.user.is_staff) {
+        menuList.push(
+          {
+            text: this.$t('info.ANSWER'),
+            icon: 'mdi-account-question-outline',
+            to: { name: 'forums.questions' }
+          }
+        )
+      }
+
       if (this.user) {
         menuList.push(
           {

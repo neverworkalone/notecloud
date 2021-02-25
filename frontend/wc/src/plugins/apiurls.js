@@ -145,14 +145,26 @@ const APIs = {
     'method': 'post',
     'url': '/forums/question/{pk}/answer/'
   },
-  FORUMS_QUESTIONS: {
-    'method': 'get',
-    'url': '/forums/questions/'
-  },
   FORUM_QUESTION: {
     'method': 'get',
     'url': 'forums/question/{pk}/'
-  }
+  },
+  FORUMS_QUESTIONS_NEW: {
+    'method': 'get',
+    'url': '/forums/questions/?state=new&page={page}&page_size=5'
+  },
+  FORUMS_QUESTIONS_OPEN: {
+    'method': 'get',
+    'url': '/forums/questions/?state=open&page={page}'
+  },
+  FORUMS_QUESTIONS_CLOSED: {
+    'method': 'get',
+    'url': '/forums/questions/?state=closed&page={page}'
+  },
+  FORUMS_QUESTIONS_DELETED: {
+    'method': 'get',
+    'url': '/forums/questions/?state=deleted&page={page}'
+  },
 }
 
 APIs.install = function (Vue) {

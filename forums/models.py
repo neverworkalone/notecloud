@@ -52,7 +52,7 @@ class Question(models.Model):
     objects = QuestionManager()
 
     class Meta:
-        ordering = ('-id',)
+        ordering = ('-updated_at',)
 
     def date_or_time(self):
         today = timezone.localtime(timezone.now())

@@ -119,7 +119,12 @@
         "QUESTION_ADDRESS_LABEL": "연락처 (선택)",
         "QUESTION_TITLE_LABEL": "제목 (필수)",
         "QUESTION_CONTENT_LABEL": "문의 내용 (필수)",
-        "CONTACT_COMPLETED": "문의를 보냈습니다."
+        "CONTACT_COMPLETED": "문의를 보냈습니다.",
+        "QUESTION_NEW": "새로 올라옴",
+        "QUESTION_OPEN": "진행중",
+        "QUESTION_CLOSED": "답변완료",
+        "QUESTION_DELETED": "삭제됨",
+        "ANSWER_LABEL": "답변 내용"
     },
     "editor": {
         "ADD_LINK": "링크 추가하기",
@@ -132,6 +137,7 @@
         "SITENAME": "체크체크",
         "PRODUCT": "제품 소개",
         "CONTACT": "문의하기",
+        "ANSWER": "문의 답변하기",
         "FORUM": "포럼",
         "CHECK": "체크체크",
         "MEMO": "메모"

@@ -119,7 +119,12 @@
         "QUESTION_ADDRESS_LABEL": "Address (Optional)",
         "QUESTION_TITLE_LABEL": "Title (Required)",
         "QUESTION_CONTENT_LABEL": "Leave a comment (Required)",
-        "CONTACT_COMPLETED": "Successfully sent your question."
+        "CONTACT_COMPLETED": "Successfully sent your question.",
+        "QUESTION_NEW": "New",
+        "QUESTION_OPEN": "Open",
+        "QUESTION_CLOSED": "Closed",
+        "QUESTION_DELETED": "Deleted",
+        "ANSWER_LABEL": "Answer"
     },
     "editor": {
         "ADD_LINK": "Add link",
@@ -132,6 +137,7 @@
         "SITENAME": "CheckCheck",
         "PRODUCT": "Product",
         "CONTACT": "Contact",
+        "ANSWER": "Answer",
         "FORUM": "Forum",
         "CHECK": "CheckCheck",
         "MEMO": "Memo"

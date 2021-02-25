@@ -23,6 +23,7 @@
           v-model="title"
           :rules="[rules.required]"
           :label="$t('forums.QUESTION_TITLE_LABEL')"
+          class="mb-4"
         >
         </v-text-field>
         <v-textarea
@@ -31,6 +32,7 @@
           :label="$t('forums.QUESTION_CONTENT_LABEL')"
           background-color="grey lighten-5"
           auto-grow
+          outlined
         >
         </v-textarea>
 
@@ -39,7 +41,7 @@
         >
           <v-btn
             color="primary"
-            class="mt-4 mb-10"
+            class="mb-10"
             @click="submit"
           >
             {{ $t('info.CONTACT') }}
