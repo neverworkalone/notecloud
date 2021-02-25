@@ -107,7 +107,7 @@ export default {
       .then(function () {
         vm.$dialog.notify.success(
           vm.$t('accounts.SIGNUP_COMPLETED'), {
-            position: 'top-right'
+            position: 'bottom-right'
           }
         )
         router.push({ name: 'accounts.login' })

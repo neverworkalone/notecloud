@@ -52,7 +52,7 @@
 
 <script>
 import SettingMenu from '@/components/SettingMenu'
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 
 export default {
   components: {

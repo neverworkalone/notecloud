@@ -133,6 +133,11 @@ export default {
           text: this.$t('info.PRODUCT'),
           icon: 'mdi-home-outline',
           to: { name: 'home' }
+        },
+        {
+          text: this.$t('info.CONTACT'),
+          icon: 'mdi-help',
+          to: { name: 'forums.contact' }
         }
       )
 

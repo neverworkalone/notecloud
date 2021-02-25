@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import AccountsRoutes from '@/router/accounts'
 import NotesRoutes from '@/router/notes'
+import ForumsRoutes from '@/router/forums'
 
 import { store } from '@/store'
 
@@ -26,6 +27,7 @@ const routes = [
   },
   ...AccountsRoutes,
   ...NotesRoutes,
+  ...ForumsRoutes,
 ]
 
 const router = new VueRouter({

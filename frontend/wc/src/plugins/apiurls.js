@@ -136,6 +136,22 @@ const APIs = {
   NOTES_UNSHARE_MEMO: {
     'method': 'post',
     'url': '/notes/memo/{pk}/unshare/'
+  },
+  FORUMS_NEW_QUESTION: {
+    'method': 'post',
+    'url': '/forums/question/new/'
+  },
+  FORUMS_ANSWER_QUESTION: {
+    'method': 'post',
+    'url': '/forums/question/{pk}/answer/'
+  },
+  FORUMS_QUESTIONS: {
+    'method': 'get',
+    'url': '/forums/questions/'
+  },
+  FORUM_QUESTION: {
+    'method': 'get',
+    'url': 'forums/question/{pk}/'
   }
 }
 

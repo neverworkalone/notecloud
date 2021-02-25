@@ -23,7 +23,7 @@
       <v-btn
         depressed
         class="pl-2 pr-2 mr-1"
-        :to="{ name: 'home' }"
+        :to="{ name: 'forums.contact' }"
         v-if="!isMobile"
       >
         {{ $t('info.CONTACT') }}

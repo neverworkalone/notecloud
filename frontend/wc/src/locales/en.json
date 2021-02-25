@@ -115,6 +115,12 @@
         "RESTORE_FROM_TRASH": "Restore from trash",
         "RESTORED": "Restored"
     },
+    "forums": {
+        "QUESTION_ADDRESS_LABEL": "Address (Optional)",
+        "QUESTION_TITLE_LABEL": "Title (Required)",
+        "QUESTION_CONTENT_LABEL": "Leave a comment (Required)",
+        "CONTACT_COMPLETED": "Successfully sent your question."
+    },
     "editor": {
         "ADD_LINK": "Add link",
         "CHANGE_LINK": "Change link",

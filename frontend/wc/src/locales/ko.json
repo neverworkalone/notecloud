@@ -115,6 +115,12 @@
         "RESTORE_FROM_TRASH": "복구",
         "RESTORED": "복구했습니다."
     },
+    "forums": {
+        "QUESTION_ADDRESS_LABEL": "연락처 (선택)",
+        "QUESTION_TITLE_LABEL": "제목 (필수)",
+        "QUESTION_CONTENT_LABEL": "문의 내용 (필수)",
+        "CONTACT_COMPLETED": "문의를 보냈습니다."
+    },
     "editor": {
         "ADD_LINK": "링크 추가하기",
         "CHANGE_LINK": "링크 변경하기",

@@ -109,7 +109,7 @@ export default {
         axios.defaults.headers.common['Authorization'] = ''
         vm.$dialog.notify.success(
           vm.$t('accounts.PASSWORD_RESET_COMPLETED'), {
-            position: 'top-right'
+            position: 'bottom-right'
           }
         )
         router.push({ name: 'accounts.login' })

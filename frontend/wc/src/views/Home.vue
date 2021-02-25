@@ -43,7 +43,7 @@
         <v-btn
           x-large
           color="primary"
-          :to="{ name: 'accounts.signup' }"
+          :to="user ? { name: 'notes.tasks' } : { name: 'accounts.signup' }"
         >
           <v-icon
             class="mr-2"
@@ -119,6 +119,7 @@
       <v-btn
         large
         color="primary"
+        :to="{ name: 'forums.contact' }"
       >
         {{ $t('landing.CONTACT_US') }}
       </v-btn>
@@ -130,6 +131,7 @@
 <script>
 import Mobile from '@/mixins/mobile'
 import FAQ from '@/components/FAQ'
+import { mapState } from 'vuex'
 
 export default {
   mixins: [
@@ -155,6 +157,11 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState([
+      'user'
+    ])
   },
   mounted () {
   }
