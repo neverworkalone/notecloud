@@ -76,6 +76,10 @@ const APIs = {
     'method': 'get',
     'url': '/notes/tasks/?date={date}'
   },
+  NOTES_SEARCH_TASKS: {
+    'method': 'get',
+    'url': '/notes/tasks/search/?q={q}'
+  },
 
   NOTES_NEW_MEMO: {
     'method': 'post',

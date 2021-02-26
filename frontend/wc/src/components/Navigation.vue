@@ -234,6 +234,14 @@ export default {
           }
         })
       }
+      else {
+        this.$router.push({
+          name: 'notes.searchTask',
+          params: {
+            q: anything
+          }
+        })
+      }
     }
   }
 }

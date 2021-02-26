@@ -529,7 +529,7 @@ export default {
     }
   },
   mounted () {
-    this.getTasks()
+    this.getTasks(this.$route.query.date)
   },
   methods: {
     pickerDayFormat: function (day) {

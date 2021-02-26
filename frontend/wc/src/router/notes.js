@@ -6,6 +6,18 @@ export default [
     component: () => import('@/views/notes/Tasks.vue')
   },
   {
+    path: '/notes/tasks/list',
+    name: 'notes.taskList',
+    meta: { requiresAuth: true, requiresPrime: true },
+    component: () => import('@/views/notes/TaskList.vue')
+  },
+  {
+    path: '/notes/tasks/search/:q',
+    name: 'notes.searchTask',
+    meta: { requiresAuth: true, requiresPrime: true },
+    component: () => import('@/views/notes/SearchTask.vue')
+  },
+  {
     path: '/notes/memo',
     name: 'notes.memo',
     redirect: {
