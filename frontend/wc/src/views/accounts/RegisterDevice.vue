@@ -49,7 +49,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 import { mapState } from 'vuex'
 
 export default {
@@ -76,10 +75,10 @@ export default {
       .then(function () {
         localStorage.setItem('token', vm.key)
         localStorage.setItem('date_format', vm.date_format)
-        router.push({ name: 'notes.tasks' })
+        vm.$router.push({ name: 'notes.tasks' })
       })
       .catch(function () {
-        router.push({ name: 'home' })
+        vm.$router.push({ name: 'home' })
       })
     },
   }

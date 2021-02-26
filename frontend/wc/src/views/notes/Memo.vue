@@ -316,7 +316,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 import FormatDate from '@/mixins/formatDate'
 import Mobile from '@/mixins/mobile'
 import DocIcon from '@/components/DocIcon'
@@ -365,16 +364,19 @@ export default {
       this.page = 1
     }
 
-    this.getMemos(this.menuIndex, null, this.page)
+    this.getMemos(this.menuIndex, null, this.page, this.$route.query.q)
   },
   methods: {
     editMemo: function (memo) {
-      router.push({
+      this.$router.push({
         name: 'notes.editMemo',
         params: {
           menu: this.menuIndex,
           page: this.pagination.currentPage,
           pk: memo.id
+        },
+        query: {
+          q: this.$route.query.q
         }
       })
     },
@@ -387,7 +389,7 @@ export default {
     nextPage: function () {
       this.getMemos(this.menuIndex, this.pagination.nextLink)
     },
-    getMemos: function (index=1, url=null, page=0) {
+    getMemos: function (index=1, url=null, page=0, q=null) {
       var vm = this
       var method = 'get'
 
@@ -408,6 +410,10 @@ export default {
         url = this.$api(apiType).url.replace(
           '{page}', page
         )
+
+        if (q) {
+          url += '&q=' + q
+        }
       }
 
       axios({

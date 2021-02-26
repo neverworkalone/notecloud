@@ -17,6 +17,12 @@ export default [
     }
   },
   {
+    path: '/notes/memo/:q',
+    name: 'notes.searchMemo',
+    meta: { requiresAuth: true, requiresPrime: true },
+    component: () => import('@/views/notes/SearchMemo.vue')
+  },
+  {
     path: '/notes/memo/:menu/:page',
     name: 'notes.memoPage',
     meta: { requiresAuth: true, requiresPrime: true },

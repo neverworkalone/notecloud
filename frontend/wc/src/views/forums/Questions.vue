@@ -96,7 +96,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 import FormatDate from '@/mixins/formatDate'
 import Mobile from '@/mixins/mobile'
 import Pagination from '@/components/Pagination'
@@ -196,7 +195,7 @@ export default {
       })
     },
     answer: function (question) {
-      router.push({
+      this.$router.push({
         name: 'forums.answer',
         params: {
           menu: this.menuIndex,

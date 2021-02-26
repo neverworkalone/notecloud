@@ -41,7 +41,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 import TipTap from '@/components/TipTap'
 
 export default {
@@ -96,7 +95,7 @@ export default {
       })
       .then(function () {
         vm.saved = true
-        router.push({ name: 'notes.memo' })
+        vm.$router.push({ name: 'notes.memo' })
 
         vm.$dialog.notify.success(
           vm.$t('memo.MEMO_SAVED'), {

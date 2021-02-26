@@ -55,7 +55,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 
 export default {
   data () {
@@ -104,7 +103,7 @@ export default {
             position: 'bottom-right'
           }
         )
-        router.push({ name: 'home' })
+        vm.$router.push({ name: 'home' })
       })
       .catch(function () {
       })

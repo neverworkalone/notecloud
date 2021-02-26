@@ -114,7 +114,8 @@
         "TRASH_DESCRIPTION": "Memos in trash are deleted forever after 30 days.",
         "EMPTY_TRASH": "Empty trash",
         "RESTORE_FROM_TRASH": "Restore from trash",
-        "RESTORED": "Restored"
+        "RESTORED": "Restored",
+        "SEARCH_MEMO": "Search (Memo)"
     },
     "forums": {
         "QUESTION_ADDRESS_LABEL": "Address (Optional)",
@@ -125,7 +126,8 @@
         "QUESTION_OPEN": "Open",
         "QUESTION_CLOSED": "Closed",
         "QUESTION_DELETED": "Deleted",
-        "ANSWER_LABEL": "Answer"
+        "ANSWER_LABEL": "Answer",
+        "SEARCH_QUESTIONS": "Search (Questions)"
     },
     "editor": {
         "ADD_LINK": "Add link",

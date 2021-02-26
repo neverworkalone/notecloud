@@ -61,7 +61,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 
 export default {
   data () {
@@ -112,7 +111,7 @@ export default {
             position: 'bottom-right'
           }
         )
-        router.push({ name: 'accounts.login' })
+        vm.$router.push({ name: 'accounts.login' })
       })
       .catch(function (error) {
         if (error.response && error.response.data) {

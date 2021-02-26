@@ -57,7 +57,6 @@
 
 <script>
 import axios from 'axios'
-import router from '@/router'
 import { mapState } from 'vuex'
 
 export default {
@@ -114,7 +113,7 @@ export default {
         localStorage.clear()
 
         axios.defaults.headers.common['Authorization'] = ''
-        router.push({ name: 'home' })
+        vm.$router.push({ name: 'home' })
       })
       .catch(function () {
       })

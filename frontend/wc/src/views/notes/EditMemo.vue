@@ -30,6 +30,9 @@
           params: {
             menu: menuIndex,
             page: page
+          },
+          query: {
+            q: q
           }
         }"
       >
@@ -71,6 +74,7 @@ export default {
       },
       menuIndex: 1,
       page: 1,
+      q: null,
       memo: null,
       firstInit: false
     }
@@ -100,6 +104,8 @@ export default {
     if (!this.page) {
       this.page = 1
     }
+
+    this.q = this.$route.query.q
 
     this.getMemo(this.$route.params.pk)
   },

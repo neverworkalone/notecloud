@@ -151,7 +151,7 @@ const APIs = {
   },
   FORUMS_QUESTIONS_NEW: {
     'method': 'get',
-    'url': '/forums/questions/?state=new&page={page}&page_size=5'
+    'url': '/forums/questions/?state=new&page={page}'
   },
   FORUMS_QUESTIONS_OPEN: {
     'method': 'get',

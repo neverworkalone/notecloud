@@ -114,7 +114,8 @@
         "TRASH_DESCRIPTION": "휴지통에 들어간 메모는 30일 후 완전히 삭제됩니다.",
         "EMPTY_TRASH": "휴지통 비우기",
         "RESTORE_FROM_TRASH": "복구",
-        "RESTORED": "복구했습니다."
+        "RESTORED": "복구했습니다.",
+        "SEARCH_MEMO": "검색 (메모)"
     },
     "forums": {
         "QUESTION_ADDRESS_LABEL": "연락처 (선택)",
@@ -125,7 +126,8 @@
         "QUESTION_OPEN": "진행중",
         "QUESTION_CLOSED": "답변완료",
         "QUESTION_DELETED": "삭제됨",
-        "ANSWER_LABEL": "답변 내용"
+        "ANSWER_LABEL": "답변 내용",
+        "SEARCH_QUESTIONS": "검색 (문의)"
     },
     "editor": {
         "ADD_LINK": "링크 추가하기",

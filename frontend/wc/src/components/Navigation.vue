@@ -90,7 +90,7 @@
         clearable
         hide-details
         prepend-inner-icon="mdi-magnify"
-        :placeholder="$t('common.SEARCH')"
+        :placeholder="placeholder"
         class="ml-8"
         @blur="onBlur"
         @keydown.esc="onEsc"
@@ -115,13 +115,26 @@ export default {
   data () {
     return {
       drawer: null,
-      search: '',
+      search: ''
     }
   },
   computed: {
     ...mapState([
       'user'
     ]),
+    placeholder: function () {
+      var routeName = this.$route.name
+
+      if (routeName && routeName.includes('memo')) {
+        return this.$t('memo.SEARCH_MEMO')
+      }
+      else if (routeName && routeName.includes('question')) {
+        return this.$t('forums.SEARCH_QUESTIONS')
+      }
+      else {
+        return this.$t('common.SEARCH')
+      }
+    },
     username: function () {
       return this.user.username
     },
@@ -213,9 +226,14 @@ export default {
       this.searchAnything(this.search)
     },
     searchAnything(anything) {
-      // TODO: implement search
-      window.console.log(anything)
-      this.onBlur()
+      if (this.$route.name.includes('memo')) {
+        this.$router.push({
+          name: 'notes.searchMemo',
+          params: {
+            q: anything
+          }
+        })
+      }
     }
   }
 }

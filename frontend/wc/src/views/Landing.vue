@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import router from '@/router'
 import { mapState } from 'vuex'
 
 export default {
@@ -19,10 +18,10 @@ export default {
   },
   mounted () {
     if (this.user) {
-      router.push({ name: 'notes.tasks' })
+      this.$router.push({ name: 'notes.tasks' })
     }
     else {
-      router.push({ name: 'home' })
+      this.$router.push({ name: 'home' })
     }
   }
 }
