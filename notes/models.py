@@ -10,6 +10,12 @@ class TaskManager(models.Manager):
     def my(self, user):
         return self.filter(owner=user).filter(is_deleted=False)
 
+    def search(self, user, q):
+        if q:
+            return self.my(user).filter(content__icontains=q)
+        else:
+            return self.none()
+
     def my_completed(self, user):
         return self.my(user).filter(is_completed=True)
 

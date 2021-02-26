@@ -47,6 +47,18 @@ class TaskSerializer(ModelSerializer):
         return task
 
 
+class TaskListSerializer(ModelSerializer):
+    class Meta:
+        model = models.Task
+        fields = [
+            'id',
+            'date_from',
+            'date_until',
+            'content',
+            'is_completed',
+        ]
+
+
 class MemoSerializer(ModelSerializer):
     title = serializers.CharField(min_length=1)
 

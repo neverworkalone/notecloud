@@ -212,3 +212,90 @@ class TaskListTest(TestCase):
             self.data.get('calendar')[index + 1].get('all_completed') and
             not self.data.get('calendar')[index + 1].get('incompleted_exist')
         )
+
+
+class TaskSearchTest(TestCase):
+    def setUp(self):
+        self.create_user(is_prime=True)
+
+    def test_search_tasks(self):
+        tasks = [
+            {
+                'id': 0,
+                'content': 'key ab',
+                'date_from': '2020-12-24',
+                'search': True,
+                'complete': True,
+            },
+            {
+                'id': 0,
+                'content': 'ke ab',
+                'date_from': '2020-12-25',
+                'search': False,
+                'complete': True,
+            },
+            {
+                'id': 0,
+                'content': 'Keyab',
+                'date_from': '2020-12-26',
+                'search': True,
+                'complete': False,
+            },
+            {
+                'id': 0,
+                'content': '12kEYab',
+                'date_from': '2020-12-27',
+                'search': True,
+                'complete': False,
+            },
+            {
+                'id': 0,
+                'content': 'Ceyab',
+                'date_from': '2020-12-28',
+                'search': False,
+                'complete': False,
+            },
+            {
+                'id': 0,
+                'content': 'KEY',
+                'date_from': '2020-12-29',
+                'search': True,
+                'complete': False,
+            },
+            {
+                'id': 0,
+                'content': 'k e y',
+                'date_from': '2020-12-30',
+                'search': False,
+                'complete': False,
+            },
+        ]
+        search_list = []
+
+        for index, task in enumerate(tasks):
+            instance = self.create_task(
+                content=task.get('content'),
+                date_from=task.get('date_from')
+            )
+            tasks[index]['id'] = instance.id
+
+            if task.get('search'):
+                search_list.append(instance.id)
+
+            if task.get('complete'):
+                response = self.post(
+                    '/api/notes/task/%d/complete/' % instance.id,
+                    auth=True
+                )
+                assert response.status_code == Response.HTTP_200
+
+        response = self.get(
+            '/api/notes/tasks/search/?q=key',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            len(self.data) == len(search_list)
+        )
+        for data in self.data:
+            assert int(data.get('id')) in search_list

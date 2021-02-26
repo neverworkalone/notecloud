@@ -27,6 +27,11 @@ urlpatterns = [
         }), name='tasks'
     ),
     path(
+        'tasks/search/', views.TaskSearchViewSet.as_view({
+            'get': 'list'
+        }), name='search_tasks'
+    ),
+    path(
         'memo/new/', views.MemoViewSet.as_view({
             'post': 'create',
         }), name='new_memo'

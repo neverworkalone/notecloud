@@ -120,6 +120,19 @@ class TaskListViewSet(ReadOnlyModelViewSet):
         )
 
 
+class TaskSearchViewSet(ReadOnlyModelViewSet):
+    serializer_class = serializers.TaskListSerializer
+    model = models.Task
+
+    def get_permissions(self):
+        permission_classes = [IsPrime]
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH)
+        return self.model.objects.search(self.request.user, q)
+
+
 class MemoViewSet(ModelViewSet):
     serializer_class = serializers.MemoSerializer
     model = models.Memo

@@ -228,6 +228,20 @@ class MemoListTest(TestCase):
                 self.data.get('content') == memo.content
             )
 
+        response = self.get(
+            '/api/notes/memos/?page=1&page_size=10&q=p',
+            auth=True
+        )
+        assert (
+            response.status_code == Response.HTTP_200 and
+            len(self.data) == 2
+        )
+        for data in self.data:
+            assert (
+                data.get('title') == 'blue' or
+                data.get('title') == 'purple'
+            )
+
 
 class MemoShareTest(TestCase):
     def setUp(self):
