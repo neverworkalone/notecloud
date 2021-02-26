@@ -81,6 +81,11 @@
             <v-img src="@/assets/images/sample_mobile3.png"></v-img>
           </v-sheet>
         </v-carousel-item>
+        <v-carousel-item>
+          <v-sheet>
+            <v-img src="@/assets/images/sample_mobile4.png"></v-img>
+          </v-sheet>
+        </v-carousel-item>
       </v-carousel>
       <v-carousel
         :continuous="false"
@@ -106,6 +111,11 @@
         <v-carousel-item>
           <v-sheet>
             <v-img src="@/assets/images/sample4.png"></v-img>
+          </v-sheet>
+        </v-carousel-item>
+        <v-carousel-item>
+          <v-sheet>
+            <v-img src="@/assets/images/sample5.png"></v-img>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>

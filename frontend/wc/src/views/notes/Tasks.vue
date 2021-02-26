@@ -11,6 +11,13 @@
         width="300"
       >
         <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            v-bind="attrs"
+            v-on="on"
+            small
+          >
+            mdi-calendar-month
+          </v-icon>
           <div
             class="headline float-left"
             v-text="getYearMonth"
