@@ -38,7 +38,7 @@
       {{ $t('common.REGISTER') }}
     </v-btn>
     <v-btn
-      :to="{ name: 'home' }"
+      :to="{ name: 'notes.tasks' }"
       color="error"
       class="ma-2"
     >
@@ -76,7 +76,7 @@ export default {
       .then(function () {
         localStorage.setItem('token', vm.key)
         localStorage.setItem('date_format', vm.date_format)
-        router.push({ name: 'home' })
+        router.push({ name: 'notes.tasks' })
       })
       .catch(function () {
         router.push({ name: 'home' })

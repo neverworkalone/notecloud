@@ -144,7 +144,7 @@ export default {
         if (login_device.is_registered) {
           localStorage.setItem('token', key)
           localStorage.setItem('date_format', date_format)
-          router.push({ name: 'home' })
+          router.push({ name: 'notes.tasks' })
         }
         else {
           router.push({ name: 'accounts.register_device' })
