@@ -25,6 +25,7 @@
         "APPLY": "Apply",
         "CLOSE": "Close",
         "BACK": "Back",
+        "MOVE": "Move",
         "DOWNLOAD": "Download"
     },
     "accounts": {

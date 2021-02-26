@@ -5,11 +5,48 @@
     <div
       :class="isMobile ? 'content pt-0 pl-0 pr-0' : 'content pt-0'"
     >
-      <div
-        class="headline float-left"
-        v-text="getYearMonth"
+
+      <v-dialog
+        v-model="datePickerDialog"
+        width="300"
       >
-      </div>
+        <template v-slot:activator="{ on, attrs }">
+          <div
+            class="headline float-left"
+            v-text="getYearMonth"
+            v-bind="attrs"
+            v-on="on"
+          >
+          </div>
+        </template>
+        <v-row
+          justify="center"
+        >
+          <v-date-picker
+             v-model="datePicker"
+             elevation="15"
+             class="ml-6 mr-0"
+             :locale="($root.$i18n.locale == 'ko') ? 'ko-kr': 'en-us'"
+             :day-format="pickerDayFormat"
+           >
+           </v-date-picker>
+        </v-row>
+        <v-row
+          class="text-center ma-0 pt-3 pb-0"
+        >
+          <v-col
+          >
+            <v-btn
+              color="primary"
+              block
+              @click="pickerMove()"
+            >
+              {{ $t('common.MOVE') }}
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-dialog>
+
       <div
         class="float-right"
       >
@@ -445,6 +482,8 @@ export default {
   ],
   data () {
     return {
+      datePickerDialog: false,
+      datePicker: '',
       dateBefore: '',
       dateAfter: '',
       dateCurrent: '',
@@ -486,6 +525,13 @@ export default {
     this.getTasks()
   },
   methods: {
+    pickerDayFormat: function (day) {
+      return parseInt(day.substr(8,9))
+    },
+    pickerMove: function () {
+      this.getTasks(this.datePicker)
+      this.datePickerDialog = false
+    },
     setYearMonth: function (date) {
       this.year = date[0]
       this.month = date[1]
@@ -739,6 +785,7 @@ export default {
         vm.initializeShowMore()
         vm.getRandomColor()
 
+        vm.datePicker = vm.dateCurrent
         vm.firstInit = true
       })
       .catch(function () {
