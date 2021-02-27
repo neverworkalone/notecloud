@@ -162,8 +162,6 @@ export default {
         vm.state = vm.question.state
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     },
     save: function (state) {
       var vm = this

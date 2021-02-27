@@ -78,10 +78,7 @@ export default {
         )
         vm.$router.push({ name: 'home' })
       })
-      .catch(function () {
-        vm.$router.push({ name: 'home' })
-      })
-    },
+    }
   }
 }
 </script>

@@ -656,8 +656,6 @@ export default {
         vm.editMore = false
         vm.editDialog = false
       })
-      .catch(function () {
-      })
     },
     newTask: function () {
       var vm = this
@@ -678,8 +676,6 @@ export default {
         vm.initializeShowMore()
         vm.getRandomColor()
         vm.newDialog = false
-      })
-      .catch(function () {
       })
     },
     toggleComplete: function (task) {
@@ -711,8 +707,6 @@ export default {
           }
         }
       })
-      .catch(function () {
-      })
     },
     updateColor: function (id, color) {
       var vm = this
@@ -735,8 +729,6 @@ export default {
             break
           }
         }
-      })
-      .catch(function () {
       })
     },
     deleteTask: function (task) {
@@ -762,8 +754,6 @@ export default {
             timeout: 2000
           }
         )
-      })
-      .catch(function () {
       })
     },
     getTasks: function (date) {

@@ -431,8 +431,6 @@ export default {
         vm.memos = response.data['data']
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     },
     pinMemo: function (memo, unpin=false) {
       var vm = this
@@ -469,8 +467,6 @@ export default {
           }
         )
       })
-      .catch(function () {
-      })
     },
     shareMemo: function (memo, unshare=false) {
       var vm = this
@@ -506,8 +502,6 @@ export default {
             timeout: 2000
           }
         )
-      })
-      .catch(function () {
       })
     },
     deleteMemo: function (memo) {

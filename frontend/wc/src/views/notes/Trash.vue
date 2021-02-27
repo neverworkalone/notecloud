@@ -140,8 +140,6 @@ export default {
         vm.memos = response.data['data']
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     },
     restoreMemo: function (memo) {
       var vm = this
@@ -162,8 +160,6 @@ export default {
             timeout: 2000
           }
         )
-      })
-      .catch(function () {
       })
     },
     emptyTrash: function () {

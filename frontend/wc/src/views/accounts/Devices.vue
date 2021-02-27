@@ -134,8 +134,6 @@ export default {
         vm.devices = response.data['data']
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     },
     deleteDevice: async function (device) {
       let res = await this.$dialog.warning({

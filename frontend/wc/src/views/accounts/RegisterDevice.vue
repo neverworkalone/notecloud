@@ -77,10 +77,7 @@ export default {
         localStorage.setItem('date_format', vm.date_format)
         vm.$router.push({ name: 'notes.tasks' })
       })
-      .catch(function () {
-        vm.$router.push({ name: 'home' })
-      })
-    },
+    }
   }
 }
 </script>
