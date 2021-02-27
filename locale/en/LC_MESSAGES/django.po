@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-24 13:11+0900\n"
+"POT-Creation-Date: 2021-02-27 17:16+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,42 +41,46 @@ msgid ""
 "be changed until you set a new password."
 msgstr ""
 
-#: notecloud/settings.py:235
+#: notecloud/settings.py:241
 msgid "Korean"
 msgstr ""
 
-#: notecloud/settings.py:236
+#: notecloud/settings.py:242
 msgid "English"
 msgstr ""
 
-#: utils/text.py:13
+#: utils/text.py:11
 msgid "Unable to login."
 msgstr ""
 
-#: utils/text.py:14
+#: utils/text.py:12
 msgid "User is deactivated."
 msgstr ""
 
-#: utils/text.py:15
+#: utils/text.py:13
 msgid "Invalid password."
 msgstr ""
 
-#: utils/text.py:16
+#: utils/text.py:14
 msgid "Same as old password."
 msgstr ""
 
-#: utils/text.py:17
+#: utils/text.py:15
 msgid "User not exist."
 msgstr ""
 
-#: utils/text.py:18
+#: utils/text.py:16
 msgid "Invalid uid."
 msgstr ""
 
-#: utils/text.py:19
+#: utils/text.py:17
 msgid "Invalid token."
 msgstr ""
 
-#: utils/text.py:20
+#: utils/text.py:18
 msgid "You must consent."
+msgstr ""
+
+#: utils/text.py:31
+msgid "Invalid question state"
 msgstr ""
