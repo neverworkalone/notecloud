@@ -1,9 +1,10 @@
 {
-  "name": "wc",
-  "version": "0.1.0",
+  "name": "checkcheck",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
+    "staging": "vue-cli-service build --mode staging",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
