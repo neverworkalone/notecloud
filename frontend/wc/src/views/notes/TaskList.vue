@@ -14,11 +14,14 @@
             @click="goToDate(task)"
           >
             <td
-              width="120"
+              width="90"
+              class="pa-0"
             >
               {{ getDate(task) }}
             </td>
-            <td>
+            <td
+              class="pa-1"
+            >
               <v-icon
                 color="success"
                 v-if="task.is_completed"
