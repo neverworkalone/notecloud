@@ -1,11 +1,29 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 
 from utils.constants import Const
 
 
 class QuestionManager(models.Manager):
-    pass
+    def search(self, state, q):
+        if q:
+            search_query = (
+                Q(title__icontains=q) |
+                Q(content__icontains=q) |
+                Q(answer__icontains=q) |
+                Q(address__icontains=q) |
+                Q(user__username__icontains=q)
+            )
+        else:
+            search_query = Q()
+
+        if state:
+            state_query = Q(state=state)
+        else:
+            state_query = Q()
+
+        return self.filter(state_query).filter(search_query)
 
 
 class Question(models.Model):

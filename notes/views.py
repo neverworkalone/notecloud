@@ -1,7 +1,6 @@
 import datetime
 
 from django.conf import settings
-from django.db.models import Q
 from django.utils import timezone
 
 from core.permissions import (
@@ -210,15 +209,7 @@ class MemoListViewSet(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH)
-        if q:
-            search_query = (
-                Q(title__icontains=q) |
-                Q(content__icontains=q)
-            )
-        else:
-            search_query = Q()
-
-        return self.model.objects.my(self.request.user).filter(search_query)
+        return self.model.objects.search(self.request.user, q)
 
 
 class MemoTrashListViewSet(MemoListViewSet):

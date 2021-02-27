@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.utils import timezone
 
 from core.permissions import (
@@ -54,24 +53,7 @@ class QuestionListViewSet(ReadOnlyModelViewSet):
     def get_queryset(self):
         q = self.request.query_params.get(Const.QUERY_PARAM_SEARCH)
         state = self.request.query_params.get(Const.QUERY_PARAM_STATE)
-
-        if q:
-            search_query = (
-                Q(title__icontains=q) |
-                Q(content__icontains=q) |
-                Q(answer__icontains=q) |
-                Q(address__icontains=q) |
-                Q(user__username__icontains=q)
-            )
-        else:
-            search_query = Q()
-
-        if state:
-            state_query = Q(state=state)
-        else:
-            state_query = Q()
-
-        return self.model.objects.filter(state_query).filter(search_query)
+        return self.model.objects.search(state, q)
 
 
 class QuestionRetrieveViewSet(QuestionListViewSet):

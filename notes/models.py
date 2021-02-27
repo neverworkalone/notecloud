@@ -86,6 +86,17 @@ class MemoManager(models.Manager):
     def shared(self):
         return self.filter(is_deleted=False).filter(is_shared=True)
 
+    def search(self, user, q):
+        if q:
+            search_query = (
+                Q(title__icontains=q) |
+                Q(content__icontains=q)
+            )
+        else:
+            search_query = Q()
+
+        return self.my(user).filter(search_query)
+
 
 class Memo(models.Model):
     owner = models.ForeignKey(
