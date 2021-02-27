@@ -169,6 +169,10 @@ const APIs = {
     'method': 'get',
     'url': '/forums/questions/?state=deleted&page={page}'
   },
+  FORUMS_SEARCH_QUESTIONS: {
+    'method': 'get',
+    'url': '/forums/questions/?q={q}&page_size=0'
+  }
 }
 
 APIs.install = function (Vue) {

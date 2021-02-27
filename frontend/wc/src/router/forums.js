@@ -16,6 +16,18 @@ export default [
     }
   },
   {
+    path: '/forums/questions/search/:q',
+    name: 'forums.searchQuestions',
+    meta: { requiresAuth: true, StaffOnly: true },
+    component: () => import('@/views/forums/SearchQuestions.vue')
+  },
+  {
+    path: '/forums/questions/list',
+    name: 'forums.questionsList',
+    meta: { requiresAuth: true, StaffOnly: true },
+    component: () => import('@/views/forums/QuestionsList.vue')
+  },
+  {
     path: '/forums/questions/:menu/:page',
     name: 'forums.questionsPage',
     meta: { requiresAuth: true, StaffOnly: true },

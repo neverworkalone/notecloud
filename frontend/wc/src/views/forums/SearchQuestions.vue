@@ -19,9 +19,8 @@ export default {
   },
   mounted () {
     this.$router.replace({
-      name: 'notes.taskList',
+      name: 'forums.questionsList',
       query: {
-        page: 1,
         q: this.$route.params.q
       }
     })

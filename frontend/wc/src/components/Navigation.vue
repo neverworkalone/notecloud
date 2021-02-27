@@ -226,9 +226,22 @@ export default {
       this.searchAnything(this.search)
     },
     searchAnything(anything) {
+      if (!anything) {
+        this.onEsc()
+        return
+      }
+
       if (this.$route.name.includes('memo')) {
         this.$router.push({
           name: 'notes.searchMemo',
+          params: {
+            q: anything
+          }
+        })
+      }
+      else if (this.$route.name.includes('question')) {
+        this.$router.push({
+          name: 'forums.searchQuestions',
           params: {
             q: anything
           }

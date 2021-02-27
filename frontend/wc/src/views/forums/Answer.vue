@@ -45,6 +45,16 @@
             large
             elevation="9"
             color="blue-grey lighten-4"
+            @click="$router.go(-1)"
+            v-if="q"
+          >
+            {{ $t('common.BACK') }}
+          </v-btn>
+          <v-btn
+            block
+            large
+            elevation="9"
+            color="blue-grey lighten-4"
             :to="{
               name: 'forums.questionsPage',
               params: {
@@ -52,6 +62,7 @@
                 page: page
               }
             }"
+            v-else
           >
             {{ $t('common.BACK') }}
           </v-btn>
@@ -105,6 +116,7 @@ export default {
     return {
       menuIndex: 0,
       page: 1,
+      q: null,
       question: null,
       state: null,
       answer: null,
@@ -144,6 +156,7 @@ export default {
     if (!this.page) {
       this.page = 1
     }
+    this.q = this.$route.query.q
 
     this.getQuestion(this.$route.params.pk)
   },
