@@ -1,3 +1,5 @@
+import notes
+
 from user_agents import parse
 
 from django.utils import timezone
@@ -93,6 +95,9 @@ def get_auth_token(user):
 
 
 def deactivate_account(user):
+    notes.models.Task.objects.filter(owner=user).delete()
+    notes.models.Memo.objects.filter(owner=user).delete()
+
     user.is_superuser = False
     user.is_staff = False
     user.is_active = False

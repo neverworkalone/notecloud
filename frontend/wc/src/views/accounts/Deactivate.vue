@@ -28,10 +28,15 @@
       </v-row>
 
       <v-btn
-        large
         color="error"
         @click="submit"
       >
+        <v-icon
+          small
+          class="mr-2"
+        >
+          mdi-human-greeting
+        </v-icon>
         {{ $t('accounts.DEACTIVATE') }}
       </v-btn>
     </v-form>
@@ -111,8 +116,13 @@ export default {
         })
 
         localStorage.clear()
-
         axios.defaults.headers.common['Authorization'] = ''
+
+        vm.$dialog.notify.info(
+          vm.$t('accounts.DEACTIVATED_FAREWELL'), {
+            position: 'bottom-right'
+          }
+        )
         vm.$router.push({ name: 'home' })
       })
     },

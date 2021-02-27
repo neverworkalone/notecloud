@@ -53,5 +53,5 @@ export default [
     name: 'accounts.deactivate',
     meta: { requiresAuth: true },
     component: () => import('@/views/accounts/Deactivate.vue')
-  },
+  }
 ]
