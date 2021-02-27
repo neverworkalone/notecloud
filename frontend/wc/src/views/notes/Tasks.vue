@@ -795,8 +795,6 @@ export default {
         vm.datePicker = vm.dateCurrent
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     }
   }
 }

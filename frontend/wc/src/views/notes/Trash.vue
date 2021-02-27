@@ -186,8 +186,6 @@ export default {
           }
         )
       })
-      .catch(function () {
-      })
     }
   }
 }

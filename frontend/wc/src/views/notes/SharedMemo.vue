@@ -158,8 +158,6 @@ export default {
         vm.options.content = vm.memo.content
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     },
     copyLink: function (memo) {
       var props = this.$router.resolve({

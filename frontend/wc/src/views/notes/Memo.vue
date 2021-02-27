@@ -530,8 +530,6 @@ export default {
           }
         )
       })
-      .catch(function () {
-      })
     },
     copyLink: function (memo) {
       var props = this.$router.resolve({

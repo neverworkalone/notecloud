@@ -164,8 +164,6 @@ export default {
         var index = vm.devices.indexOf(device)
         vm.devices[index].device = null
       })
-      .catch(function () {
-      })
     }
   }
 }

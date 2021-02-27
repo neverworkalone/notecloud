@@ -115,8 +115,6 @@ export default {
         axios.defaults.headers.common['Authorization'] = ''
         vm.$router.push({ name: 'home' })
       })
-      .catch(function () {
-      })
     },
   }
 }

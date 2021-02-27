@@ -191,8 +191,6 @@ export default {
         vm.questions = response.data['data']
         vm.firstInit = true
       })
-      .catch(function () {
-      })
     },
     answer: function (question) {
       this.$router.push({
