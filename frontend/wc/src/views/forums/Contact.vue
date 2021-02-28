@@ -70,6 +70,31 @@ export default {
   },
   mounted () {
   },
+  async beforeRouteLeave (to, from, next) {
+    if (!this.address && !this.title && !this.content) {
+      next()
+    }
+    else {
+      const res = await this.$dialog.confirm({
+        text: this.$t('editor.QUIT_EDITING'),
+        actions: {
+          false: {
+            text: this.$t('common.CANCEL')
+          },
+          true: {
+            color: 'primary',
+            text: this.$t('common.OK'),
+          }
+        }
+      })
+      if (res) {
+        next()
+      }
+      else {
+        next(false)
+      }
+    }
+  },
   methods: {
     submit: function () {
       var vm = this

@@ -160,6 +160,31 @@ export default {
 
     this.getQuestion(this.$route.params.pk)
   },
+  async beforeRouteLeave (to, from, next) {
+    if (this.question.answer == this.answer) {
+      next()
+    }
+    else {
+      const res = await this.$dialog.confirm({
+        text: this.$t('editor.QUIT_EDITING'),
+        actions: {
+          false: {
+            text: this.$t('common.CANCEL')
+          },
+          true: {
+            color: 'primary',
+            text: this.$t('common.OK'),
+          }
+        }
+      })
+      if (res) {
+        next()
+      }
+      else {
+        next(false)
+      }
+    }
+  },
   methods: {
     getQuestion: function (pk) {
       var vm = this
@@ -172,6 +197,7 @@ export default {
       })
       .then(function (response) {
         vm.question = response.data['data']
+        vm.answer = response.data['data']['answer']
         vm.state = vm.question.state
         vm.firstInit = true
       })
@@ -189,7 +215,9 @@ export default {
           answer: this.question.answer
         }
       })
-      .then(function () {
+      .then(function (response) {
+        vm.answer = response.data['data']['answer']
+
         vm.$dialog.notify.success(
           vm.$t('memo.MEMO_SAVED'), {
             position: 'bottom-right',
