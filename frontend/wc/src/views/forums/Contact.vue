@@ -63,6 +63,7 @@ export default {
       address: '',
       title: '',
       content: '',
+      saved: false,
       rules: {
         required: v => !!v || this.$t('common.REQUIRED'),
       }
@@ -71,7 +72,7 @@ export default {
   mounted () {
   },
   async beforeRouteLeave (to, from, next) {
-    if (!this.address && !this.title && !this.content) {
+    if (this.saved || (!this.address && !this.title && !this.content)) {
       next()
     }
     else {
@@ -123,6 +124,7 @@ export default {
         },
       })
       .then(function () {
+        vm.saved = true
         vm.$dialog.notify.success(
           vm.$t('forums.CONTACT_COMPLETED'), {
             position: 'bottom-right'

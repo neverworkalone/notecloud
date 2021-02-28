@@ -548,3 +548,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-item-group.v-bottom-navigation .v-btn.v-size--default {
+  height: inherit;
+  background-color: inherit;
+}
+</style>
