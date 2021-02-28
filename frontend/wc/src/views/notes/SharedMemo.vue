@@ -118,6 +118,11 @@ export default {
     TipTap,
     VueQrcode
   },
+  metaInfo () {
+    return {
+      title: this.memo.title + ' | ' + this.$t('info.SITENAME')
+    }
+  },
   data () {
     return {
       options: {

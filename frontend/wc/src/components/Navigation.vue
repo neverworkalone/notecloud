@@ -95,6 +95,7 @@
         @blur="onBlur"
         @keydown.esc="onEsc"
         @keydown.enter="onEnter"
+        accesskey="/"
       >
       </v-text-field>
 

@@ -17,5 +17,5 @@ module.exports = {
     disableHostCheck: true
   },
   outputDir: 'checkcheck.one/dist',
-  parallel: !process.env.CIRCLECI
+  productionSourceMap: false
 }
