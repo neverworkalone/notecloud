@@ -10,14 +10,14 @@
       v-if="to"
     >
       <v-img
-        src="@/assets/images/checkcheck.png"
+        src="@/assets/images/home/checkcheck.png"
         width="144"
         height="60"
       ></v-img>
     </router-link>
 
     <v-img
-      src="@/assets/images/checkcheck.png"
+      src="@/assets/images/home/checkcheck.png"
       width="144"
       height="60"
       v-else

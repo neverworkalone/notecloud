@@ -10,7 +10,7 @@
         style="max-width:320px;"
       >
         <v-img
-          src="@/assets/images/title_slim.png"
+          src="@/assets/images/home/title_slim.png"
         ></v-img>
       </v-container>
       <v-container
@@ -67,23 +67,31 @@
         v-if="isMobile"
       >
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample_mobile1.png"></v-img>
+          <v-sheet
+            v-if="sampleImageMobile1"
+          >
+            <v-img :src="sampleImageMobile1.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample_mobile2.png"></v-img>
+          <v-sheet
+            v-if="sampleImageMobile2"
+          >
+            <v-img :src="sampleImageMobile2.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample_mobile3.png"></v-img>
+          <v-sheet
+            v-if="sampleImageMobile3"
+          >
+            <v-img :src="sampleImageMobile3.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample_mobile4.png"></v-img>
+          <v-sheet
+            v-if="sampleImageMobile4"
+          >
+            <v-img :src="sampleImageMobile4.src"></v-img>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
@@ -94,28 +102,38 @@
         v-else
       >
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample1.png"></v-img>
+          <v-sheet
+            v-if="sampleImage1"
+          >
+            <v-img :src="sampleImage1.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample2.png"></v-img>
+          <v-sheet
+            v-if="sampleImage2"
+          >
+            <v-img :src="sampleImage2.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample3.png"></v-img>
+          <v-sheet
+            v-if="sampleImage3"
+          >
+            <v-img :src="sampleImage3.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample4.png"></v-img>
+          <v-sheet
+            v-if="sampleImage4"
+          >
+            <v-img :src="sampleImage4.src"></v-img>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item>
-          <v-sheet>
-            <v-img src="@/assets/images/sample5.png"></v-img>
+          <v-sheet
+            v-if="sampleImage5"
+          >
+            <v-img :src="sampleImage5.src"></v-img>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
@@ -165,7 +183,16 @@ export default {
           icon: 'mdi-web',
           text: 'slides.3'
         }
-      ]
+      ],
+      sampleImage1: null,
+      sampleImage2: null,
+      sampleImage3: null,
+      sampleImage4: null,
+      sampleImage5: null,
+      sampleImageMobile1: null,
+      sampleImageMobile2: null,
+      sampleImageMobile3: null,
+      sampleImageMobile4: null
     }
   },
   computed: {
@@ -174,6 +201,49 @@ export default {
     ])
   },
   mounted () {
+    if (this.isMobile) {
+      this.preloadMobile()
+    }
+    else {
+      this.preloadDesktop()
+    }
+  },
+  methods: {
+    preloadDesktop: function () {
+      var sampleSrc = [
+        'https://cdn.checkcheck.one/images/home/sample1.png',
+        'https://cdn.checkcheck.one/images/home/sample2.png',
+        'https://cdn.checkcheck.one/images/home/sample3.png',
+        'https://cdn.checkcheck.one/images/home/sample4.png',
+        'https://cdn.checkcheck.one/images/home/sample5.png'
+      ]
+      this.sampleImage1 = new Image()
+      this.sampleImage1.src = sampleSrc[0]
+      this.sampleImage2 = new Image()
+      this.sampleImage2.src = sampleSrc[1]
+      this.sampleImage3 = new Image()
+      this.sampleImage3.src = sampleSrc[2]
+      this.sampleImage4 = new Image()
+      this.sampleImage4.src = sampleSrc[3]
+      this.sampleImage5 = new Image()
+      this.sampleImage5.src = sampleSrc[4]
+    },
+    preloadMobile: function () {
+      var sampleSrc = [
+        'https://cdn.checkcheck.one/images/home/sample_mobile1.png',
+        'https://cdn.checkcheck.one/images/home/sample_mobile2.png',
+        'https://cdn.checkcheck.one/images/home/sample_mobile3.png',
+        'https://cdn.checkcheck.one/images/home/sample_mobile4.png'
+      ]
+      this.sampleImageMobile1 = new Image()
+      this.sampleImageMobile1.src = sampleSrc[0]
+      this.sampleImageMobile2 = new Image()
+      this.sampleImageMobile2.src = sampleSrc[1]
+      this.sampleImageMobile3 = new Image()
+      this.sampleImageMobile3.src = sampleSrc[2]
+      this.sampleImageMobile4 = new Image()
+      this.sampleImageMobile4.src = sampleSrc[3]
+    }
   }
 }
 </script>
