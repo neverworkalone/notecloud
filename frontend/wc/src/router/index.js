@@ -37,7 +37,12 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isApproved) {
-      next({ name: 'accounts.login' })
+      next({
+        name: 'accounts.login',
+        query: {
+          nextURL: to.path
+        }
+      })
     }
     else if (
       to.matched.some(record => record.meta.StaffOnly) &&
