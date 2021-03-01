@@ -125,7 +125,7 @@ export default {
         )
         vm.$router.push({ name: 'home' })
       })
-    },
+    }
   }
 }
 </script>
