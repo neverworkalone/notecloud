@@ -97,26 +97,26 @@
         "SCAN_QR_CODE_DESCRIPTION": "Scan this QR Code with a camera app of your smartphone.",
         "PIN_MEMO": "Pin memo",
         "UNPIN_MEMO": "Unpin memo",
-        "MEMO_IS_PINNED": "Memo is pinned",
-        "MEMO_IS_UNPINNED": "Memo is unpinned",
-        "MEMO_IS_SHARED": "Memo is shared",
-        "MEMO_NO_LONGER_SHARED": "Memo is no longer shared.",
+        "MEMO_IS_PINNED": "Note is pinned",
+        "MEMO_IS_UNPINNED": "Note is unpinned",
+        "MEMO_IS_SHARED": "Note is shared",
+        "MEMO_NO_LONGER_SHARED": "Note is no longer shared.",
         "SHARE_MEMO": "Share",
         "SHARE_MEMO_DESCRIPTION": "Share memo with everyone.",
         "UNSHARE_MEMO": "Unshare",
         "DELETE_MEMO": "Delete memo",
         "DELETE_MEMO_DESCRIPTION": "Move to trash.",
-        "MEMO_SAVED": "Memo saved.",
+        "MEMO_SAVED": "Note saved.",
         "NEW_MEMO": "New",
-        "MEMO_LIST": "Memo",
+        "MEMO_LIST": "Note",
         "MEMO_PINNED": "Pinned",
         "MEMO_SHARED": "Shared",
         "MEMO_TRASH": "Trash",
-        "TRASH_DESCRIPTION": "Memos in trash are deleted forever after 30 days.",
+        "TRASH_DESCRIPTION": "Notes in trash are deleted forever after 30 days.",
         "EMPTY_TRASH": "Empty trash",
         "RESTORE_FROM_TRASH": "Restore from trash",
         "RESTORED": "Restored",
-        "SEARCH_MEMO": "Search (Memo)"
+        "SEARCH_MEMO": "Search (Note)"
     },
     "forums": {
         "QUESTION_ADDRESS_LABEL": "Address (Optional)",
@@ -144,7 +144,7 @@
         "ANSWER": "Answer",
         "FORUM": "Forum",
         "CHECK": "CheckCheck",
-        "MEMO": "Memo"
+        "MEMO": "Note"
     },
     "landing": {
         "CHECKCHECK_TODAY": "CheckCheck Today!",
