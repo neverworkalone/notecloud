@@ -14,7 +14,11 @@ import json
 import os
 import sys
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -131,6 +135,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'corsheaders',
+    'django_crontab',
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
@@ -297,3 +302,17 @@ LOGGING = {
         }
     },
 }
+
+
+# Sentry
+# https://docs.sentry.io/platforms/python/guides/django/
+
+if not LOCAL_SERVER and not TEST_SETTING and not DEBUG:
+    sentry_sdk.init(
+        dsn="https://131170d7f9604807964b953e4296dd89@o537972.ingest.sentry.io/5655805",  # noqa
+        integrations=[DjangoIntegration()],
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )

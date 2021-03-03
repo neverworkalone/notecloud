@@ -2,6 +2,7 @@ codecov
 Django>=3.0
 djangorestframework>=3.10
 django-cors-headers
+django-crontab
 django-storages
 drf-yasg
 flake8
@@ -10,6 +11,7 @@ mysqlclient
 packaging
 pillow>=8.0
 psycopg2
+sentry-sdk
 setuptools
 tblib
 six>=1.14.0
