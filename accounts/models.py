@@ -11,7 +11,8 @@ from . import tools
 
 
 class UserManager(DjangoUserManager):
-    pass
+    def prime(self):
+        return self.filter(is_active=True).filter(is_prime=True)
 
 
 class User(AbstractUser):

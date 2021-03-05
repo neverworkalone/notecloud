@@ -316,3 +316,11 @@ if not LOCAL_SERVER and not TEST_SETTING and not DEBUG:
         # django.contrib.auth) you may enable sending PII data.
         send_default_pii=True
     )
+
+
+# django-crontab
+# https://github.com/kraiz/django-crontab
+
+CRONJOBS = [
+    ('1 0 * * *', 'utils.bots.daily_task', '>> /var/log/dailybot.log'),
+]

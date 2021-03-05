@@ -74,6 +74,13 @@ class MemoManager(models.Manager):
     def my(self, user):
         return self.filter(owner=user).filter(is_deleted=False)
 
+    def expired_trash(self, retard):
+        expired = (
+            Q(is_deleted=True) &
+            Q(updated_at__lt=retard)
+        )
+        return self.filter(expired).order_by('id')
+
     def my_trash(self, user):
         return self.filter(owner=user).filter(is_deleted=True)
 

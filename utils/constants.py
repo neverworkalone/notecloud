@@ -46,6 +46,8 @@ class _ConstProject(_Const):
     DOCTYPE_BULLET = '<ul><li>'
     DOCTYPE_ORDER = '<ol><li>'
 
+    TRASH_KEEP_DAYS = 30
+
     QUERY_PARAM_STATE = 'state'
     QUESTION_STATE_NEW = 'new'
     QUESTION_STATE_OPEN = 'open'
