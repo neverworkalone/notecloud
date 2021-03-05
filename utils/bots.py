@@ -1,3 +1,5 @@
+import threading
+
 import accounts
 import notes
 
@@ -6,7 +8,6 @@ from django.utils import timezone
 from core.permissions import IsAdminUser
 from core.response import Response
 from core.viewsets import APIView
-from core.wrapper import async_func
 
 from utils.constants import Const
 from utils.debug import Debug  # noqa
@@ -20,9 +21,13 @@ class BotView(APIView):
         return Response(status=Response.HTTP_200)
 
 
+def run_thread(cls, target):
+    thread = threading.Thread(target=target)
+    thread.start()
+
+
 def check_expired_prime(today):
     users = accounts.models.User.objects.prime()
-    Debug.log(accounts.models.User.objects.all())
 
     for user in users:
         if not user.prime_until or user.prime_until <= today:
@@ -48,7 +53,6 @@ def check_expired_memo_in_trash(now):
         expired_trashes.delete()
 
 
-@async_func
 def daily_task():
     now = timezone.now()
     today = now.date()
@@ -63,3 +67,7 @@ def daily_task():
     Debug.trace(
         '%s daily task finished.' % today
     )
+
+
+def bot_daily():
+    run_thread(daily_task)
