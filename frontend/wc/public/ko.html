@@ -1,0 +1,230 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta property="og:site_name" content="오늘부터 체크체크!">
+    <meta property="og:image" content="/title.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <style>
+      body {
+        font-size:16px;
+        text-rendering:optimizeLegibility;
+        -webkit-font-smooting:anitaliased;
+      }
+      .body_title_image {
+        max-width:320px;
+        margin:30px;
+      }
+      .body_title_image img {max-width:100%;}
+      .iconify {
+        color:rgba(0, 0, 0, 0.54);
+        font-size:24px;
+      }
+      .iconify_light {
+        color:white !important;
+      }
+      .header_description {
+        font-size:1rem !important;
+        font-weight:400;
+        line-height:1.5rem;
+        letter-spacing:0.03125em !important;
+        max-width:580px;
+        margin:10px;
+      }
+
+      .header_button {
+        margin:30px;
+      }
+      button {
+        background-color:#1976d2;
+        color:white;
+        padding:10px;
+        padding-left:20px; padding-right:20px;
+        border-radius:.3em;
+        font-size:15px;
+        font-weight:350;
+        cursor:pointer;
+      }
+      button.language {
+        background-color:#1E1E1E !important;
+        padding:10 !important;
+        border:0 !important;
+        font-size:14px !important;
+      }
+
+      .carousel {
+        height:550;
+        max-width:860;
+        text-align:center;
+      }
+      .carousel img {
+        max-width:100%;
+      }
+
+      .faq {
+        max-width:860;
+      }
+      .faq_title {
+        font-size:34px;
+        text-align:left;
+        padding:10px;
+      }
+
+      .question {
+        margin:18px;
+      }
+      .bottom {
+        background-color:#1E1E1E;
+        color:white;
+        margin:0;
+        padding:20px;
+      }
+
+      .collapsible {
+        background-color:white;
+        color:black;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border:1px solid #aaa;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+      }
+      .active, .collapsible:hover {
+        background-color: #EFEFEF;
+      }
+      .collapsible:after {
+        content: '\002B';
+        color:#aaa;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+      }
+      .active:after {
+        content: "\2212";
+      }
+      .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        text-align:left;
+      }
+
+      @media all and (min-width:601px) {
+        .header {font-size:72px;font-weight:bolder;color:#2c3e50;}
+        .carousel {
+          height:550;
+          max-width:860;
+          text-align:center;
+        }
+        .mobile_show {display:none;}
+      }
+      @media all and (max-width:600px) {
+        .header {font-size:36px;}
+        .carousel {
+          height:550;
+          max-width:300;
+          text-align:center;
+        }
+        .mobile_hide {display:none;}
+      }
+    </style>
+    <script src="//code.iconify.design/1/1.0.6/iconify.min.js"></script>
+  </head>
+  <body>
+    <div align="center">
+      <div align="center" class="body_title_image">
+        <img src="/title_slim.png">
+      </div>
+      <div class="header">
+        오늘부터 체크체크!
+      </div>
+      <div class="header_description">
+        <p align="left">
+          <span class="iconify" data-icon="mdi-flash-circle"></span>
+          할 일을 자꾸 까먹지 않으세요? 체크체크 해보세요!
+        </p>
+        <p align="left">
+          <span class="iconify" data-icon="mdi-notebook-outline"></span>
+          매일매일 플래너에 하나하나 옮겨적고 계시다면? 이제부터 체크체크!
+        </p>
+        <p align="left">
+          <span class="iconify" data-icon="mdi-web"></span>
+          집에서도 직장에서도 PC로도 스마트폰으로도 체크체크 하나로 체크체크!
+        </p>
+      </div>
+
+      <div class="header_button">
+        <a href="/#/accounts/login">
+          <button>
+            무료로 시작하기<br>
+            (이메일 주소만 있으면 됩니다)
+          </button>
+        </a>
+      </div>
+
+      <div class="carousel mobile_hide" align="center">
+        <img src="https://cdn.checkcheck.one/images/home/sample1.png">
+      </div>
+      <div class="carousel mobile_show" align="center">
+        <img src="https://cdn.checkcheck.one/images/home/sample_mobile1.png">
+      </div>
+
+      <div class="faq">
+        <div class="faq_title">
+          자주 묻는 질문
+        </div>
+        <button class="collapsible">무료 버전의 제약이 있나요?</button>
+        <div class="content">
+          <p>베타 버전은 기능 제한없이 무료로 사용 가능합니다. 추후 정식 서비스가 이루어지면 기능이 추가/제거될 수도 있습니다.</p>
+        </div>
+        <button class="collapsible">앱(iOS/Android)은 없나요?</button>
+        <div class="content">
+          <p>정식 서비스시 함께 사용할 수 있도록 개발할 계획입니다.</p>
+        </div>
+        <button class="collapsible">사용 중 문제가 발생했어요.</button>
+        <div class="content">
+          <p>베타 버전이 서비스 되는 동안에는 매일매일 기능 개발 및 버그 수정이 이루어지고 있습니다. 페이지를 새로고침해도 문제가 계속될 경우 문의하기를 통해 알려주시면 최대한 빨리 개선토록 하겠습니다.</p>
+        </div>
+        <button class="collapsible">문의에 대한 답변이 없는데요?</button>
+        <div class="content">
+          <p>여러분의 메일함을 깨끗하게 유지시켜 드리기 위해 문의에 대한 기계적인 답변을 따로 보내드리지 않고 있습니다. 하지만 모든 문의는 내부 처리 절차에 의해 기록 및 관리가 이뤄지고 있으므로 걱정하지 않으셔도 됩니다. 답변을 꼭 받고 싶은 문의일 경우에만 답변을 요한다는 메시지를 답변을 받을 이메일 주소와 함께 적어주시기 바랍니다.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <a href="/#/forums/contact">
+          <button>
+            문의하기
+          </button>
+        </a>
+      </div>
+
+      <div class="bottom">
+        &copy;
+        <span id="copyright_year">
+          2021
+        </span>
+        체크체크
+        <a href="./en.html">
+          <button class="language">
+            <span class="iconify iconify_light" data-icon="mdi-earth"></span>
+            EN
+          </button>
+        </a>
+
+      </div>
+
+    </div>
+
+    <script>
+      document.getElementById("copyright_year").innerHTML = new Date().getFullYear();
+      var i,coll=document.getElementsByClassName("collapsible");for(i=0;i<coll.length;i++)coll[i].addEventListener("click",function(){this.classList.toggle("active");var l=this.nextElementSibling;l.style.maxHeight?l.style.maxHeight=null:l.style.maxHeight=l.scrollHeight+"px"});
+    </script>
+
+  </body>
+</html>
