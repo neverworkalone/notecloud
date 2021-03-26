@@ -36,7 +36,10 @@ class TaskViewSet(ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        return self.model.objects.my(self.request.user)
+        if self.request.user.is_authenticated:
+            return self.model.objects.my(self.request.user)
+        else:
+            return self.model.objects.none()
 
     def perform_delete(self, instance):
         tools.delete_task(instance)
@@ -141,7 +144,10 @@ class MemoViewSet(ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        return self.model.objects.my(self.request.user)
+        if self.request.user.is_authenticated:
+            return self.model.objects.my(self.request.user)
+        else:
+            return self.model.objects.none()
 
     def sync_update(self, instance, partial):
         instance.doctype = tools.get_doctype(instance.content)
@@ -182,7 +188,10 @@ class MemoToggleViewSet(MemoViewSet):
 
 class MemoTrashViewSet(MemoViewSet):
     def get_queryset(self):
-        return self.model.objects.my_trash(self.request.user)
+        if self.request.user.is_authenticated:
+            return self.model.objects.my_trash(self.request.user)
+        else:
+            return self.model.objects.none()
 
     def restore(self, request, *args, **kwargs):
         instance = self.get_object()

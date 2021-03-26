@@ -45,7 +45,7 @@ class TaskCalendar(TestCase):
             assert first_weekday.weekday() == 0
 
     def test_calendar_date_and_weekday(self):
-        today = timezone.now().date()
+        today = timezone.localtime(timezone.now()).date()
         first_weekday = tools.get_first_weekday(today)
         week_ago = first_weekday - timezone.timedelta(1)
         week_later = first_weekday + timezone.timedelta(7)
