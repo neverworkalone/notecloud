@@ -11,6 +11,24 @@
         {{ question.title }}
       </v-container>
 
+      <v-container
+      >
+        <v-chip
+          color="primary"
+          class="mr-2"
+          v-if="question.user"
+        >
+          {{ question.user.username }}
+        </v-chip>
+        <v-chip
+          color="success"
+          class="mr-2"
+          v-if="question.address"
+        >
+          {{ question.address }}
+        </v-chip>
+      </v-container>
+
       <v-container>
         <v-chip
           :color="stateColor"
