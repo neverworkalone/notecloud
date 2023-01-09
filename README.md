@@ -10,8 +10,3 @@ Notecloud a.k.a. CheckCheck son of Workcloud
     $ pip install -r requirements.txt
     $ cd frontend/wc
     $ npm install
-
-
-# API Docs
-
-http://wiki.gencode.me/display/WC/API+docs (TBD)
