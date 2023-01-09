@@ -145,7 +145,7 @@ class QuestionManageTest(TestCase):
             },
             auth=True
         )
-        assert(
+        assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('id') == self.question.id and
             not self.data.get('answer') and
@@ -164,7 +164,7 @@ class QuestionManageTest(TestCase):
             },
             auth=True
         )
-        assert(
+        assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('id') == self.question.id and
             self.data.get('answer') and
@@ -181,7 +181,7 @@ class QuestionManageTest(TestCase):
             },
             auth=True
         )
-        assert(
+        assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('id') == self.question.id and
             not self.data.get('answer') and
@@ -199,7 +199,7 @@ class QuestionManageTest(TestCase):
             },
             auth=True
         )
-        assert(
+        assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('id') == self.question.id and
             self.data.get('answer') == answer and
@@ -217,7 +217,7 @@ class QuestionManageTest(TestCase):
             },
             auth=True
         )
-        assert(
+        assert (
             response.status_code == Response.HTTP_200 and
             self.data.get('id') == self.question.id and
             self.data.get('answer') == answer and
