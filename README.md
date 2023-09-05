@@ -29,3 +29,11 @@ Notecloud a.k.a. CheckCheck son of Workcloud
 
     $ tox  # You can use tox to generate coverage with unittest or just below script
     $ ./runtest.sh  # This has more options for convenience. check more with ./runtest.sh --help
+
+
+# Swagger
+
+    http://localhost:8000/redoc/
+    http://localhost:8000/swagger/
+
+- Available on localserver
