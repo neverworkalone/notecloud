@@ -18,7 +18,7 @@ class TaskAdmin(admin.ModelAdmin):
     )
     search_fields = (
         'id',
-        'owner',
+        'owner__username',
         'content',
     )
     ordering = (
@@ -44,7 +44,7 @@ class MemoAdmin(admin.ModelAdmin):
     )
     search_fields = (
         'id',
-        'owner',
+        'owner__username',
         'title',
         'content',
     )

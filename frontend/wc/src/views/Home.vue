@@ -211,11 +211,11 @@ export default {
   methods: {
     preloadDesktop: function () {
       var sampleSrc = [
-        'https://cdn.checkcheck.one/images/home/sample1.png',
-        'https://cdn.checkcheck.one/images/home/sample2.png',
-        'https://cdn.checkcheck.one/images/home/sample3.png',
-        'https://cdn.checkcheck.one/images/home/sample4.png',
-        'https://cdn.checkcheck.one/images/home/sample5.png'
+        'https://neverworkalone.github.io/cdn/images/home/sample1.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample2.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample3.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample4.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample5.png'
       ]
       this.sampleImage1 = new Image()
       this.sampleImage1.src = sampleSrc[0]
@@ -230,10 +230,10 @@ export default {
     },
     preloadMobile: function () {
       var sampleSrc = [
-        'https://cdn.checkcheck.one/images/home/sample_mobile1.png',
-        'https://cdn.checkcheck.one/images/home/sample_mobile2.png',
-        'https://cdn.checkcheck.one/images/home/sample_mobile3.png',
-        'https://cdn.checkcheck.one/images/home/sample_mobile4.png'
+        'https://neverworkalone.github.io/cdn/images/home/sample_mobile1.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample_mobile2.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample_mobile3.png',
+        'https://neverworkalone.github.io/cdn/images/home/sample_mobile4.png'
       ]
       this.sampleImageMobile1 = new Image()
       this.sampleImageMobile1.src = sampleSrc[0]
