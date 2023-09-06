@@ -4,6 +4,7 @@ config.json
 .DS_Store
 .coverage
 coverage.xml
+backup.sh
 
 /frontend/upload
 /upload/
