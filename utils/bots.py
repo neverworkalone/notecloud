@@ -21,7 +21,7 @@ class BotView(APIView):
         return Response(status=Response.HTTP_200)
 
 
-def run_thread(cls, target):
+def run_thread(target):
     thread = threading.Thread(target=target)
     thread.start()
 

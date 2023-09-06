@@ -45,7 +45,8 @@ if TEST_SETTING:
 # See tests/test_secrets.json
 
 try:
-    secrets = json.loads(open(os.path.join(BASE_DIR, SECRETS_PATH)).read())
+    with open(os.path.join(BASE_DIR, SECRETS_PATH)) as file:
+        secrets = json.loads(file.read())
 
     DB_ENGINE = 'django.db.backends.postgresql'
     DB_HOST = ''
@@ -54,7 +55,7 @@ try:
     DB_USER = ''
     DB_PASSWORD = ''
     EMAIL_HOST = ''
-    EMAIL_PORT = 25
+    EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     EMAIL_HOST_USER = ''
     EMAIL_HOST_PASSWORD = ''
@@ -74,8 +75,8 @@ except IOError:
 # It is highly suggested to override in CONFIG_PATH to change configurations.
 # See tests/test_config.json
 
-SITE_NAME = 'Notecloud'
-FRONTEND_URL = 'https://checkcheck.one'
+SITE_NAME = 'CheckCheck'
+FRONTEND_URL = 'https://checkcheck.gencode.me'
 BETA_VERSION = True
 DEFAULT_FROM_EMAIL = EMAIL_ADDRESS
 DEBUG = False
@@ -89,12 +90,11 @@ FIRST_WEEKDAY_SUNDAY = True  # Monday if False
 
 # Load project configuration from CONFIG_PATH if exist. (config.json)
 try:
-    config = json.loads(open(os.path.join(BASE_DIR, CONFIG_PATH)).read())
-    print("# Override configurations.")
+    with open(os.path.join(BASE_DIR, CONFIG_PATH)) as file:
+        config = json.loads(file.read())
 
     for key, value in config.items():
         setattr(sys.modules[__name__], key, value)
-        print(" %s : %s" % (key, value))
 except IOError:
     pass
 
@@ -113,9 +113,8 @@ ALLOWED_HOSTS = ['*']
 # CORS headers
 # https://github.com/adamchainz/django-cors-headers
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = bool(LOCAL_SERVER)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
     FRONTEND_URL,
 ]
 
@@ -280,8 +279,6 @@ if 'storages' in INSTALLED_APPS and not LOCAL_SERVER:
     AWS_DOMAIN = '.s3.ap-northeast-2.amazonaws.com'
     AWS_STORAGE_BUCKET_NAME = 'media'
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + AWS_DOMAIN
-    AWS_QUERYSTRING_AUTH = False
-    AWS_DEFAULT_ACL = 'public-read'
     MEDIA_URL = 'https://' + AWS_S3_CUSTOM_DOMAIN + '/'
 else:
     MEDIA_URL = '/upload/'
