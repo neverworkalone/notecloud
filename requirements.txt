@@ -40,7 +40,7 @@ tox==4.6.4
 typing_extensions==4.7.1
 ua-parser==0.18.0
 uritemplate==4.1.1
-urllib3==2.0.4
+urllib3==2.0.6
 user-agents==2.2.0
 virtualenv==20.24.2
 XlsxWriter==3.1.2
